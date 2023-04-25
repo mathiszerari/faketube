@@ -1,2 +1,2 @@
 # faketube
-A attempt to make youtube
+An attempt to make youtube
