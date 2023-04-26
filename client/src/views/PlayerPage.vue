@@ -44,6 +44,20 @@
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero adipisci, quo soluta sapiente debitis consectetur, corrupti voluptatum hic nobis, aspernatur itaque aperiam sunt dolor amet fuga quibusdam esse reprehenderit possimus.</p>
             </div>
 
+            <section class="comments-section">
+                <div class="comments-infos">
+                    <span>27 Comments</span>
+                    <select>
+                        <option value="">Sort by</option>
+                        <option value="Top">Top Comments</option>
+                        <option value="Recent">Recent Comments</option>
+                    </select>
+                </div>
+                <div class="add-comment-row">
+                    <img :src="channelImg" alt="channel img">
+                    <input type="text" placeholder="Add a comment...">
+                </div>
+            </section>
         </div>
         <div class="video-list">
             <div class="video-list-item">
@@ -395,5 +409,45 @@ progress[value]::-webkit-progress-value {
 
 .video-date{
     margin-left:5px;
+}
+
+.comments-section{
+    margin-top:30px;
+}
+
+.comments-infos span{
+    font-size: 20px;
+    color:white;
+}
+.comments-infos select{
+    margin-left:20px;
+    background-color: rgb(34, 34, 34);
+    text-align: center;
+    padding:5px;
+}
+
+.add-comment-row{
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top:20px;
+}
+.add-comment-row img{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    background-color: white; /* for transparent png */
+}
+.add-comment-row input{
+    background-color: transparent;
+    border-bottom: 1px solid rgb(138, 138, 138);
+    transition:all 500ms;
+    margin-left:10px;
+    width: 100%;
+}
+.add-comment-row input:active,.add-comment-row input:focus,.add-comment-row input:hover{
+    border-bottom: 1px solid rgb(255, 255, 255);
+    outline:0;
 }
 </style>
