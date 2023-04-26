@@ -143,6 +143,10 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    border:2px solid transparent;
+    box-shadow: 0px 0px 5px 1px rgb(117, 117, 117);
 }
 
 .video-player-video {
@@ -163,6 +167,10 @@ export default {
 
 .video-player__time {
     margin-left: 10px;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .video-player-bottom-controls {
@@ -215,5 +223,31 @@ h1{
 
 .bottom-controls-buttons button{
 margin:0px 10px;
+}
+
+.video-player__progress-bar{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.video-player__progress-bar progress{
+    width:100%;
+    margin:0 10px;
+}
+
+progress[value]::-webkit-progress-value {
+  background-image:
+	   -webkit-linear-gradient(-45deg, 
+	                           transparent 33%, rgba(0, 0, 0, .1) 33%, 
+	                           rgba(0,0, 0, .1) 66%, transparent 66%),
+	   -webkit-linear-gradient(top, 
+	                           rgba(255, 255, 255, .25), 
+	                           rgba(0, 0, 0, .25)),
+	   -webkit-linear-gradient(left, rgb(0, 156, 204), rgb(20, 94, 223));
+
+    border-radius: 2px; 
 }
 </style>
