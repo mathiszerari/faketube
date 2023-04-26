@@ -360,6 +360,7 @@ export default {
     border-radius: 5px;
     overflow: hidden;
     border:2px solid transparent;
+    border-style: none;
     box-shadow: 0px 0px 5px 1px rgb(117, 117, 117);
 }
 
@@ -376,7 +377,8 @@ export default {
     width: 100%;
     display: flex;
     flex-direction: row;
-    margin-left: 5px;
+    padding-left: 5px;
+    background-color: rgba(0, 0, 0, 0.563);
 }
 
 .video-player__time {
@@ -450,6 +452,7 @@ margin:0px 10px;
 .video-player__progress-bar progress{
     width:100%;
     margin:0 10px;
+    height: 5px;
 }
 
 progress[value]::-webkit-progress-value {
