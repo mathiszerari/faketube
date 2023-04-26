@@ -33,6 +33,15 @@
                     <button>Dislike</button>
                     <button>Share</button>
                 </div>
+
+            </div>
+
+            <div class="description-case">
+                <div class="video-informations">
+                    <span class="video-views">9,3k views</span>
+                    <span class="video-date">2 hours ago</span>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero adipisci, quo soluta sapiente debitis consectetur, corrupti voluptatum hic nobis, aspernatur itaque aperiam sunt dolor amet fuga quibusdam esse reprehenderit possimus.</p>
             </div>
 
         </div>
@@ -378,5 +387,13 @@ progress[value]::-webkit-progress-value {
     font-size: 15px;
     font-weight: bold;
     color:white;
+}
+
+.description-case{
+    margin-top:10px;
+}
+
+.video-date{
+    margin-left:5px;
 }
 </style>
