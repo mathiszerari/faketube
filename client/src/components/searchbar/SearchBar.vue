@@ -1,7 +1,6 @@
 <!-- eslint-disable vue/no-parsing-error -->
 <template>
   <div class="container mx-0 px-0 bg-gray-900">
-    <h1 class="text-red-500 text-2xl font-bold mb-5">FakeTube</h1>
     <div class="div-input w-2/3 mx-auto relative">
       <input v-model="msg" @keyup="logMsg" class="input w-full py-2 pl-10 pr-3 leading-5 border border-gray-400 bg-gray-800 text-white rounded-l-full rounded-r-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent" type="text" placeholder="Search" />
       <div class="loop absolute inset-y-0 right-5  flex items-center">
@@ -25,7 +24,7 @@
     <div v-if="msg.length > 0 && clear === true" class="flex justify-center items-center">
       <div class="suggestion bg-blue w-2/3 mx-auto relative flex justify-center items-center">
         <div class="w-full rounded-xl mt-1 boder h-64 bg-gray-700">
-          <a href="{{ content.link }}" v-for="content in contents.slice(0, 4)" :key="content.text" class="block left-1  py-4">
+          <a href="{{ content.link }}" v-for="content in contents.slice(0, 4)" :key="content.text" @click="clearmsg" class="block left-1  py-4">
             <svg class="w-5 mt-2 ml-4 px-0 mx-5 ml-0 ml-5" viewBox="0 0 20 20" fill="none" stroke="white" style="cursor: pointer">
               <path
                 stroke-width="2"
@@ -93,7 +92,7 @@ a {
   color: white;
 }
 .container {
-  padding: 1rem 0rem 72rem 0rem;
+  padding: 20rem 0rem 72rem 0rem;
   max-width: 100%;
 }
 </style>
