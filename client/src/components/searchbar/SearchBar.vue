@@ -56,11 +56,9 @@ const handleClick = (event) => {
   const targetClass = event.target.classList;
   if (!targetClass.contains('div-input') && !targetClass.contains('suggestion')) {
     clear.value = false;
-    console.log(clear.value)
   }
   if (targetClass.contains('input') && clear.value === false) {
     clear.value = true;
-    console.log('test')
   }
 };
 
@@ -74,7 +72,6 @@ const contents = ref([
 ]);
 
 const logMsg = () => {
-  console.log(msg.value);
   clear.value = true;
 };
 const clearmsg = () => {
