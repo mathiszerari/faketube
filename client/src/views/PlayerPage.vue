@@ -37,8 +37,104 @@
 
         </div>
         <div class="video-list">
-            <div>
-                <p>VIDEOOOOO</p>
+            <div class="video-list-item">
+                <img alt="thumbnail" :src="thumbnailVideo" class="video-list-thumbnail">
+                <div class="video-list-item-infos">
+                    <span class="video-list-item-title">Title video</span>
+                    <span class="video-list-item-channel-name">VlogUS</span>
+                    <div>
+                        <span class="video-list-item-views">2.1m</span>
+                        <span class="video-list-item-date">2 days ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-list-item">
+                <img alt="thumbnail" :src="thumbnailVideo" class="video-list-thumbnail">
+                <div class="video-list-item-infos">
+                    <span class="video-list-item-title">Title video</span>
+                    <span class="video-list-item-channel-name">VlogUS</span>
+                    <div>
+                        <span class="video-list-item-views">2.1m</span>
+                        <span class="video-list-item-date">2 days ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-list-item">
+                <img alt="thumbnail" :src="thumbnailVideo" class="video-list-thumbnail">
+                <div class="video-list-item-infos">
+                    <span class="video-list-item-title">Title video</span>
+                    <span class="video-list-item-channel-name">VlogUS</span>
+                    <div>
+                        <span class="video-list-item-views">2.1m</span>
+                        <span class="video-list-item-date">2 days ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-list-item">
+                <img alt="thumbnail" :src="thumbnailVideo" class="video-list-thumbnail">
+                <div class="video-list-item-infos">
+                    <span class="video-list-item-title">Title video</span>
+                    <span class="video-list-item-channel-name">VlogUS</span>
+                    <div>
+                        <span class="video-list-item-views">2.1m</span>
+                        <span class="video-list-item-date">2 days ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-list-item">
+                <img alt="thumbnail" :src="thumbnailVideo" class="video-list-thumbnail">
+                <div class="video-list-item-infos">
+                    <span class="video-list-item-title">Title video</span>
+                    <span class="video-list-item-channel-name">VlogUS</span>
+                    <div>
+                        <span class="video-list-item-views">2.1m</span>
+                        <span class="video-list-item-date">2 days ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-list-item">
+                <img alt="thumbnail" :src="thumbnailVideo" class="video-list-thumbnail">
+                <div class="video-list-item-infos">
+                    <span class="video-list-item-title">Title video</span>
+                    <span class="video-list-item-channel-name">VlogUS</span>
+                    <div>
+                        <span class="video-list-item-views">2.1m</span>
+                        <span class="video-list-item-date">2 days ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-list-item">
+                <img alt="thumbnail" :src="thumbnailVideo" class="video-list-thumbnail">
+                <div class="video-list-item-infos">
+                    <span class="video-list-item-title">Title video</span>
+                    <span class="video-list-item-channel-name">VlogUS</span>
+                    <div>
+                        <span class="video-list-item-views">2.1m</span>
+                        <span class="video-list-item-date">2 days ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-list-item">
+                <img alt="thumbnail" :src="thumbnailVideo" class="video-list-thumbnail">
+                <div class="video-list-item-infos">
+                    <span class="video-list-item-title">Title video</span>
+                    <span class="video-list-item-channel-name">VlogUS</span>
+                    <div>
+                        <span class="video-list-item-views">2.1m</span>
+                        <span class="video-list-item-date">2 days ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-list-item">
+                <img alt="thumbnail" :src="thumbnailVideo" class="video-list-thumbnail">
+                <div class="video-list-item-infos">
+                    <span class="video-list-item-title">Title video</span>
+                    <span class="video-list-item-channel-name">VlogUS</span>
+                    <div>
+                        <span class="video-list-item-views">2.1m</span>
+                        <span class="video-list-item-date">2 days ago</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -53,7 +149,8 @@ export default {
             duration: '00:00',
             progressBarWidth: 0,
             videoUrl: '/src/assets/plage.mp4',
-            channelImg: '/src/assets/channelimg.png'
+            channelImg: '/src/assets/channelimg.png',
+            thumbnailVideo: '/src/assets/thumbnail.jpg'
         };
     },
     methods: {
@@ -127,9 +224,10 @@ export default {
 }
 
 .video-player-container {
-    width: 70%;
+    width: 65%;
     height: 100%;
 }
+
 
 .video-player {
     position: relative;
@@ -249,5 +347,36 @@ progress[value]::-webkit-progress-value {
 	   -webkit-linear-gradient(left, rgb(0, 156, 204), rgb(20, 94, 223));
 
     border-radius: 2px; 
+}
+
+.video-list-thumbnail{
+    width: 200px;
+    object-fit: cover;
+    height: 120px;
+}
+
+.video-list-item{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.video-list-item-infos{
+    margin-left:10px;
+    display:flex;
+    flex-direction: column;
+}
+
+.video-list-item-infos div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.video-list-item-title{
+    font-size: 15px;
+    font-weight: bold;
+    color:white;
 }
 </style>
