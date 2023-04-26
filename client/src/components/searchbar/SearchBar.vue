@@ -1,16 +1,16 @@
 <!-- eslint-disable vue/no-parsing-error -->
 <template>
   <div class="container mx-0 px-0 bg-gray-900">
-    <h1 class="text-red-500 text-2xl font-bold mt-5">FakeTube</h1>
-    <div class="w-2/3 mx-auto relative">
-      <input v-model="msg" @keyup="logMsg" class="w-full py-2 pl-10 pr-3 leading-5 border border-gray-400 bg-gray-800 text-white rounded-l-full rounded-r-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent" type="text" placeholder="Search" />
+    <h1 class="text-red-500 text-2xl font-bold mb-5">FakeTube</h1>
+    <div class="div-input w-2/3 mx-auto relative">
+      <input v-model="msg" @keyup="logMsg" class="input w-full py-2 pl-10 pr-3 leading-5 border border-gray-400 bg-gray-800 text-white rounded-l-full rounded-r-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent" type="text" placeholder="Search" />
       <div class="loop absolute inset-y-0 right-5  flex items-center">
         <button v-if="msg.length > 0" @click="clearmsg" class="p-4" id="cross-clear">
           <span class="absolute top-1/2 w-5 h-0.5 bg-gray-100 transform -translate-x-1/2 -translate-y-1/2 rotate-45"></span>
           <span class="absolute top-1/2 w-0.5 h-5 bg-gray-100 transform -translate-x-1/2 -translate-y-1/2 rotate-45"></span>
         </button>
         <div class="h-full w-16 rounded-r-full border border-gray-400 bg-gray-700 ml-2">
-          <svg class="w-5 h-5 mt-2 m-4" viewBox="0 0 20 20" fill="none" stroke="white">
+          <svg class="w-5 h-5 mt-2 m-4" viewBox="0 0 20 20" fill="none" stroke="white" style="cursor: pointer">
             <path
               stroke-width="2"
               stroke-linecap="round"
@@ -22,11 +22,11 @@
       </div>
     </div>
     
-    <div v-if="msg.length > 0" class="flex justify-center items-center">
-      <div class="bg-blue w-2/3 mx-auto relative flex justify-center items-center">
+    <div v-if="msg.length > 0 && clear === true" class="flex justify-center items-center">
+      <div class="suggestion bg-blue w-2/3 mx-auto relative flex justify-center items-center">
         <div class="w-full rounded-xl mt-1 boder h-64 bg-gray-700">
           <a href="{{ content.link }}" v-for="content in contents.slice(0, 4)" :key="content.text" class="block left-1  py-4">
-            <svg class="w-5 mt-2 ml-4 px-0 mx-5 ml-0 ml-5" viewBox="0 0 20 20" fill="none" stroke="white">
+            <svg class="w-5 mt-2 ml-4 px-0 mx-5 ml-0 ml-5" viewBox="0 0 20 20" fill="none" stroke="white" style="cursor: pointer">
               <path
                 stroke-width="2"
                 stroke-linecap="round"
@@ -43,24 +43,44 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 const msg = ref('');
-  const contents = ref([
-    { text: 'iPhone 15', link: 'https://www.youtube.com/results?search_query=iphone+15' },
-    { text: 'iPhone 14', link: 'https://www.youtube.com/results?search_query=iphone+14' },
-    { text: 'iPhone 13', link: 'https://www.youtube.com/results?search_query=iphone+13' },
-    { text: 'iPhone 12', link: 'https://www.youtube.com/results?search_query=iphone+12' },
-    { text: 'iPhone 11', link: 'https://www.youtube.com/results?search_query=iphone+11' },
-    { text: 'iPhone X', link: 'https://www.youtube.com/results?search_query=iphone+X' },
-  ]);
+const clear = ref(false);
 
-  const logMsg = () => {
-    console.log(msg.value);
-  };
-  const clearmsg = () => {
-    msg.value = '';
-  };
+onMounted(() => {
+  window.addEventListener('click', handleClick);
+});
+
+const handleClick = (event) => {
+  const targetClass = event.target.classList;
+  if (!targetClass.contains('div-input') && !targetClass.contains('suggestion')) {
+    clear.value = false;
+    console.log(clear.value)
+  }
+  if (targetClass.contains('input') && clear.value === false) {
+    clear.value = true;
+    console.log('test')
+  }
+};
+
+const contents = ref([
+  { text: 'iPhone 15', link: 'https://www.youtube.com/results?search_query=iphone+15' },
+  { text: 'iPhone 14', link: 'https://www.youtube.com/results?search_query=iphone+14' },
+  { text: 'iPhone 13', link: 'https://www.youtube.com/results?search_query=iphone+13' },
+  { text: 'iPhone 12', link: 'https://www.youtube.com/results?search_query=iphone+12' },
+  { text: 'iPhone 11', link: 'https://www.youtube.com/results?search_query=iphone+11' },
+  { text: 'iPhone X', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+]);
+
+const logMsg = () => {
+  console.log(msg.value);
+  clear.value = true;
+};
+const clearmsg = () => {
+  msg.value = '';
+  clear.value = true;
+};
 
 </script>
 
@@ -75,11 +95,8 @@ svg {
 a {
   color: white;
 }
-#cross-clear {
-  cursor: pointer;
-}
 .container {
-  padding: 1rem 0rem 50rem 0rem;
+  padding: 1rem 0rem 72rem 0rem;
   max-width: 100%;
 }
 </style>
