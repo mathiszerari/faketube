@@ -57,6 +57,99 @@
                     <img :src="channelImg" alt="channel img">
                     <input type="text" placeholder="Add a comment...">
                 </div>
+
+                <div class="comments-list">
+                    <div class="comments-list-item">
+                        <img alt="channel img" :src="channelImg">
+                        <div class="comment-content">
+                            <div class="comment-infos">
+                                <span>Channel name</span>
+                                <span> 1 hour ago</span>
+                                <!-- Add edited or not here ? -->
+                            </div>
+                            <p class="comment-text">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda veritatis aliquam aspernatur dolorum deserunt praesentium quaerat, sit minima autem, omnis iure. Animi perferendis, eveniet repudiandae modi laboriosam dicta. Laudantium, id!
+                            </p>
+                            <div class="bottom-comment">
+                                <button>Like</button>
+                                <button>Dislike</button>
+                                <span>Answer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comments-list-item">
+                        <img alt="channel img" :src="channelImg">
+                        <div class="comment-content">
+                            <div class="comment-infos">
+                                <span>Channel name</span>
+                                <span> 1 hour ago</span>
+                                <!-- Add edited or not here ? -->
+                            </div>
+                            <p class="comment-text">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda veritatis aliquam aspernatur dolorum deserunt praesentium quaerat, sit minima autem, omnis iure. Animi perferendis, eveniet repudiandae modi laboriosam dicta. Laudantium, id!
+                            </p>
+                            <div class="bottom-comment">
+                                <button>Like</button>
+                                <button>Dislike</button>
+                                <span>Answer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comments-list-item">
+                        <img alt="channel img" :src="channelImg">
+                        <div class="comment-content">
+                            <div class="comment-infos">
+                                <span>Channel name</span>
+                                <span> 1 hour ago</span>
+                                <!-- Add edited or not here ? -->
+                            </div>
+                            <p class="comment-text">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda veritatis aliquam aspernatur dolorum deserunt praesentium quaerat, sit minima autem, omnis iure. Animi perferendis, eveniet repudiandae modi laboriosam dicta. Laudantium, id!
+                            </p>
+                            <div class="bottom-comment">
+                                <button>Like</button>
+                                <button>Dislike</button>
+                                <span>Answer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comments-list-item">
+                        <img alt="channel img" :src="channelImg">
+                        <div class="comment-content">
+                            <div class="comment-infos">
+                                <span>Channel name</span>
+                                <span> 1 hour ago</span>
+                                <!-- Add edited or not here ? -->
+                            </div>
+                            <p class="comment-text">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda veritatis aliquam aspernatur dolorum deserunt praesentium quaerat, sit minima autem, omnis iure. Animi perferendis, eveniet repudiandae modi laboriosam dicta. Laudantium, id!
+                            </p>
+                            <div class="bottom-comment">
+                                <button>Like</button>
+                                <button>Dislike</button>
+                                <span>Answer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comments-list-item">
+                        <img alt="channel img" :src="channelImg">
+                        <div class="comment-content">
+                            <div class="comment-infos">
+                                <span>Channel name</span>
+                                <span> 1 hour ago</span>
+                                <!-- Add edited or not here ? -->
+                            </div>
+                            <p class="comment-text">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda veritatis aliquam aspernatur dolorum deserunt praesentium quaerat, sit minima autem, omnis iure. Animi perferendis, eveniet repudiandae modi laboriosam dicta. Laudantium, id!
+                            </p>
+                            <div class="bottom-comment">
+                                <button>Like</button>
+                                <button>Dislike</button>
+                                <span>Answer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
         <div class="video-list">
@@ -443,11 +536,47 @@ progress[value]::-webkit-progress-value {
     background-color: transparent;
     border-bottom: 1px solid rgb(138, 138, 138);
     transition:all 500ms;
-    margin-left:10px;
+    margin-left:15px;
     width: 100%;
 }
 .add-comment-row input:active,.add-comment-row input:focus,.add-comment-row input:hover{
     border-bottom: 1px solid rgb(255, 255, 255);
     outline:0;
+}
+.comments-list{
+    margin-top:50px;
+}
+.comments-list-item{
+    display:flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+.comments-list-item img{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    background-color: white; /* for transparent png */
+}
+.comment-content{
+    margin-left:15px;
+}
+
+.comment-infos span:first-child{
+    color:white;
+    font-weight: bold;
+}
+
+.comment-text{
+    color:white;
+}
+
+.bottom-comment > * {
+    margin-right:10px;
+}
+
+.bottom-comment span{
+    color:rgb(0, 157, 255);
+    font-weight: bold;
 }
 </style>
