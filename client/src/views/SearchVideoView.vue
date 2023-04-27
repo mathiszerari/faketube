@@ -12,6 +12,7 @@ const formattedVideo = computed(()=>{
 })
 
 function checkChannel(channel, word){
+     // Fetch
     if(channel==word){
         return 500;
     }
@@ -50,13 +51,14 @@ function checkDate(uploadDate) {
     return 0;   
 }
 function checkViews(viewsNumber){
-    if(viewsNumber){
-
+    if(viewsNumber>=10){
+        return 50;
     }
+    return 0;
 }
 
 function checkSubscribers(number){
-
+  // Fetch
 }
 
 function getScore(data, userInput){

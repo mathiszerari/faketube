@@ -3,7 +3,7 @@ const db = require('../utils/database')
 
 var result;
 db.db.query(
-    'SELECT * FROM `videos`',
+    'SELECT * FROM `users` WHERE id=',
 
     function(err, results, fields) {
         console.log(results); // results contains rows returned by server
@@ -12,6 +12,6 @@ db.db.query(
     }   
 );
 
-app.app.get("/searchVideo", (req, res) => {
+app.app.get("/getUserById", (req, res) => {
     res.json({ message: result });
 });
