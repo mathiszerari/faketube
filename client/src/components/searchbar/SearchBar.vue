@@ -126,7 +126,28 @@ const contents = ref([
   { text: 'part', link: 'https://www.youtube.com/results?search_query=iphone+X' },
   { text: 'rue', link: 'https://www.youtube.com/results?search_query=iphone+X' },
   { text: 'chambre', link: 'https://www.youtube.com/results?search_query=iphone+X' },
-  
+
+  { text: 'chansons 2023', link: 'https://www.youtube.com/results?search_query=chansons+2023' },
+  { text: 'cuisine facile', link: 'https://www.youtube.com/results?search_query=cuisine+facile' },
+  { text: 'tutoriel maquillage', link: 'https://www.youtube.com/results?search_query=tutoriel+maquillage' },
+  { text: 'yoga pour débutants', link: 'https://www.youtube.com/results?search_query=yoga+pour+débutants' },
+  { text: 'exercices à la maison', link: 'https://www.youtube.com/results?search_query=exercices+à+la+maison' },
+  { text: 'blagues hilarantes', link: 'https://www.youtube.com/results?search_query=blagues+hilarantes' },
+  { text: 'jeux vidéo en ligne', link: 'https://www.youtube.com/results?search_query=jeux+vidéo+en+ligne' },
+  { text: 'musique de relaxation', link: 'https://www.youtube.com/results?search_query=musique+de+relaxation' },
+  { text: 'vidéos de chatons', link: 'https://www.youtube.com/results?search_query=vidéos+de+chatons' },
+  { text: 'recettes végétariennes', link: 'https://www.youtube.com/results?search_query=recettes+végétariennes' },
+  { text: 'humour noir', link: 'https://www.youtube.com/results?search_query=humour+noir' },
+  { text: 'chansons de rap français', link: 'https://www.youtube.com/results?search_query=chansons+de+rap+français' },
+  { text: 'astuces beauté', link: 'https://www.youtube.com/results?search_query=astuces+beauté' },
+  { text: 'documentaires intéressants', link: 'https://www.youtube.com/results?search_query=documentaires+intéressants' },
+  { text: 'chansons d\'amour', link: 'https://www.youtube.com/results?search_query=chansons+d\'amour' },
+  { text: 'tutoriel coiffure', link: 'https://www.youtube.com/results?search_query=tutoriel+coiffure' },
+  { text: 'recettes de cuisine asiatique', link: 'https://www.youtube.com/results?search_query=recettes+de+cuisine+asiatique' },
+  { text: 'jeux de société', link: 'https://www.youtube.com/results?search_query=jeux+de+société' },
+  { text: 'podcasts populaires', link: 'https://www.youtube.com/results?search_query=podcasts+populaires' },
+  { text: 'conseils pour étudier', link: 'https://www.youtube.com/results?search_query=conseils+pour+étudier' },
+
 ]);
   
 const onkeyUp = () => {
