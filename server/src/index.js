@@ -1,7 +1,7 @@
 const app = require('./utils/app')
 
 const uploadVideo = require('./routes/uploadVideo')
-const getTimelineVideos = require('./routes/getTimelineVideos')
+const getTimelineVideo = require('./routes/getTimelineVideo')
 
 
 const PORT = process.env.PORT || 8080;
