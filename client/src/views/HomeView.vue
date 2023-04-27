@@ -1,4 +1,5 @@
 <script setup>
+import TheAdvancedTimeline from '../components/Timeline/TheAdvancedTimeline.vue';
 import TheTimeline from '../components/Timeline/TheTimeline.vue';
 
 </script>
@@ -8,6 +9,6 @@ import TheTimeline from '../components/Timeline/TheTimeline.vue';
     <h1 class="text-3xl font-bold underline">
     Hello world!
   </h1>
-  <TheTimeline></TheTimeline>
+  <TheAdvancedTimeline></TheAdvancedTimeline>
   </main>
 </template>
