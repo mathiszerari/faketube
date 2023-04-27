@@ -1,14 +1,17 @@
 <!-- eslint-disable vue/no-parsing-error -->
 <template>
+  <!-- search bar -->
   <div class="container mx-0 px-0 bg-gray-900">
     <div class="div-input w-2/3 mx-auto relative">
-      <input v-model="msg" @keyup="logMsg" class="input w-full py-2 pl-10 pr-3 leading-5 border border-gray-400 bg-gray-800 text-white rounded-l-full rounded-r-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent" type="text" placeholder="Search" />
+      <input v-model="msg" @keyup="onkeyUp" class="input w-full py-2 pl-10 pr-3 leading-5 border border-gray-400 bg-gray-800 text-white rounded-l-full rounded-r-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent" type="text" placeholder="Search"/>
       <div class="loop absolute inset-y-0 right-5  flex items-center">
         <button v-if="msg.length > 0" @click="clearmsg" class="p-4" id="cross-clear">
           <span class="absolute top-1/2 w-5 h-0.5 bg-gray-100 transform -translate-x-1/2 -translate-y-1/2 rotate-45"></span>
           <span class="absolute top-1/2 w-0.5 h-5 bg-gray-100 transform -translate-x-1/2 -translate-y-1/2 rotate-45"></span>
         </button>
-        <div class="h-full w-16 rounded-r-full border border-gray-400 bg-gray-700 ml-2">
+
+        <!-- loupe svg -->
+        <div class="loupe h-full w-16 rounded-r-full border border-gray-400 bg-gray-700 ml-2">
           <svg class="w-5 h-5 mt-2 m-4" viewBox="0 0 20 20" fill="none" stroke="white" style="cursor: pointer">
             <path
               stroke-width="2"
@@ -21,10 +24,11 @@
       </div>
     </div>
     
+    <!-- suggestion section -->
     <div v-if="msg.length > 0 && clear === true" class="flex justify-center items-center">
       <div class="suggestion bg-blue w-2/3 mx-auto relative flex justify-center items-center">
         <div class="w-full rounded-xl mt-1 boder h-64 bg-gray-700">
-          <a href="{{ content.link }}" v-for="content in contents.slice(0, 4)" :key="content.text" @click="clearmsg" class="block left-1  py-4">
+          <a v-for="content in filteredContent" :key="content.text" @click="clearmsg" ref="mySuggestions" href="{{ content.link }}" class="block left-1  py-4">
             <svg class="w-5 mt-2 ml-4 px-0 mx-5 ml-0 ml-5" viewBox="0 0 20 20" fill="none" stroke="white" style="cursor: pointer">
               <path
                 stroke-width="2"
@@ -38,14 +42,22 @@
         </div>
       </div>
     </div>
+
+    <div class="bg-dark h-64 w-64">
+      <span v-for="(content, index) in filteredContent.value" :key="index" class="bg-gray-900">
+        test
+        {{ content }}
+      </span>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 
 const msg = ref('');
 const clear = ref(false);
+const mySuggestions = ref(null);
 
 onMounted(() => {
   window.addEventListener('click', handleClick);
@@ -53,7 +65,7 @@ onMounted(() => {
 
 const handleClick = (event) => {
   const targetClass = event.target.classList;
-  if (!targetClass.contains('div-input') && !targetClass.contains('suggestion')) {
+  if (!targetClass.contains('div-input') && !targetClass.contains('suggestion')  && !targetClass.contains('loupe')) {
     clear.value = false;
   }
   if (targetClass.contains('input') && clear.value === false) {
@@ -63,6 +75,7 @@ const handleClick = (event) => {
 
 const contents = ref([
   { text: 'allume cigare', link: 'https://www.youtube.com/results?search_query=iphone+15' },
+  { text: 'animal', link: 'https://www.youtube.com/results?search_query=iphone+15' },
   { text: 'bateau', link: 'https://www.youtube.com/results?search_query=iphone+14' },
   { text: 'cristianne', link: 'https://www.youtube.com/results?search_query=iphone+13' },
   { text: 'diego', link: 'https://www.youtube.com/results?search_query=iphone+12' },
@@ -89,14 +102,27 @@ const contents = ref([
   { text: 'yaya toure', link: 'https://www.youtube.com/results?search_query=iphone+X' },
   { text: 'zidane', link: 'https://www.youtube.com/results?search_query=iphone+X' },
 ]);
-
-const logMsg = () => {
+  
+const onkeyUp = () => {
   clear.value = true;
+  console.log(msg.value)
+  console.log(filteredContent.value)
 };
+
 const clearmsg = () => {
   msg.value = '';
   clear.value = true;
 };
+
+// computed value qui me renvoi de smots céls en fonction de la valeur de msg.values
+// computed value return array 
+// vaut mieux en stocker plein et les parcourir
+
+const filteredContent = computed(() => {
+  return contents.value.filter((word) => word.text.startsWith(msg.value));
+} )
+
+console.log(filteredContent); // Output: ["hello", "how"]
 
 </script>
 
