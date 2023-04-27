@@ -105,8 +105,8 @@ const contents = ref([
   
 const onkeyUp = () => {
   clear.value = true;
-  console.log(msg.value)
-  console.log(filteredContent.value)
+  // console.log(msg.value)
+  // console.log(filteredContent.value)
 };
 
 const clearmsg = () => {
@@ -122,7 +122,7 @@ const filteredContent = computed(() => {
   return contents.value.filter((word) => word.text.startsWith(msg.value));
 } )
 
-console.log(filteredContent); // Output: ["hello", "how"]
+// console.log(filteredContent); 
 
 </script>
 
