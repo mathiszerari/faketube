@@ -62,12 +62,32 @@ const handleClick = (event) => {
 };
 
 const contents = ref([
-  { text: 'iPhone 15', link: 'https://www.youtube.com/results?search_query=iphone+15' },
-  { text: 'iPhone 14', link: 'https://www.youtube.com/results?search_query=iphone+14' },
-  { text: 'iPhone 13', link: 'https://www.youtube.com/results?search_query=iphone+13' },
-  { text: 'iPhone 12', link: 'https://www.youtube.com/results?search_query=iphone+12' },
-  { text: 'iPhone 11', link: 'https://www.youtube.com/results?search_query=iphone+11' },
-  { text: 'iPhone X', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'allume cigare', link: 'https://www.youtube.com/results?search_query=iphone+15' },
+  { text: 'bateau', link: 'https://www.youtube.com/results?search_query=iphone+14' },
+  { text: 'cristianne', link: 'https://www.youtube.com/results?search_query=iphone+13' },
+  { text: 'diego', link: 'https://www.youtube.com/results?search_query=iphone+12' },
+  { text: 'elephant', link: 'https://www.youtube.com/results?search_query=iphone+11' },
+  { text: 'fenouille', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'gavi', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'hakimi', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'isco', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'jota', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'kaka', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'luis suarez', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'mathis tel', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'nakata', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'odegaard', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'pasteis de nata', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'quaresma', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'renato', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'sergio roberto', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'tiago', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'upamecano', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'vidal', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'walker', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'xavi', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'yaya toure', link: 'https://www.youtube.com/results?search_query=iphone+X' },
+  { text: 'zidane', link: 'https://www.youtube.com/results?search_query=iphone+X' },
 ]);
 
 const logMsg = () => {
