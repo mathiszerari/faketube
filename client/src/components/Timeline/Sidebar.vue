@@ -1,17 +1,19 @@
 <template>
     <div class="sidebar">
-      <ul>
-        <li>Menu item 1</li>
-        <li>Menu item 2</li>
-        <li>Menu item 3</li>
-        <li>Menu item 4</li>
+      <ul>&nbsp
+        <li>Accueil</li>
+        <li>Abonnements</li>
+        <li>Bibliothèque</li>
+        <li>Historique</li>
+        <li>Paramètres</li>
       </ul>
     </div>
   </template>
   
+  
   <style>
   .sidebar {
-    background-color: #f2f2f2;
+    background-color: #ee8888;
     height: 100%;
     width: 200px;
     position: fixed;
