@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import TestView from "@/views/TestView.vue";
-import SearchVideo from "@/views/SearchVideo.vue"
+import SearchVideo from "@/views/SearchVideoView.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
