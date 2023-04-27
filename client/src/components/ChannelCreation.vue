@@ -3,15 +3,13 @@
         <div class="pop-up">
             <p class="pop-up-title">Voici comment les autres vous verront</p>
 
-            <img :src="avatarPath" alt="Avatar">
+            <img :src="avatarUrl" alt="Avatar">
             <label for="file-upload" class="upload-container">
                 <span class="upload-label">Sélectionner un fichier</span>
             </label>
-            <input id="file-upload" type="file" name="file" style="display:none;">
-            <label for="channelname">Channel name</label>
-            <input type="text" name="channelname" id="channelname">
-            <label for="username">Username</label>
-            <input type="text" name="username">
+            <input id="file-upload" type="file" name="file" style="display:none;" @change="onFileChange">
+            <input type="text" name="channelname" id="channelname" placeholder="Channel name">
+            <input type="text" name="username" placeholder="Username">
             <button class="valid-button">Valider</button>
             <button class="cancel-button">Cancel</button>
 
@@ -24,10 +22,23 @@
 export default {
     data() {
         return {
-            avatarPath: "/src/assets/logo.svg"
-
+            avatarPath: null
         }
     },
+    computed: {
+    avatarUrl() {
+      if (this.avatarPath) {
+        return URL.createObjectURL(this.avatarPath);
+      } else {
+        return null;
+      }
+    }
+  },
+  methods: {
+    onFileChange(event) {
+      this.avatarPath = event.target.files[0];
+    }
+  }
 
 }
 </script>
@@ -37,7 +48,7 @@ export default {
     width: 100%;
     height: 100vh;
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.592);
+    background-color: rgba(0, 0, 0, 0.525);
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -105,16 +116,17 @@ input[type="file"] {
   display: inline-block;
   cursor: pointer;
   padding: 25px 120px;
-  background-color: #e1e1e1;
-  color: #333;
-  border-radius: 5px;
+  background-color: #e1e1e100;
+  color: #0ba4f0;
+  border-radius: 50px;
+  font-weight: bold;
   font-size: 16px;
   transition: background-color 0.3s ease;
 }
 
 /* Style au survol */
 .upload-container:hover {
-  background-color: #ccc;
+  background-color: #46a6f050;
 }
 
 /* Style lorsque l'on clique dessus */
@@ -134,15 +146,6 @@ input[type="file"] {
   max-width: 80%;
 }
 
-/* Style pour afficher l'icône de téléchargement à côté du label */
-.upload-icon {
-  position: absolute;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  font-size: 24px;
-  color: #333;
-}
 
 .valid-button:hover{
     background-color: rgb(16, 131, 165);
@@ -170,12 +173,19 @@ input[type="text"]{
     background-color: transparent;
     border: 1px solid rgb(169, 167, 167);
     color: white;
-    
+    position:relative;
+}
+input[type="text"]::placeholder{
+    position: absolute;
+    top:5px;
+    left:5px;
+    font-size: 10px;
 }
 
-input[type="text"]:active,input[type="text"]:focus{
+input[type="text"]:active,input[type="text"]:focus, input[type="text"]:focus::placeholder, input[type="text"]:active::placeholder{
     outline: none;
-    border: 1px solid blue;
+    border-color:  rgb(0, 191, 255);
+    color:rgb(0, 191, 255);
 }
 
 </style>
