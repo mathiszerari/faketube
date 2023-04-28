@@ -38,10 +38,12 @@
       <H2>nos vidéos</H2>
       <!-- composant video -->
      
-      <div class="bg-green-500 flex">
-        <router-link to = "/video"><img src="../assets/pp.jpg" alt="" class="marginw-3/4 rounded-lg"></router-link>
-        <p>titre de la video trop cool</p>
-        <button>X</button>
+      <div class="bg-green-500 grid justify-items-center">
+        <router-link to = "/video"><img src="../assets/pp.jpg" alt="" class="rounded-lg w-full border-solid border-2 border-sky-950"></router-link>
+        <p class="mr-60">titre de la video</p>
+        <p class = "flex">10 k vues <p> il y a temps</p></p>
+        
+        <button class="w-full">X</button>
       </div>
               <p>data video</p>
   </div>  
