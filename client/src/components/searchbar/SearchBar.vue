@@ -9,8 +9,8 @@
         </svg>
       </div>
 
-      <div class="title bg-red">
-        <h1 class="text-red-500">FakeTube</h1>
+      <div class="title bg-red ml-5 mt-1">
+        <h1 class="text-red-500 text-m font-bold border-4 border-red-500 p-2 rounded-full">Fake<span class="text-white">Tube</span></h1>
       </div>
 
       <div class="div-input w-3/5 mx-auto relative">
@@ -198,7 +198,7 @@ a {
   color: white;
 }
 .container {
-  padding: 0.5rem 0rem 72rem 0rem;
+  padding: 0rem 0rem 72rem 0rem;
   max-width: 100%;
 }
 .suggestion {
