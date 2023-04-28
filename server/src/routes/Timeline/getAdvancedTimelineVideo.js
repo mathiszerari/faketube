@@ -20,6 +20,7 @@ app.app.get("/getAdvancedTimelineVideos", (req, res) => {
                     sqlReq += " AND ";
                 }
             }
+            sqlReq += " LIMIT 15"
             db.db.query(
                 sqlReq,
                 function(err, results, fields) {
