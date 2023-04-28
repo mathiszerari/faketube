@@ -1,21 +1,21 @@
 <!-- eslint-disable vue/no-parsing-error -->
 <template>
   <!-- search bar -->
-  <div class="container mx-0 px-0 bg-gray-900">
+  <div class="container bg-gray-900">
     <div class="flex items-center">
-      <div class="flex burger-simulator">
+      <div class="burger-simulator">
         <svg width="30" height="20" viewBox="0 0 10 15">
           <path fill="#FFF" d="M2 14h26v-2H2v2zm0-5h26v-2H2v2zm0-6v2h26v-2H2z"/>
         </svg>
       </div>
 
-      <div class="flex title bg-red">
+      <div class="title bg-red">
         <h1 class="text-red-500">FakeTube</h1>
       </div>
 
-      <div class="div-input w-2/3 mx-auto relative">
+      <div class="div-input w-3/5 mx-auto relative">
         <input v-model="msg" @keyup="onkeyUp" class="input w-full py-2 pl-10 pr-3 leading-5 border border-gray-400 bg-gray-800 text-white rounded-l-full rounded-r-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent" type="text" placeholder="Search"/>
-        <div class="loop absolute inset-y-0 right-5  flex items-center">
+        <div class="loop absolute inset-y-0 right-5 flex items-center">
           <button v-if="msg.length > 0" @click="clearmsg" class="p-4" id="cross-clear">
             <span class="absolute top-1/2 w-5 h-0.5 bg-gray-100 transform -translate-x-1/2 -translate-y-1/2 rotate-45"></span>
             <span class="absolute top-1/2 w-0.5 h-5 bg-gray-100 transform -translate-x-1/2 -translate-y-1/2 rotate-45"></span>
@@ -39,9 +39,9 @@
     
     <!-- suggestion section -->
     <div v-if="msg.length > 0 && clear === true" class="flex justify-center items-center">
-      <div class="suggestion bg-blue w-2/3 mx-auto relative flex justify-center items-center">
+      <div class="suggestion w-3/5 mx-auto relative flex justify-center items-center">
         <div class="w-full rounded-xl mt-1 boder h-64 bg-gray-700">
-          <div v-for="content in filteredContent" :key="content.text" class="max-h-16">
+          <div v-for="content in filteredContent.slice(0,4)" :key="content.text" class="max-h-16">
             <a @click="clearmsg" ref="mySuggestions" href="{{ content.link }}" class="block left-1 py-4 mt-1.5">
               <svg class="w-5 ml-4 px-0 mx-5 ml-0 ml-5" viewBox="0 0 20 20" fill="none" stroke="white" style="cursor: pointer">
                 <path
@@ -200,5 +200,8 @@ a {
 .container {
   padding: 0.5rem 0rem 72rem 0rem;
   max-width: 100%;
+}
+.suggestion {
+  margin-left: 13.5rem;
 }
 </style>
