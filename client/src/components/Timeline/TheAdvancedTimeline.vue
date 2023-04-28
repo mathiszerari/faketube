@@ -3,7 +3,7 @@ import { useFetch } from '@vueuse/core'
 import VideoCard from "./VideoCard.vue";
 import { computed } from 'vue'
 
-const { isFetching, error, data:videos } = useFetch('http://localhost:8080/getAdvancedTimelineVideos')
+const { isFetching, error, data:videos } = useFetch('http://localhost:8080/getAdvancedTimelineVideos?userId=12')
 const formattedVideo = computed(()=>{
     return JSON.parse(videos.value)
 })

@@ -1,25 +1,32 @@
 const app = require('../../utils/app')
 const db = require('../../utils/database')
 
-const userPref = ['humour']
-let sqlReq = "SELECT * FROM videos WHERE "
-
-for (let i = 0; i < userPref.length; i++) {
-    sqlReq += `title LIKE '%${userPref[i]}%' OR tags LIKE '%${userPref[i]}%' OR description LIKE '%${userPref[i]}%'`;
-    if (i < userPref.length - 1) {
-        sqlReq += " AND ";
-    }
-}
-var result;
-db.db.query(
-    sqlReq,
-    function(err, results, fields) {
-        console.log(results); // results contains rows returned by server
-
-        result = results
-    }
-);
-
 app.app.get("/getAdvancedTimelineVideos", (req, res) => {
-    res.json({ message: result });
+    // GET USER PREF
+    const userId = req.query.userId;
+    let userPref = ['']
+    db.db.query(
+        `SELECT DISTINCT prefs FROM users WHERE id LIKE ${userId}`,
+        function(err, results, fields){
+            if (err) throw err;
+            userPref = results[0].prefs.split(' ')
+            console.log(userPref);
+
+            // GET VIDEO
+            let sqlReq = "SELECT * FROM videos WHERE "
+            for (let i = 0; i < userPref.length; i++) {
+                sqlReq += `title LIKE '%${userPref[i]}%' OR tags LIKE '%${userPref[i]}%' OR description LIKE '%${userPref[i]}%'`;
+                if (i < userPref.length - 1) {
+                    sqlReq += " AND ";
+                }
+            }
+            db.db.query(
+                sqlReq,
+                function(err, results, fields) {
+                    if (err) throw err;
+                    res.json({ message: results });
+                }
+            );
+        }
+    )
 });
