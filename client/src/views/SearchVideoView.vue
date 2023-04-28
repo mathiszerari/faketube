@@ -1,0 +1,94 @@
+<script setup>
+import {reactive, ref, onMounted, computed} from 'vue';
+import {useFetch} from "@vueuse/core";
+import * as dayjs from 'dayjs';
+
+
+// Requête sur le serveur
+const {isFetching, error, data:video} = useFetch('http://localhost:8080/searchVideo')
+
+const formattedVideo = computed(()=>{
+    return JSON.parse(video.value)
+})
+
+function checkChannel(channel, word){
+     // Fetch
+    if(channel==word){
+        return 500;
+    }
+    return 0;
+}
+
+function checkTitle(title, word){
+    if(title.includes(word)){
+        return 100;
+    }
+    return 0;
+}
+
+function checkTag(tag, word) {
+    if (tag.includes(word)) {
+        return 75;
+    }
+    return 0;
+}
+
+function checkDescription(description, word) {
+    if (description.includes(word)) {
+        return 25;
+    }
+    return 0;
+}
+
+function checkDate(uploadDate) {
+    let dateDiff = dayjs().diff(dayjs(uploadDate), "day")
+    if(dateDiff<=1){
+        return 100;
+    }
+    if(dateDiff<=7){
+        return 30;
+    }
+    return 0;   
+}
+function checkViews(viewsNumber){
+    if(viewsNumber>=10){
+        return 50;
+    }
+    return 0;
+}
+
+function checkSubscribers(number){
+  // Fetch
+}
+
+function getScore(data, userInput){
+    let score = 0
+    const userWords = userInput.split("+")
+    userWords.forEach(word => {
+        // score+=checkChannel()
+    });
+}       
+
+function getInfoUser(userId){
+    const {isFetching, error, data:user} = useFetch('http://localhost:8080/getUserById/'+userId)
+    const formattedUser = computed(()=>{
+        return JSON.parse(user.value)
+    })
+    
+    return formattedUser
+}
+
+</script>
+
+
+<template>
+    <main>
+        <div>
+            {{ formattedVideo }}
+            <span v-for="(video,index) in formattedVideo.message" :key="index">
+                <!-- {{ getInfoUser(video.publisher_id) }} -->
+               
+            </span>
+        </div>
+    </main>
+  </template>
