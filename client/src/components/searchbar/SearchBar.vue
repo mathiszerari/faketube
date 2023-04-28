@@ -1,28 +1,41 @@
 <!-- eslint-disable vue/no-parsing-error -->
 <template>
   <!-- search bar -->
-  <!-- <div class="container mx-0 px-0 bg-gray-900"> -->
-    <div class="div-input w-2/3 mx-auto relative">
-      <input v-model="msg" @keyup="onkeyUp" class="input w-full py-2 pl-10 pr-3 leading-5 border border-gray-400 bg-gray-800 text-white rounded-l-full rounded-r-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent" type="text" placeholder="Search"/>
-      <div class="loop absolute inset-y-0 right-5  flex items-center">
-        <button v-if="msg.length > 0" @click="clearmsg" class="p-4" id="cross-clear">
-          <span class="absolute top-1/2 w-5 h-0.5 bg-gray-100 transform -translate-x-1/2 -translate-y-1/2 rotate-45"></span>
-          <span class="absolute top-1/2 w-0.5 h-5 bg-gray-100 transform -translate-x-1/2 -translate-y-1/2 rotate-45"></span>
-        </button>
+  <div class="container mx-0 px-0 bg-gray-900">
+    <div class="flex items-center">
+      <div class="flex burger-simulator">
+        <svg width="30" height="20" viewBox="0 0 10 15">
+          <path fill="#FFF" d="M2 14h26v-2H2v2zm0-5h26v-2H2v2zm0-6v2h26v-2H2z"/>
+        </svg>
+      </div>
 
-        <!-- loupe svg -->
-        <div class="loupe h-full w-16 rounded-r-full border border-gray-400 bg-gray-700 ml-2">
-          <svg class="w-5 h-5 mt-2 m-4" viewBox="0 0 20 20" fill="none" stroke="white" style="cursor: pointer">
-            <path
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M13.447 12.764l4.83 4.828a1 1 0 01-1.415 1.415l-4.828-4.83a7 7 0 111.413-1.413zM7 12a5 5 0 100-10 5 5 0 000 10z"
-            />
-          </svg>
+      <div class="flex title bg-red">
+        <h1 class="text-red-500">FakeTube</h1>
+      </div>
+
+      <div class="div-input w-2/3 mx-auto relative">
+        <input v-model="msg" @keyup="onkeyUp" class="input w-full py-2 pl-10 pr-3 leading-5 border border-gray-400 bg-gray-800 text-white rounded-l-full rounded-r-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent" type="text" placeholder="Search"/>
+        <div class="loop absolute inset-y-0 right-5  flex items-center">
+          <button v-if="msg.length > 0" @click="clearmsg" class="p-4" id="cross-clear">
+            <span class="absolute top-1/2 w-5 h-0.5 bg-gray-100 transform -translate-x-1/2 -translate-y-1/2 rotate-45"></span>
+            <span class="absolute top-1/2 w-0.5 h-5 bg-gray-100 transform -translate-x-1/2 -translate-y-1/2 rotate-45"></span>
+          </button>
+
+          <!-- loupe svg -->
+          <div class="loupe h-full w-16 rounded-r-full border border-gray-400 bg-gray-700 ml-2">
+            <svg class="w-5 h-5 mt-2 m-4" viewBox="0 0 20 20" fill="none" stroke="white" style="cursor: pointer">
+              <path
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M13.447 12.764l4.83 4.828a1 1 0 01-1.415 1.415l-4.828-4.83a7 7 0 111.413-1.413zM7 12a5 5 0 100-10 5 5 0 000 10z"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
+
     
     <!-- suggestion section -->
     <div v-if="msg.length > 0 && clear === true" class="flex justify-center items-center">
@@ -51,7 +64,7 @@
         {{ content }}
       </span>
     </div>
-  <!-- </div> -->
+  </div>
 </template>
 
 <script setup>
@@ -185,7 +198,7 @@ a {
   color: white;
 }
 .container {
-  padding: 20rem 0rem 72rem 0rem;
+  padding: 0.5rem 0rem 72rem 0rem;
   max-width: 100%;
 }
 </style>
