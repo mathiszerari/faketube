@@ -1,5 +1,5 @@
-const app = require('../utils/app')
-const db = require('../utils/database')
+const app = require('../../utils/app')
+const db = require('../../utils/database')
 
 var result;
 db.db.query(

@@ -69,6 +69,14 @@ function getScore(data, userInput){
     });
 }
 
+function getInfoUser(userId){
+   
+    const {isFetching, error, data:user} = useFetch('http://localhost:8080/getUserById?userId='+userId)
+    const formattedUser = computed(()=>{
+        return JSON.parse(user.value)
+    })
+    return formattedUser
+}
 
 </script>
 
@@ -79,7 +87,7 @@ function getScore(data, userInput){
             {{ formattedVideo }}
             <span v-for="(video,index) in formattedVideo.message" :key="index">
 
-                {{  }}
+                {{ getInfoUser(video.publisher_id) }}
             </span>
         </div>
     </main>
