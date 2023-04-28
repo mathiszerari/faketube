@@ -4,8 +4,8 @@ import TheRegister from "@/components/login/TheRegister.vue";
 
 <template>
   <main>
-      <div class="flex justify-center items-center h-screen">
-          <TheRegister></TheRegister>
+      <div class="flex justify-center items-center h-screen w-screen">
+          <TheRegister class="rounded-2xl"></TheRegister>
       </div>
   </main>
 </template>
