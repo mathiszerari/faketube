@@ -1,4 +1,5 @@
 <script setup>
+import TheAdvancedTimeline from '../components/Timeline/TheAdvancedTimeline.vue';
 import TheTimeline from '../components/Timeline/TheTimeline.vue';
 import Sidebar from '../components/Timeline/Sidebar.vue'
 </script>
@@ -11,6 +12,6 @@ import Sidebar from '../components/Timeline/Sidebar.vue'
     <h1 class="text-3xl font-bold underline"> 
       &nbsp      &nbsp&nbsp&nbsp&nbsp FakeTube®
   </h1>
-  <TheTimeline></TheTimeline>
+  <TheAdvancedTimeline></TheAdvancedTimeline>
   </main>
 </template>
