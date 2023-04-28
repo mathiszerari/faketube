@@ -6,8 +6,8 @@ import SearchBar from '../components/searchbar/SearchBar.vue';
 <template>
   <main>
     <!-- <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1> -->
+      Hello world!
+    </h1> -->
 
   <SearchBar></SearchBar>
   

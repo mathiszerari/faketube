@@ -34,8 +34,11 @@
           </div>
         </div>
       </div>
-    </div>
 
+      <div class="title bg-red ml-5 mt-1 mr-5">
+        <img src="logo.jpeg" alt="" class="h-10 w-10">
+      </div>
+    </div>
     
     <!-- suggestion section -->
     <div v-if="msg.length > 0 && clear === true" class="flex justify-center items-center">
