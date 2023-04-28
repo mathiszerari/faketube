@@ -10,11 +10,17 @@ const formattedVideo = computed(()=>{
 
 <template>
     <main>
-        <div>
-            {{ formattedVideo }}
-            <h2>test</h2>
-            
-           
+      <div>
+        <h2>Liste des vidéos</h2>
+
+        <div v-for="video in formattedVideo.message" :key="video.id">
+            <h3>{{ video.title }}</h3>
+            <p>{{ video.description }}</p>
+            <video controls>
+                <source :src="video.video_path" type="video/mp4">
+            </video>
+        </div>
+          
         </div>
     </main>
   </template>

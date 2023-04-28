@@ -14,7 +14,7 @@ const formattedVideo = computed(()=>{
 </script>
 
 <template>
-  <main>
+  <main> 
       <div>
           <span v-for="(video,index) in formattedVideo.message" :key="index">
               {{ video.pseudo }}
