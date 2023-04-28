@@ -4,8 +4,11 @@ const db = require('../../utils/database')
 
 var result;
 
-app.app.get("/getUserById", (req, res) => {
-    let userId = request.query.userId;
+app.app.get("/getUserById/:userId", (req, res) => {
+    // req.params;
+    // console.log(req.params)
+    let userId = req.params.userId
+
 
     db.db.query(
         'SELECT * FROM `users` WHERE id=?',[userId],
@@ -16,7 +19,6 @@ app.app.get("/getUserById", (req, res) => {
             result = results
         }   
     );
-    
     res.json({ message: result });
 });
 

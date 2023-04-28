@@ -67,14 +67,14 @@ function getScore(data, userInput){
     userWords.forEach(word => {
         // score+=checkChannel()
     });
-}
+}       
 
 function getInfoUser(userId){
-   
-    const {isFetching, error, data:user} = useFetch('http://localhost:8080/getUserById?userId='+userId)
+    const {isFetching, error, data:user} = useFetch('http://localhost:8080/getUserById/'+userId)
     const formattedUser = computed(()=>{
         return JSON.parse(user.value)
     })
+    
     return formattedUser
 }
 
@@ -86,8 +86,8 @@ function getInfoUser(userId){
         <div>
             {{ formattedVideo }}
             <span v-for="(video,index) in formattedVideo.message" :key="index">
-
-                {{ getInfoUser(video.publisher_id) }}
+                <!-- {{ getInfoUser(video.publisher_id) }} -->
+               
             </span>
         </div>
     </main>
