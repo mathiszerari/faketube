@@ -1,19 +1,38 @@
 <template>
     <div class="sidebar">
-      <ul>&nbsp
-        <li>Accueil</li>
-        <li>Abonnements</li>
-        <li>Bibliothèque</li>
-        <li>Historique</li>
-        <li>Paramètres</li>
+      <ul>
+        <div class="mb-10">
+        <router-link to ="/" class="flex items-center px-6 py-2.5 text-gray-500 hover:text-orange-600">
+        <h3 class="mx-6 mb-2 text-xs text-gray-400 uppercase tracking-widest">Accueil</h3>
+      </router-link>
+    </div>
+
+        <div class="mb-10">
+        <router-link to = "/" class="flex items-center px-6 py-2.5 text-gray-500 hover:text-orange-600">
+        <h3 class="mx-6 mb-2 text-xs text-gray-400 uppercase tracking-widest">Bibliothèque</h3>
+      </router-link>
+    </div>
+
+        <div class="mb-10">
+        <router-link to ="/" class="flex items-center px-6 py-2.5 text-gray-500 hover:text-orange-600">
+        <h3 class="mx-6 mb-2 text-xs text-gray-400 uppercase tracking-widest">Historique</h3>
+        </router-link>
+      </div>
+
+        <div class="mb-10">
+        <router-link to = "/" class="flex items-center px-6 py-2.5 text-gray-500 hover:text-orange-600">
+        <h3 class="mx-6 mb-2 text-xs text-gray-400 uppercase tracking-widest">Abonnements
+        </h3>
+      </router-link>
+      </div>
+
       </ul>
     </div>
   </template>
-  
-  
+
   <style>
   .sidebar {
-    background-color: #ee8888;
+    background-color: #281c1c;
     height: 100%;
     width: 200px;
     position: fixed;
