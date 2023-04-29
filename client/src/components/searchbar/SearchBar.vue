@@ -41,8 +41,8 @@
     </div>
     
     <!-- suggestion section -->
-    <div v-if="msg.length > 0 && clear === true" class="flex justify-center mx-auto items-center relative">
-      <div class="suggestion absolute inset-x-0 top-full w-2/5 mx-auto bg-gray-700 rounded-xl pb-3">
+    <div v-if="msg.length > 0 && clear === true" class="suggestion-container flex justify-center mx-auto items-center relative pb-3">
+      <div class="suggestion inset-x-0 top-full w-2/5 mx-auto bg-gray-700 rounded-xl">
         <div v-for="content in filteredContent.slice(0,4)" :key="content.text" class="max-h-16">
           <a @click="clearmsg" ref="mySuggestions" href="{{ content.link }}" class="block items-center justify-center left-1 py-4 mt-1.5">
             <svg class="w-5 ml-4 px-0 mx-5 ml-0 ml-5" viewBox="0 0 20 20" fill="none" stroke="white" style="cursor: pointer">
@@ -57,14 +57,6 @@
           </a>
         </div>
       </div>
-    </div>
-
-
-    <div class="bg-dark h-64 w-64">
-      <span v-for="(content, index) in filteredContent.value" :key="index" class="bg-gray-900">
-        test
-        {{ content }}
-      </span>
     </div>
   </div>
 </template>
@@ -200,7 +192,10 @@ a {
   color: white;
 }
 .container {
-  padding: 0rem 0rem 72rem 0rem;
+  padding: 0rem 0rem 80rem 0rem;
   max-width: 100%;
+}
+.suggestion-container {
+
 }
 </style>
