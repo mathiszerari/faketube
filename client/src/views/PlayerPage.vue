@@ -3,44 +3,35 @@
     <div class="video-player-container">
       <div class="video-player">
         <div class="video-container">
-          <video
-            ref="video"
-            class="video-player-video"
-            :src="videoUrl"
-            @play="handlePlay"
-            @pause="handlePause"
-          ></video>
+          <video ref="video" class="video-player-video" :src="videoUrl" @play="handlePlay" @pause="handlePause"></video>
         </div>
         <div class="video-player__controls">
           <button class="video-player__play-pause" @click="handlePlayPauseClick">
-            {{ isPlaying ? 'Pause' : 'Play' }}
+            <span v-if="isPlaying" v-html="pauseIcon"></span>
+            <span v-else v-html="playIcon"></span>
           </button>
           <div class="video-player__progress-bar" @click="handleProgressBarClick">
             <progress :max="100" :value="progressBarWidth"></progress>
           </div>
           <span class="video-player__time">{{ currentTime }} / {{ duration }}</span>
-          <button class="video-player__full-screen" @click="fullScreenVideo">Full Screen</button>
           <div class="video-player__volume">
             <button class="video-player__volume-btn" @click="toggleMute">
-              {{ isMuted ? 'Unmute' : 'Mute' }}
+              <span v-if="isMuted" v-html="muteIcon"></span>
+              <span v-else v-html="noMuteIcon"></span>
             </button>
-            <input
-              class="video-player__volume-slider"
-              type="range"
-              min="0"
-              max="1"
-              step="0.1"
-              :value="volume"
-              @input="setVolumeWithProgressBar"
-            />
+            <div class="video-player__volume-slider-container" @click="setVolumeWithProgressBar($event)">
+              <progress class="video-player__volume-slider" min="0" max="1" step="0.1" :value="volume"></progress>
+            </div>
           </div>
+          <button class="video-player__full-screen" @click="fullScreenVideo"><span
+              v-html="fullScreenIcon"></span></button>
         </div>
       </div>
-      <h1>OMG !! YOU ARE NOT GONNA BELIEVE THIS ! (I DELETE THIS VIDEO IN 24H)</h1>
+      <h1 class="text-white">OMG !! YOU ARE NOT GONNA BELIEVE THIS ! (I DELETE THIS VIDEO IN 24H)</h1>
       <div class="video-player-bottom-controls">
         <div class="video-player-channel-content">
           <div class="video-player-channel-infos">
-            <img class="video-player-channel-img" :src="channelImg" />
+            <img class="video-player-channel-img bg-white" :src="channelImg" />
             <div class="video-player-channel">
               <span class="video-player-channel-name">DarkSasuke</span>
               <span class="video-player-channel-subscribers">113K</span>
@@ -49,9 +40,11 @@
         </div>
 
         <div class="bottom-controls-buttons">
-          <button>Like</button>
-          <button>Dislike</button>
-          <button>Share</button>
+          <span>{{ likeNumber }}</span>
+          <button><span v-html="likeIcon"></span></button>
+          <span>{{ dislikeNumber }}</span>
+          <button><span v-html="dislikeIcon"></span></button>
+          <button><span v-html="shareIcon"></span></button>
         </div>
       </div>
 
@@ -69,8 +62,8 @@
 
       <section class="comments-section">
         <div class="comments-infos">
-          <span>27 Comments</span>
-          <select>
+          <span class="text-white">27 Comments</span>
+          <select class="text-white">
             <option value="">Sort by</option>
             <option value="Top">Top Comments</option>
             <option value="Recent">Recent Comments</option>
@@ -111,9 +104,18 @@ export default {
       currentTime: '00:00',
       duration: '00:00',
       progressBarWidth: 0,
+      likeNumber:0,
+      dislikeNumber:0,
       videoUrl: '/src/assets/episode.mp4',
       channelImg: '/src/assets/channelimg.png',
-      thumbnailVideo: '/src/assets/thumbnail.jpg'
+      playIcon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" /></svg>',
+      pauseIcon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" /></svg>',
+      fullScreenIcon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" /></svg>',
+      noMuteIcon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" /></svg>',
+      muteIcon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6l4.72-4.72a.75.75 0 011.28.531V19.94a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.506-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.395C2.806 8.757 3.63 8.25 4.51 8.25H6.75z" /></svg>',
+      likeIcon:'<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z" /></svg>',
+      dislikeIcon:'<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 15h2.25m8.024-9.75c.011.05.028.1.052.148.591 1.2.924 2.55.924 3.977a8.96 8.96 0 01-.999 4.125m.023-8.25c-.076-.365.183-.75.575-.75h.908c.889 0 1.713.518 1.972 1.368.339 1.11.521 2.287.521 3.507 0 1.553-.295 3.036-.831 4.398C20.613 14.547 19.833 15 19 15h-1.053c-.472 0-.745-.556-.5-.96a8.95 8.95 0 00.303-.54m.023-8.25H16.48a4.5 4.5 0 01-1.423-.23l-3.114-1.04a4.5 4.5 0 00-1.423-.23H6.504c-.618 0-1.217.247-1.605.729A11.95 11.95 0 002.25 12c0 .434.023.863.068 1.285C2.427 14.306 3.346 15 4.372 15h3.126c.618 0 .991.724.725 1.282A7.471 7.471 0 007.5 19.5a2.25 2.25 0 002.25 2.25.75.75 0 00.75-.75v-.633c0-.573.11-1.14.322-1.672.304-.76.93-1.33 1.653-1.715a9.04 9.04 0 002.86-2.4c.498-.634 1.226-1.08 2.032-1.08h.384" /></svg>',
+      shareIcon:'<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" /></svg>'
     }
   },
   methods: {
@@ -172,19 +174,17 @@ export default {
       }
     },
     toggleMute() {
-      this.isMuted = !this.isMuted
-      this.$refs.video.muted = this.isMuted
+      this.isMuted = !this.isMuted;
+      this.$refs.video.muted = this.isMuted;
     },
-    setVolume(event) {
-      this.volume = event.target.value
-      this.$refs.video.volume = this.volume
-    },
-
     setVolumeWithProgressBar(event) {
-      const progressBarVolume = parseFloat(event.target.value)
-      const volume = isFinite(progressBarVolume) ? progressBarVolume : 1
-      this.volume = volume
-      this.$refs.video.volume = volume
+      const progressBar = event.currentTarget;
+      const rect = progressBar.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const width = rect.width;
+      const volume = x / width;
+      this.volume = volume;
+      this.$refs.video.volume = volume;
     }
   },
   components: {
@@ -248,7 +248,7 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: row;
-  padding-left: 5px;
+  padding: 5px;
   background-color: rgba(0, 0, 0, 0.563);
 }
 
@@ -273,11 +273,11 @@ export default {
   height: 50px;
   object-fit: cover;
   border-radius: 50%;
-  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .video-player-channel {
   display: flex;
   flex-direction: column;
@@ -289,6 +289,7 @@ export default {
   flex-direction: row;
   width: 100%;
 }
+
 
 .video-list {
   display: flex;
@@ -304,8 +305,13 @@ export default {
 h1 {
   font-size: 20px;
   font-weight: bold;
-  color: white;
   margin: 10px 0px;
+}
+
+.bottom-controls-buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .bottom-controls-buttons button {
@@ -326,48 +332,37 @@ h1 {
 }
 
 progress[value]::-webkit-progress-value {
-  background-image: -webkit-linear-gradient(
-      -45deg,
+  background-image: -webkit-linear-gradient(-45deg,
       transparent 33%,
       rgba(0, 0, 0, 0.1) 33%,
       rgba(0, 0, 0, 0.1) 66%,
-      transparent 66%
-    ),
+      transparent 66%),
     -webkit-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.25)),
     -webkit-linear-gradient(left, rgb(0, 156, 204), rgb(20, 94, 223));
 
   border-radius: 2px;
 }
 
-.video-list-thumbnail {
-  width: 200px;
-  object-fit: cover;
-  height: 120px;
-}
-
-.video-list-item {
+.video-player__volume-slider-container {
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  margin-bottom: 20px;
-}
-
-.video-list-item-infos {
-  margin-left: 10px;
-  display: flex;
-  flex-direction: column;
-}
-
-.video-list-item-infos div {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
+  margin:0px 10px;
 }
 
-.video-list-item-title {
-  font-size: 15px;
-  font-weight: bold;
-  color: white;
+.video-player__volume-slider {
+  width: 100%;
+  height: 5px;
+}
+
+.video-player__volume {
+  display: flex;
+  flex-direction: row;
+  min-width: 150px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
 }
 
 .description-case {
@@ -384,8 +379,8 @@ progress[value]::-webkit-progress-value {
 
 .comments-infos span {
   font-size: 20px;
-  color: white;
 }
+
 .comments-infos select {
   margin-left: 20px;
   background-color: rgb(34, 34, 34);
@@ -399,13 +394,16 @@ progress[value]::-webkit-progress-value {
   width: 100%;
   margin-top: 20px;
 }
+
 .add-comment-row img {
   border-radius: 50%;
   width: 40px;
   height: 40px;
   object-fit: cover;
-  background-color: white; /* for transparent png */
+  background-color: white;
+  /* for transparent png */
 }
+
 .add-comment-row input {
   background-color: transparent;
   border-bottom: 1px solid rgb(138, 138, 138);
@@ -413,46 +411,14 @@ progress[value]::-webkit-progress-value {
   margin-left: 15px;
   width: 100%;
 }
+
 .add-comment-row input:active,
 .add-comment-row input:focus,
 .add-comment-row input:hover {
   border-bottom: 1px solid rgb(255, 255, 255);
   outline: 0;
 }
+
 .comments-list {
   margin-top: 50px;
-}
-.comments-list-item {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 20px;
-}
-.comments-list-item img {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  background-color: white; /* for transparent png */
-}
-.comment-content {
-  margin-left: 15px;
-}
-
-.comment-infos span:first-child {
-  color: white;
-  font-weight: bold;
-}
-
-.comment-text {
-  color: white;
-}
-
-.bottom-comment > * {
-  margin-right: 10px;
-}
-
-.bottom-comment span {
-  color: rgb(0, 157, 255);
-  font-weight: bold;
-}
-</style>
+}</style>
