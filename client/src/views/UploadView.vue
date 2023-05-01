@@ -5,8 +5,8 @@
             <p>Video</p>
             <input type="file" @change="onFileChange" />
             <div @drop="dragFile">
-            Or drag the file here
-        </div>
+                Or drag the file here
+            </div>
         </div>
         <br>
         <p v-if='File==="invalid"'>Invalid format ? Only .mp4, .ogg and .webm are accepted</p>
@@ -23,6 +23,9 @@
             <input v-model="tags"/>
             <p>Miniature</p>
             <input type="file" @change="onThumbnailChange" />
+            <div @drop="dragThumbnail">
+                Or drag the file here
+            </div>
             <p v-if='thumbnail==="invalid"'>Invalid format ? Only .jpg, .jpeg and .png are accepted</p>
             <br><br>
             <button @click="generateThumbnail">TEST</button>
