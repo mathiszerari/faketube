@@ -54,7 +54,7 @@ app.app.post('/upload/data', (req, res) => {
     const videopath = req.body.video_path.replace(/\s/g, '_');
     const miniaturepath = req.body.miniature_path.replace(/\s/g, '_');
     db.db.query("INSERT INTO videos (publisher_id, title, description, tags, video_path, miniature_path) VALUES (?, ?, ?, ?, ?, ?)", 
-    [req.body.publisher_id, req.body.title, req.body.description, req.body.tags, "/videos/"+videopath, "/thumbnail/"+miniaturepath],(error) => {
+    [req.body.publisher_id, req.body.title, req.body.description, req.body.tags, `/videos/${videopath}`, `/thumbnail/${miniaturepath}`],(error) => {
             if (error) {
                 res.status(500).json({ message: "Failed to create", error: error })
             } 
@@ -64,7 +64,8 @@ app.app.post('/upload/data', (req, res) => {
        });
 });
 
-app.app.post('/template', (req, res) => {
+
+app.app.post('/thumbnail', (req, res) => {
     if (!req.files) {
         return res.status(500).send({ msg: "file is not found" })
     }
