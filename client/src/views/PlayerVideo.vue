@@ -3,7 +3,7 @@
   </template>
   
   <script>
-  import Artplayer from "../components/Player.vue";
+  import Artplayer from "../components/VideoPlayer.vue";
   
   export default {
     data() {
