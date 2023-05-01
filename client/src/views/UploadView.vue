@@ -22,9 +22,11 @@
             <p>Tags</p>
             <input v-model="tags"/>
             <p>Miniature</p>
-            <input type="file" @change="onThumbnailChange" />
-            <div @drop="dragThumbnail">
-                Or drag the file here
+            <div @dragover.prevent @drop.stop.prevent>
+                <input type="file" @change="onThumbnailChange" />
+                <div @drop="dragThumbnail">
+                    Or drag the file here
+                </div>
             </div>
             <p v-if='thumbnail==="invalid"'>Invalid format ? Only .jpg, .jpeg and .png are accepted</p>
             <br><br>
