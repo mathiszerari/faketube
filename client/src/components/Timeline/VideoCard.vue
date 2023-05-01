@@ -9,52 +9,26 @@ const props = defineProps({
     }
 })
 
-const videoDateSinceBySeconds = computed( ()=>{
-    const videoDateFormatted = dayjs(props.video.created_at)
-    return dayjs().diff(videoDateFormatted, 'second')
-})
-const videoDateSinceByMinutes = computed( ()=>{
-    const videoDateFormatted = dayjs(props.video.created_at)
-    return dayjs().diff(videoDateFormatted, 'minute')
-}) 
-const videoDateSinceByHours = computed( ()=>{
-    const videoDateFormatted = dayjs(props.video.created_at)
-    return dayjs().diff(videoDateFormatted, 'hour')
-})
-const videoDateSinceByDays = computed( ()=>{
-    const videoDateFormatted = dayjs(props.video.created_at)
-    return dayjs().diff(videoDateFormatted, 'day')
-}) 
-const videoDateSinceByWeeks = computed( ()=>{
-    const videoDateFormatted = dayjs(props.video.created_at)
-    return dayjs().diff(videoDateFormatted, 'week')
-}) 
-const videoDateSinceByMonths = computed( ()=>{
-    const videoDateFormatted = dayjs(props.video.created_at)
-    return dayjs().diff(videoDateFormatted, 'month')
-})
-const videoDateSinceByYears = computed( ()=>{
-    const videoDateFormatted = dayjs(props.video.created_at)
-    return dayjs().diff(videoDateFormatted, 'year')
-})
 const formattedVideoDate = computed(()=>{
-    let sinceValueDate = "";
-    if(videoDateSinceByYears.value != 0){
-        sinceValueDate = `${videoDateSinceByYears.value} years`
-    }else if(videoDateSinceByMonths.value != 0){
-        sinceValueDate = `${videoDateSinceByMonths.value} months`
-    }else if(videoDateSinceByWeeks.value != 0){
-        sinceValueDate = `${videoDateSinceByWeeks.value} weeks`
-    }else if(videoDateSinceByDays.value != 0){
-        sinceValueDate = `${videoDateSinceByDays.value} days`
-    }else if(videoDateSinceByHours.value != 0){
-        sinceValueDate = `${videoDateSinceByHours.value} hours`
-    }else if (videoDateSinceByMinutes.value != 0) {
-        sinceValueDate = `${videoDateSinceByMinutes.value} minutes`
-    }else{
-        sinceValueDate = `${videoDateSinceBySeconds.value} seconds`
-    }
-    return sinceValueDate
+  const videoDateFormatted = dayjs(props.video.created_at);
+  const now = dayjs();
+  const diff = now.diff(videoDateFormatted, 'second');
+
+  if (diff >= 31536000) {
+    return `${Math.floor(diff / 31536000)} years`;
+  } else if (diff >= 2592000) {
+    return `${Math.floor(diff / 2592000)} months`;
+  } else if (diff >= 604800) {
+    return `${Math.floor(diff / 604800)} weeks`;
+  } else if (diff >= 86400) {
+    return `${Math.floor(diff / 86400)} days`;
+  } else if (diff >= 3600) {
+    return `${Math.floor(diff / 3600)} hours`;
+  } else if (diff >= 60) {
+    return `${Math.floor(diff / 60)} minutes`;
+  } else {
+    return `${diff} seconds`;
+  }
 })
 
 
