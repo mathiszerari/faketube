@@ -6,15 +6,10 @@
             <input type="file" @change="onFileChange" />
             <div @drop="dragFile">
             Or drag the file here
-            <div v-if="File.length">
-                <ul v-for="file in File" :key="file">
-                    <li>{{file.name}}</li>
-                </ul>
-            </div>
         </div>
         </div>
         <br>
-        <p v-if='File==="invalid"'>Invalid format ? Retry !</p>
+        <p v-if='File==="invalid"'>Invalid format ? Only .mp4, .ogg and .webm are accepted</p>
         </div>
         <div v-if="showUpload">
         <div class="file-upload">
@@ -27,13 +22,14 @@
             <p>Tags</p>
             <input v-model="tags"/>
             <p>Miniature</p>
-            <input type="file" @change="onMiniaChange" />
+            <input type="file" @change="onThumbnailChange" />
+            <p v-if='thumbnail==="invalid"'>Invalid format ? Only .jpg, .jpeg and .png are accepted</p>
             <br><br>
             <button @click="generateThumbnail">TEST</button>
             <br><br>
             <button @click="awesome = !awesome" v-if="awesome">Toggle</button>
             <div v-else>
-                <img :src="image" alt=""/>
+                <img :src="thumbnail" alt=""/>
             </div>
             <br><br>
             <button @click="onUploadFile" class="upload-button" :disabled="!this.File">Upload file</button>
@@ -52,8 +48,7 @@ export default {
         showUpload: false,
         File: "",
         awesome: true,
-        image: "",
-        selectedMinia: "",
+        thumbnail: "",
         publisher_id: "",
         title: "",
         description: "",
@@ -70,27 +65,41 @@ export default {
             this.File = "invalid"
         }
     },
+    dragThumbnail(e) {
+        const ArrayExtension = [".jpg",".jpeg",".png"]
+        if (ArrayExtension.indexOf(path.extname(e.dataTransfer.files[0].name)) != -1) {
+            this.thumbnail = e.dataTransfer.files;
+        } else {
+            this.thumbnail = "invalid"
+        }
+    },
     onFileChange(e) {
         const ArrayExtension = [".mp4",".ogg",".webm"]
         if (ArrayExtension.indexOf(path.extname(e.target.files[0].name)) != -1) {
-            this.File = e.target.files[0];
+            this.File = e.target.files;
             this.showUpload = !this.showUpload
         } else {
             this.File = "invalid"
         }
     },
-    onMiniaChange(e) {
-        this.selectedMinia = e.target.files[0];
+    onThumbnailChange(e) {
+        // https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
+        const ArrayExtension = [".jpg",".jpeg",".png"]
+        if (ArrayExtension.indexOf(path.extname(e.target.files[0].name)) != -1) {
+            this.thumbnail = e.target.files;
+        } else {
+            this.thumbnail = "invalid"
+        }
     },
     async generateThumbnail(){
         const formData = new FormData();
-        formData.append("file", this.selectedFile);
+        formData.append("file", this.File);
 
         const test = this
 
         await axios.post("http://localhost:8080/template", formData )
         .then(function (response) {
-            test.image = response.data.image
+            test.thumbnail = response.data.image
         })
         .catch(function (error) {
             console.log(error)
