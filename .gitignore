@@ -452,3 +452,4 @@ $RECYCLE.BIN/
 package-lock.json
 client/src/assets/plage.mp4
 client/src/assets/episode.mp4
+server/package-lock.json
