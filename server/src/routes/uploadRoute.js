@@ -54,10 +54,10 @@ app.app.post('/upload/data', (req, res) => {
     const videopath = req.body.video_path.replace(/\s/g, '_');
     const miniaturepath = req.body.miniature_path.replace(/\s/g, '_');
     db.db.query("INSERT INTO videos (publisher_id, title, description, tags, video_path, miniature_path) VALUES (?, ?, ?, ?, ?, ?)", 
-    [req.body.publisher_id, req.body.title, req.body.description, req.body.tags, "/videos/"+videopath, "/miniature/"+miniaturepath],(error) => {
+    [req.body.publisher_id, req.body.title, req.body.description, req.body.tags, "/videos/"+videopath, "/thumbnail/"+miniaturepath],(error) => {
             if (error) {
-                res.status(500).json({ message: "Failed to create" })
-            }
+                res.status(500).json({ message: "Failed to create", error: error })
+            } 
             else {
                 res.status(200).json({ message: "Video created" })
             }
