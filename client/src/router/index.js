@@ -17,6 +17,7 @@ const router = createRouter({
       name: 'watch',
       component: PlayerPage
     },
+    {
       path: '/upload',
       name: 'Upload Video',
       component: UploadView
