@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import * as dayjs from 'dayjs'
 
 const props = defineProps({
@@ -32,9 +32,7 @@ const formattedVideoDate = computed(()=>{
 })
 
 
-
 </script>
-
 <template>
     <div class="aspect-video text-white">
         <img class="w-max aspect-video object-cover rounded-2xl" 
@@ -51,7 +49,6 @@ const formattedVideoDate = computed(()=>{
         </div>
     </div>
 </template>
-
 <style scoped>
 
 .publisher__avatar{
