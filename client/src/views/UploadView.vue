@@ -1,5 +1,22 @@
 <template>
     <main>
+        <div v-if="!showUpload">
+        <div @dragover.prevent @drop.stop.prevent>
+            <p>Video</p>
+            <input type="file" @change="onFileChange" />
+            <div @drop="dragFile">
+            Or drag the file here
+            <div v-if="File.length">
+                <ul v-for="file in File" :key="file">
+                    <li>{{file.name}}</li>
+                </ul>
+            </div>
+        </div>
+        </div>
+        <br>
+        <p v-if='File==="invalid"'>Invalid format ? Retry !</p>
+        </div>
+        <div v-if="showUpload">
         <div class="file-upload">
             <p>Publisher</p>
             <input v-model="publisher_id"/>
@@ -11,8 +28,6 @@
             <input v-model="tags"/>
             <p>Miniature</p>
             <input type="file" @change="onMiniaChange" />
-            <p>Video</p>
-            <input type="file" @change="onFileChange" />
             <br><br>
             <button @click="generateThumbnail">TEST</button>
             <br><br>
@@ -21,20 +36,23 @@
                 <img :src="image" alt=""/>
             </div>
             <br><br>
-            <button @click="onUploadFile" class="upload-button" :disabled="!this.selectedFile">Upload file</button>
+            <button @click="onUploadFile" class="upload-button" :disabled="!this.File">Upload file</button>
         </div>
+    </div>
     </main>
 </template>
 
 <script>
 import axios from "axios";
+import path from "path-browserify"
 
 export default {
   data() {
     return {
+        showUpload: false,
+        File: "",
         awesome: true,
         image: "",
-        selectedFile: "",
         selectedMinia: "",
         publisher_id: "",
         title: "",
@@ -43,11 +61,26 @@ export default {
     };
   },
   methods: {
+    dragFile(e) {
+        const ArrayExtension = [".mp4",".ogg",".webm"]
+        if (ArrayExtension.indexOf(path.extname(e.dataTransfer.files[0].name)) != -1) {
+            this.File = e.dataTransfer.files;
+            this.showUpload = !this.showUpload
+        } else {
+            this.File = "invalid"
+        }
+    },
     onFileChange(e) {
-        this.selectedFile = e.target.files[0]; // accessing file      this.selectedFile = selectedFile;
+        const ArrayExtension = [".mp4",".ogg",".webm"]
+        if (ArrayExtension.indexOf(path.extname(e.target.files[0].name)) != -1) {
+            this.File = e.target.files[0];
+            this.showUpload = !this.showUpload
+        } else {
+            this.File = "invalid"
+        }
     },
     onMiniaChange(e) {
-        this.selectedMinia = e.target.files[0]; // accessing file      this.selectedFile = selectedFile;
+        this.selectedMinia = e.target.files[0];
     },
     async generateThumbnail(){
         const formData = new FormData();
