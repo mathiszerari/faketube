@@ -14,7 +14,7 @@ const formattedVideo = computed(()=>{
             <img class="object-cover w-full h-full" :src="video.miniature_path" alt="Miniature de la vidéo">
         </div>
         <div class="p-4 flex-grow">
-          <h3 class="text-lg font-bold mb-2">{{ video.title }}</h3>
+          <h3 class="text-black font-bold mb-2">{{ video.title }}</h3>
           <p class="text-gray-500 text-sm">{{ video.description }}</p>
         </div>
     </div>
