@@ -94,6 +94,7 @@
 <script>
 import commentCompVue from '../components/commentComp.vue'
 import videoItemVue from '../components/videoItem.vue'
+import axios from 'axios';
 
 export default {
   data() {
@@ -185,6 +186,18 @@ export default {
       const volume = x / width;
       this.volume = volume;
       this.$refs.video.volume = volume;
+    },
+    getVideo(){
+      axios.get('http://localhost:8080/video/:id',{
+      params:{
+        id:1
+      }
+    }
+      )
+    .then(response => {
+      console.log(response);
+      return response
+    });
     }
   },
   components: {
@@ -193,6 +206,7 @@ export default {
   },
   mounted() {
     this.$refs.video.addEventListener('timeupdate', this.updateTime)
+    this.getVideo();
   },
   beforeUnmount() {
     this.$refs.video.removeEventListener('timeupdate', this.updateTime)
