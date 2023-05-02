@@ -9,10 +9,12 @@
 
             </div>
         </div>
-        <div v-else>
-            <div>
-                Loading...
+        
+            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"  v-else>
+            <div v-for="(index) in 5" :key="index">
+                <video-card-skeleton></video-card-skeleton>
             </div>
+        
         </div>
 
     </div>
