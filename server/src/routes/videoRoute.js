@@ -2,7 +2,8 @@ const fs = require("fs");
 const path = require("path")
 
 const db = require('../utils/database')
-const app = require('../utils/app')
+const app = require('../utils/app');
+const { log } = require("console");
 
 const removeLastDirPart = dirname => path.parse(dirname).dir
 var newpath = removeLastDirPart(__dirname)
@@ -24,15 +25,15 @@ app.app.get("/video/:id", (req, res) => {
     function(err, video) {
         if (err) {
             return res.status(500).json({ message: "Failed to retrieve video" });
-        } else if (video.length < 1) {
-            return res.status(200).json({ message: "This video isn't available anymore" });
-        } else {
+        } else if (video.length == 1) {
+            return res.status(200).json(video);
+        }  else {
             return res.sendFile(newpath + video[0].video_path), (error) => {
                 if (error) {
                     res.status(200).json({ message: "This miniature does not exist" });
                 }
             };
-        }
+        } 
     })
 });
 
