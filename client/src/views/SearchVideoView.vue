@@ -5,32 +5,39 @@ import * as dayjs from 'dayjs';
 
 
 // Requête sur le serveur
-const {isFetching, error, data:video} = useFetch('http://localhost:8080/searchVideo')
 
-const formattedVideo = computed(()=>{
-    return JSON.parse(video.value)
-})
 
-function checkChannel(channel, word){
+function checkChannel(channel, words){
      // Fetch
-    if(channel==word){
-        return 500;
-    }
-    return 0;
+    let score = 0
+    words.forEach(word =>{
+        if(word==channel){
+            score += 500;
+        }
+    })
+    return score;
+    
 }
 
-function checkTitle(title, word){
-    if(title.includes(word)){
-        return 100;
-    }
-    return 0;
+function checkTitle(title, words){
+    let score = 0
+    words.forEach(word =>{
+        if(title.includes(word)){
+            score += 50;
+        }
+    })
+    return score;
 }
 
-function checkTag(tag, word) {
-    if (tag.includes(word)) {
-        return 75;
-    }
-    return 0;
+function checkTag(tags, userResearch) {
+    let score = 0
+    let listTags = tags.split("#")
+    listTags.forEach(tag =>{
+        if(userResearch.includes(tag)){
+            score += 75;
+        }
+    })
+    return score;
 }
 
 function checkDescription(description, word) {
@@ -61,22 +68,46 @@ function checkSubscribers(number){
   // Fetch
 }
 
-function getScore(data, userInput){
-    let score = 0
-    const userWords = userInput.split("+")
-    userWords.forEach(word => {
-        // score+=checkChannel()
-    });
-}       
-
-function getInfoUser(userId){
-    const {isFetching, error, data:user} = useFetch('http://localhost:8080/getUserById/'+userId)
-    const formattedUser = computed(()=>{
-        return JSON.parse(user.value)
-    })
-    
-    return formattedUser
+async function getInfoUser(userId){
+    const {isFetching, error, data} = await useFetch('http://localhost:8080/getUserById/'+userId)
+    return JSON.parse(data.value)
 }
+
+async function getVideos(){
+    const {isFetching, error, data} = await useFetch('http://localhost:8080/searchVideo')
+    return JSON.parse(data.value)
+}
+
+async function getVideoScore(video, userResearch){
+    let score = 0 
+    let infosUser = await getInfoUser(video.publisher_id)
+    let words = userResearch.split(" ")
+
+    //Channel
+
+    score += checkChannel(infosUser.message[0].pseudo, words)
+
+    
+    //Title
+    score += checkTitle(video.title, words)
+    score += checkTag(video.tags, userResearch)
+
+
+
+    return score
+
+}
+
+onMounted(async () =>{
+   let videoInfos =  await getVideos()
+   videoInfos.message.forEach(async video => {
+        let scoreVideo =  await getVideoScore(video, "voiture")
+        console.log(scoreVideo)
+
+   });
+
+
+})
 
 </script>
 
@@ -84,9 +115,10 @@ function getInfoUser(userId){
 <template>
     <main>
         <div>
-            {{ formattedVideo }}
-            <span v-for="(video,index) in formattedVideo.message" :key="index">
-                <!-- {{ getInfoUser(video.publisher_id) }} -->
+            {{  }}
+            <span v-for="(video,index) in formattedVideo?.message" :key="index">
+                {{  }}
+
                
             </span>
         </div>
