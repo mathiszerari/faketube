@@ -31,7 +31,7 @@ function checkTitle(title, words){
 
 function checkTag(tags, userResearch) {
     let score = 0
-    let listTags = tags.split("#")
+    let listTags = tags.split("#").splice(1)
     listTags.forEach(tag =>{
         if(userResearch.includes(tag)){
             score += 75;
@@ -40,33 +40,35 @@ function checkTag(tags, userResearch) {
     return score;
 }
 
-function checkDescription(description, word) {
-    if (description.includes(word)) {
-        return 25;
-    }
-    return 0;
+function checkDescription(description, words) {
+    let score = 0
+    words.forEach(word =>{
+        if(description.includes(word)){
+            score += 25;
+        }
+    })
+    return score;
 }
 
 function checkDate(uploadDate) {
+    let score = 0
     let dateDiff = dayjs().diff(dayjs(uploadDate), "day")
     if(dateDiff<=1){
-        return 100;
+        score+= 100;
     }
     if(dateDiff<=7){
-        return 30;
+        score+= 30;
     }
-    return 0;   
+    return score  
 }
-function checkViews(viewsNumber){
-    if(viewsNumber>=10){
-        return 50;
+function checkViewsOrSubscribers(number){
+    let score = 0
+    if(number>=10){
+        score+=50
     }
-    return 0;
+    return score;
 }
 
-function checkSubscribers(number){
-  // Fetch
-}
 
 async function getInfoUser(userId){
     const {isFetching, error, data} = await useFetch('http://localhost:8080/getUserById/'+userId)
@@ -84,15 +86,19 @@ async function getVideoScore(video, userResearch){
     let words = userResearch.split(" ")
 
     //Channel
-
     score += checkChannel(infosUser.message[0].pseudo, words)
-
-    
     //Title
     score += checkTitle(video.title, words)
+    //Tags
     score += checkTag(video.tags, userResearch)
-
-
+    //Description
+    score += checkDescription(video.description, words)
+    //Date
+    score+=checkDate(video.created_at)
+    //Views
+    score+=checkViewsOrSubscribers(video.views)
+    //Subscribers
+    score+=checkViewsOrSubscribers(infosUser.message[0].subscriber_number)
 
     return score
 
