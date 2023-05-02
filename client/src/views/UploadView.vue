@@ -5,7 +5,7 @@
                 <h1 class="flex justify-center my-10 text-5xl font-medium leading-tight text-primary">Upload video</h1>
                 <div @drop="dragFile">
                     <label for="upload" class="flex flex-col items-center p-4 gap-3 rounded-3xl border border-gray-300 border-solid bg-gray-50 cursor-pointer">
-                        <img class="h-96 w-auto" src="https://demo.tailus.io/images/icons/upload.webp">
+                        <img class="h-96 w-auto" src="">
                         <h4 class="text-base font-semibold text-gray-700">Upload a file</h4>
                         <input type="file" id="upload" @change="onFileChange" hidden/>
                     </label>
@@ -26,7 +26,7 @@
                 <div @dragover.prevent @drop.stop.prevent>
                     <div @drop="dragThumbnail">
                         <label for="upload" class="flex flex-col items-center p-4 gap-3 rounded-3xl border border-gray-300 border-solid bg-gray-50 cursor-pointer">
-                            <img class="h-56 w-auto" src="https://demo.tailus.io/images/icons/upload.webp">
+                            <img class="h-56 w-auto" src="">
                             <h4 class="text-base font-semibold text-gray-700">Upload a file</h4>
                             <input type="file" id="upload" @change="onThumbnailChange" hidden/>
                         </label>
