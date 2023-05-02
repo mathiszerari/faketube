@@ -13,5 +13,6 @@ import Sidebar from '../components/Timeline/Sidebar.vue'
       &nbsp      &nbsp&nbsp&nbsp&nbsp FakeTube®
   </h1>
   <TheTimeline></TheTimeline>
+  <TheAdvancedTimeline></TheAdvancedTimeline>
   </main>
 </template>
