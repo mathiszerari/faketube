@@ -32,10 +32,8 @@
             <br><br>
             <button @click="generateThumbnail">TEST</button>
             <br><br>
-            <button @click="awesome = !awesome" v-if="awesome">Toggle</button>
-            <div v-else>
-                <img :src="thumbnail" alt=""/>
-            </div>
+            <img :src="this.preview" alt=""/>
+
             <br><br>
             <button @click="onUploadFile" class="upload-button" :disabled="!this.File">Upload file</button>
         </div>
@@ -46,7 +44,6 @@
 <script>
 import axios from "axios";
 import path from "path-browserify"
-
 export default {
   data() {
     return {
@@ -54,6 +51,7 @@ export default {
         File: "",
         awesome: true,
         thumbnail: "",
+        preview: "",
         publisher_id: "",
         title: "",
         description: "",
@@ -73,7 +71,8 @@ export default {
     dragThumbnail(e) {
         const ArrayExtension = [".jpg",".jpeg",".png"]
         if (ArrayExtension.indexOf(path.extname(e.dataTransfer.files[0].name)) != -1) {
-            this.thumbnail = e.dataTransfer.files;
+            this.thumbnail = e.dataTransfer.files[0];
+            console.log(this.thumbnail)
         } else {
             this.thumbnail = "invalid"
         }
@@ -91,20 +90,25 @@ export default {
         // https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
         const ArrayExtension = [".jpg",".jpeg",".png"]
         if (ArrayExtension.indexOf(path.extname(e.target.files[0].name)) != -1) {
-            this.thumbnail = e.target.files;
+            this.thumbnail = e.target.files[0];
+            this.preview = ""
+            console.log(this.thumbnail)
         } else {
             this.thumbnail = "invalid"
         }
     },
     async generateThumbnail(){
+        console.log(this.File)
         const formData = new FormData();
-        formData.append("file", this.File);
-
+        formData.append("file", this.File[0]);
         const test = this
-
-        await axios.post("http://localhost:8080/template", formData )
+        await axios.post("http://localhost:8080/thumbnail", formData )
         .then(function (response) {
-            test.thumbnail = response.data.image
+            console.log(response)
+            const file = new File([response.data.image], response.data.name, {type: response.data.type})
+
+            test.thumbnail = file
+            test.preview = response.data.data
         })
         .catch(function (error) {
             console.log(error)
@@ -112,19 +116,23 @@ export default {
     },
     async onUploadFile() {
         const formData = new FormData();
-        formData.append("file", this.selectedFile);  // appending file
+        formData.append("file", this.File[0]);
 
-        const miniaData = new FormData();
-        miniaData.append("file", this.selectedMinia);  // appending file
+        const thumbnailData = new FormData();
+        thumbnailData.append("file", this.thumbnail);
+        thumbnailData.append("base64", this.preview);
+        if (this.preview != "") {
+            thumbnailData.append("type", "generated");
+        }
 
         let Data = new FormData();
         Data.append('publisher_id', this.publisher_id);
         Data.append('title', this.title);
         Data.append('description', this.description);
         Data.append('tags', this.tags);
-        Data.append('video_path', this.selectedFile.name);
-        Data.append('miniature_path', this.selectedMinia.name);
-
+        Data.append('video_path', this.File[0].name);
+        Data.append('miniature_path', this.thumbnail.name);
+        
         await axios.post("http://localhost:8080/upload/data", Data)
         .then(function (response) {
             console.log(response)
@@ -132,15 +140,13 @@ export default {
         .catch(function (error) {
             console.log(error)
         })
-
-        await axios.post("http://localhost:8080/upload/thumbnail", miniaData)
+        await axios.post("http://localhost:8080/upload/thumbnail", thumbnailData)
         .then(res => {
             console.log(res);
         })
         .catch(err => {
             console.log(err);
         });
-
         await axios.post('http://localhost:8080/upload/video', formData)
         .then(res => {
             console.log(res);
@@ -165,7 +171,6 @@ export default {
   cursor: pointer;
   border-radius: 1rem;
 }
-
 .upload-button:disabled {
   background-color: #b3bcc4;
   cursor: no-drop;

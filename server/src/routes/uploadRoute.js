@@ -32,22 +32,49 @@ app.app.post('/upload/video', (req, res) => {
 })
 
 app.app.post('/upload/thumbnail', (req, res) => {
-    if (!req.files) {
+    console.log(req.files)
+    if (!req.files && !req.body) {
         return res.status(500).send({ msg: "file is not found" })
     }
-    
+    const base64 = req.body.base64
     const file = req.files.file;
     const filename = file.name.replace(/\s/g, '_');
+    console.log(filename)
 
-    //  mv() method places the file inside public directory
-    file.mv(`${newpath}/thumbnail/${filename}`, function (err) {
-        if (err) {
-            console.log(err)
-            return res.status(500).send({ msg: "Error occured" });
+    function decodeBase64Image(dataString) {
+        var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+        response = {};
+      
+        if (matches.length !== 3) {
+          return new Error('Invalid input string');
         }
-        // returing the response with file path and name
-        return res.send({name: filename, path: `/${filename}`});
-    });
+      
+        response.type = matches[1];
+        response.data = new Buffer.from(matches[2], 'base64');
+      
+        return response;
+    }
+
+    if (req.body.type) {
+        var imageBuffer = decodeBase64Image(base64);
+
+        fs.writeFile(`${newpath}/thumbnail/${filename}`, imageBuffer.data, function(err) {
+            if(err) {
+                console.log(err)
+                return res.status(500).send({ msg: "Error occured" });
+            } else {
+                return res.status(200).send({name: filename, path: `/${filename}`});
+            }
+        });
+    } else {
+        file.mv(`${newpath}/thumbnail/${filename}`, function (err) {
+            if (err) {
+                console.log(err)
+                return res.status(500).send({ msg: "Error occured" });
+            }
+            return res.status(200).send({name: filename, path: `/${filename}`});
+        });
+    }
 })
 
 app.app.post('/upload/data', (req, res) => {
@@ -71,11 +98,15 @@ app.app.post('/thumbnail', (req, res) => {
     }
 
     const file = req.files.file;
-    
-    const filename = file.name.replace(/\s/g, '_');
+
+    function removeExtension(filename) {
+        return filename.substring(0, filename.lastIndexOf('.')) || filename;
+    }
+        
+    const filename = removeExtension(file.name).replace(/\s/g, '_');
 
     //  mv() method places the file inside public directory
-    file.mv(`${__dirname}/${filename}`, function (err) {
+    file.mv(`${__dirname}/${file.name.replace(/\s/g, '_')}`, function (err) {
         if (err) {
             console.log(err)
         }
@@ -85,7 +116,7 @@ app.app.post('/thumbnail', (req, res) => {
         return "data:image/jpeg;base64,"+fs.readFileSync(file, 'base64');
     }
     
-    var path_vid = `${__dirname}/${filename}`
+    var path_vid = `${__dirname}/${file.name.replace(/\s/g, '_')}`
     
     ffmpeg(path_vid)
     .screenshots({
@@ -94,16 +125,17 @@ app.app.post('/thumbnail', (req, res) => {
         filename: `${filename}.jpg`,
         folder: __dirname
     })
-      // The callback that is run when FFmpeg is finished
-      .on('end', () => {
+    .on('end', () => {
         console.log('FFmpeg has finished.');
-        var base64str = base64_encode(`${__dirname}/${filename}.jpg`)
-        fs.unlinkSync(path_vid)
-        fs.unlinkSync(`${__dirname}/${filename}.jpg`)
-        return res.status(200).json({ image: base64str })
+        var base64str = base64_encode(`${__dirname}/${filename}.jpg`);
+        fs.unlinkSync(path_vid);
+        fs.unlinkSync(`${__dirname}/${filename}.jpg`);
+        res.set({
+            'Content-Type': 'image/jpeg',
+            'Content-Length': '123'
+        })
+        res.status(200).send({name:`${filename}.jpg`, data: base64str})
       })
-    
-      // The callback that is run when FFmpeg encountered an error
       .on('error', (error) => {
         console.error(error)
         return res.status(500).send({ error: error })
