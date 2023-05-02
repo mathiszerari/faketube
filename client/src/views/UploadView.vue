@@ -1,43 +1,48 @@
 <template>
-    <main>
+    <main class="flex justify-center align-middle">
         <div v-if="!showUpload">
-        <div @dragover.prevent @drop.stop.prevent>
-            <p>Video</p>
-            <input type="file" @change="onFileChange" />
-            <div @drop="dragFile">
-                Or drag the file here
+            <div @dragover.prevent @drop.stop.prevent>
+                <h1 class="flex justify-center my-10 text-5xl font-medium leading-tight text-primary">Upload video</h1>
+                <div @drop="dragFile">
+                    <label for="upload" class="flex flex-col items-center p-4 gap-3 rounded-3xl border border-gray-300 border-solid bg-gray-50 cursor-pointer">
+                        <img class="h-96 w-auto" src="https://demo.tailus.io/images/icons/upload.webp">
+                        <h4 class="text-base font-semibold text-gray-700">Upload a file</h4>
+                        <input type="file" id="upload" @change="onFileChange" hidden/>
+                    </label>
+                </div>
+                <p v-if='File==="invalid"' class="my-4 text-base font-semibold text-gray-700">Invalid format ? Only .mp4, .ogg and .webm are accepted !</p>
+                <p class="my-2 text-center text-xs font-light leading-tight">
+                    Click OR Drag & Drop the file
+                </p>
             </div>
-        </div>
-        <br>
-        <p v-if='File==="invalid"'>Invalid format ? Only .mp4, .ogg and .webm are accepted</p>
         </div>
         <div v-if="showUpload">
-        <div class="file-upload">
-            <p>Publisher</p>
-            <input v-model="publisher_id"/>
-            <p>Title</p>
-            <input v-model="title"/>
-            <p>Description</p>
-            <input v-model="description"/>
-            <p>Tags</p>
-            <input v-model="tags"/>
-            <p>Miniature</p>
-            <div @dragover.prevent @drop.stop.prevent>
-                <input type="file" @change="onThumbnailChange" />
-                <div @drop="dragThumbnail">
-                    Or drag the file here
+            <h1 class="flex justify-center my-10 text-5xl font-medium leading-tight text-primary">Upload miniature</h1>
+            <div>
+                <input v-model="publisher_id" placeholder="Publisher"/>
+                <input v-model="title" placeholder="Title"/>
+                <input v-model="description" placeholder="Description"/>
+                <input v-model="tags" placeholder="Tags"/>
+                <div @dragover.prevent @drop.stop.prevent>
+                    <div @drop="dragThumbnail">
+                        <label for="upload" class="flex flex-col items-center p-4 gap-3 rounded-3xl border border-gray-300 border-solid bg-gray-50 cursor-pointer">
+                            <img class="h-56 w-auto" src="https://demo.tailus.io/images/icons/upload.webp">
+                            <h4 class="text-base font-semibold text-gray-700">Upload a file</h4>
+                            <input type="file" id="upload" @change="onThumbnailChange" hidden/>
+                        </label>
+                    </div>
+                    <p v-if='thumbnail==="invalid"' class="my-4 text-base font-semibold text-gray-700">Invalid format ? Only .jpg, .jpeg and .png are accepted !</p>
+                    <p class="my-2 text-center text-xs font-light leading-tight">
+                        Click OR Drag & Drop the file
+                    </p>
+                </div>
+                <div class="flex flex-col justify-center align-middle">
+                    <button @click="generateThumbnail" class="my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Generate Thumbnail</button>
+                    <img :src="this.preview" alt=""/>
+                    <button @click="onUploadFile" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" :disabled="!this.File">Upload file</button>
                 </div>
             </div>
-            <p v-if='thumbnail==="invalid"'>Invalid format ? Only .jpg, .jpeg and .png are accepted</p>
-            <br><br>
-            <button @click="generateThumbnail">TEST</button>
-            <br><br>
-            <img :src="this.preview" alt=""/>
-
-            <br><br>
-            <button @click="onUploadFile" class="upload-button" :disabled="!this.File">Upload file</button>
         </div>
-    </div>
     </main>
 </template>
 
@@ -161,18 +166,7 @@ export default {
 
 
 <style scoped>
-.upload-button {
-  width: 7rem;
-  padding: 0.5rem;
-  background-color: #278be9;
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  border-radius: 1rem;
-}
-.upload-button:disabled {
-  background-color: #b3bcc4;
-  cursor: no-drop;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 </style>
