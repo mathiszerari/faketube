@@ -9,17 +9,17 @@ const formattedVideo = computed(()=>{
 </script>
 
 <template>
-    <div v-for="(video,index) in formattedVideo.message" :key="index" class="bg-white shadow overflow-hidden sm:rounded-lg flex flex-row-reverse">
+    <div v-for="(video,index) in formattedVideo.message" :key="index" class="bg-white shadow overflow-hidden sm:rounded-lg flex">
         <div class="aspect-w-16 aspect-h-9 flex-shrink-0">
-          <video class="object-cover" controls>
-            <source :src="video.video_path" type="video/mp4">
-          </video>
+            <img class="object-cover w-full h-full" :src="video.miniature_path" alt="Miniature de la vidéo">
         </div>
         <div class="p-4 flex-grow">
-          <h3 class="text-lg font-bold mb-2 text-right">{{ video.title }}</h3>
-          <p class="text-gray-500 text-sm text-right">{{ video.description }}</p>
+          <h3 class="text-lg font-bold mb-2">{{ video.title }}</h3>
+          <p class="text-gray-500 text-sm">{{ video.description }}</p>
         </div>
-      </div>
+    </div>
+      
+      
       
   </template>
   
