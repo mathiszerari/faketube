@@ -2,7 +2,9 @@
     <main class="flex justify-center align-middle">
         <div v-if="!showUpload">
             <div @dragover.prevent @drop.stop.prevent>
+                
                 <h1 class="flex justify-center my-10 text-5xl font-medium leading-tight text-primary">Upload video</h1>
+                
                 <div @drop="dragFile">
                     <label for="upload" class="flex flex-col items-center p-4 gap-3 rounded-3xl border border-gray-300 border-solid bg-gray-50 cursor-pointer">
                         <img class="h-96 w-auto" src="">
@@ -19,10 +21,10 @@
         <div v-if="showUpload">
             <h1 class="flex justify-center my-10 text-5xl font-medium leading-tight text-primary">Upload miniature</h1>
             <div>
-                <input v-model="publisher_id" placeholder="Publisher"/>
-                <input v-model="title" placeholder="Title"/>
-                <input v-model="description" placeholder="Description"/>
-                <input v-model="tags" placeholder="Tags"/>
+                <input v-model="publisher_id" placeholder="Publisher" required/>
+                <input v-model="title" placeholder="Title" required/>
+                <input v-model="description" placeholder="Description" required/>
+                <input v-model="tags" placeholder="Tags" required/>
                 <div @dragover.prevent @drop.stop.prevent>
                     <div @drop="dragThumbnail">
                         <label for="upload" class="flex flex-col items-center p-4 gap-3 rounded-3xl border border-gray-300 border-solid bg-gray-50 cursor-pointer">
@@ -159,6 +161,8 @@ export default {
         .catch(err => {
             console.log(err);
         });
+        this.$router.push({path: "/"})
+        
     }
 }
 };
