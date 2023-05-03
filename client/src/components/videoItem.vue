@@ -1,11 +1,11 @@
 <template>
   <div class="video-list-item">
-    <img alt="thumbnail" :src="thumbnailVideo" class="video-list-thumbnail object-cover rounded-sm" />
+    <img alt="thumbnail" :src="video.miniature_path" class="video-list-thumbnail object-cover rounded-sm" />
     <div class="video-list-item-infos">
-      <span class="text-white font-bold text-base">Title video</span>
+      <span class="text-white font-bold text-base">{{ video.title }}</span>
       <span class="video-list-item-channel-name">VlogUS</span>
-      <div>
-        <span class="video-list-item-views">2.1m</span>
+      <div class="video-list-item-bottom-infos">
+        <span class="video-list-item-views">{{ video.views }} views</span>
         <span class="video-list-item-date">2 days ago</span>
       </div>
     </div>
@@ -13,11 +13,12 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      thumbnailVideo: '/src/assets/thumbnail.jpg'
+  props: {
+    video: {
+      type: Object,
+      required: true
     }
-  },
+  }
 }
 </script>
 <style scoped>
@@ -36,6 +37,7 @@ export default {
   margin-left: 10px;
   display: flex;
   flex-direction: column;
+  width: 220px;
 }
 
 .video-list-item-infos div {
@@ -43,6 +45,15 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+}
+
+.video-list-item-bottom-infos{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 </style>
