@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import TestView from "@/views/TestView.vue";
 import SearchVideo from "@/views/SearchVideoView.vue"
 import SearchPage from "@/views/SearchPage.vue";
 import LoginView from "@/views/LoginView.vue";
@@ -17,7 +16,7 @@ const router = createRouter({
     },
     {
       path: '/searchVideo',
-      name: 'test',
+      name: 'searchVideo',
       component: SearchVideo
     },
     {

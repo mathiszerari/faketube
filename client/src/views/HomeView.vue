@@ -10,7 +10,7 @@
 <script setup>
 import TheAdvancedTimeline from '../components/Timeline/TheAdvancedTimeline.vue';
 import TheTimeline from '../components/Timeline/TheTimeline.vue';
-import SearchBar from '../components/searchbar/SearchBar.vue';
+import SearchBar from '../components/recherche/SearchBar.vue';
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 const app = require('../../utils/app')
 const db = require('../../utils/database')
 const fs = require('fs')
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 
 app.app.get("/register/:pseudo/:email/:password", (req, res) => {
     const pseudo = req.params.pseudo;
@@ -23,8 +23,8 @@ app.app.get("/register/:pseudo/:email/:password", (req, res) => {
                 bcrypt.genSalt(10, (err, salt) => {
                     bcrypt.hash(password, salt, function (err, hash) {
                         db.db.query(
-                            'INSERT INTO `users`(`pseudo`, `email`, `password`, `created_at`) VALUES (?, ?, ?, ?)',
-                            [pseudo, email, hash, new Date()],
+                            'INSERT INTO `users`(`pseudo`, `email`, `password`, `created_at`, `prefs`, `profile_photo`) VALUES (?, ?, ?, ?, ?, ?)',
+                            [pseudo, email, hash, new Date(), null, null],
 
                             function (err, results, fields) {
                                 console.log(err);
@@ -32,6 +32,7 @@ app.app.get("/register/:pseudo/:email/:password", (req, res) => {
                                     'SELECT `id` FROM `users` WHERE email=?',
                                     [email],
                                     function (err, results) {
+                                        console.log(results);
                                         res.json({id: results[0]["id"], valide: "true"});
                                     }
                                 )
