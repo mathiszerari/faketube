@@ -1,16 +1,16 @@
 <template>
   <div class="profile dark-theme">
-    <div class="profile-header">
-      <img :src="profileImage" class="profile-image" alt="Profile Image" />
+    <div class="flex flex-col items-center w-full mb-10">
+      <img :src="profileImage" class="w-[120px] h-[120px] object-cover mb-5 rounded-[50%]" alt="Profile Image" />
       <div class="profile-titles">
-        <h1 class="profile-title">{{ profileUsername }}</h1>
-        <p class="profile-description">Membre depuis le {{ memberSince }}</p>
+        <h1 class="text-4xl flex justify-center items-center">{{ profileUsername }}</h1>
+        <p class="text-2xl text-[#bbb] m-0">Membre depuis le {{ memberSince }}</p>
       </div>
       <button class="profile-logout-btn" @click="logout">↪ Déconnexion</button>
     </div>
-    <div class="profile-content">
-      <div class="profile-section">
-        <h2 class="profile-section-title">Informations de compte</h2>
+    <div class="flex flex-col w-full">
+      <div class="mb-5">
+        <h2 class="mb-2.5">Informations de compte</h2>
         <div class="profile-info">
           <div class="profile-info-label">Pseudo :</div>
           <div class="profile-info-value">
@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="footer">
+    <div class="w-full bg-[#0d0d0d] text-center text-sm text-[#ccc] mt-auto px-5 py-2.5">
       <p>© 2023 Faketube</p>
     </div>
   </div>
@@ -39,7 +39,7 @@
 
 <script>
 export default {
-  name: 'Profile',
+  name: 'TheProfile',
   data() {
     return {
       profileImage: 'https://education.l214.com/wp-content/uploads/2020/09/15-animaux-moches-04.jpg',
@@ -87,127 +87,32 @@ function isValidEmail(email) {
 <style>
 
 
+* {
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 body {
-  display : flex;
-  justify-content : center;
-  align-items : center;
-  margin: 0;
-  padding: 0;
-  background-color: #1a1a1a;
-  color: #fff;
+  @apply flex justify-center items-center bg-[#1a1a1a] text-white text-base leading-normal m-0 p-0;
   font-family: Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px;
 
-}
-
-.profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-.profile-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 40px;
-  width: 100%;
-}
-
-.profile-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 20px;
-}
-
-.profile-title {
-  font-size: 36px;
-  display : flex;
-  justify-content : center;
-  align-items : center;
-}
-
-.profile-description {
-  font-size: 24px;
-  margin: 0;
-  color: #bbb;
-}
-
-.profile-content {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.profile-section {
-  margin-bottom: 20px;
-}
-
-.profile-section-title {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
 
 .profile-info {
-  display: flex;
-  margin-bottom: 10px;
-  align-items: center;
+  @apply flex items-center mb-2.5;
 }
-
 .profile-info-label {
-  font-weight: bold;
-  margin-right: 10px;
+  @apply mr-2.5;
 }
-
 .profile-info-value {
-  color: #bbb;
+  @apply text-[#bbb];
 }
-
 .profile-info-value button {
-  color: black;
+  @apply text-[black];
 }
-
 .btn {
-  display: inline-block;
-  background-color: #2196f3;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-left: 10px;
-  border-radius: 5px;
-  text-align: center;
+  @apply inline-block bg-[#2196f3] text-white text-base cursor-pointer text-center ml-2.5 px-4 py-2 rounded-[5px] border-[none] hover:bg-[#0c7cd5] active:bg-[#0c7cd5] active:translate-y-px;
 }
 
-.btn:hover {
-  background-color: #0c7cd5;
-}
-
-.btn:active {
-  background-color: #0c7cd5;
-  transform: translateY(1px);
-}
-
-.footer {
-  width: 100%;
-  padding: 10px 20px;
-  background-color: #0d0d0d;
-  text-align: center;
-  font-size: 14px;
-  color: #ccc;
-  margin-top: auto;
-}
 
 </style>
