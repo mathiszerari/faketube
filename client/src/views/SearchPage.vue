@@ -27,10 +27,35 @@ onMounted(async () => {
         }
     }
 })
+
+
+
+async function checkDate(uploadDate) {
+    let dateDiffsec = dayjs().diff(dayjs(uploadDate), "second")
+    if(dateDiffsec<=60){
+        return `${dateDiffsec} secondes`
+    }
+    else {
+        let dateDiffmin = dayjs().diff(dayjs(uploadDate), "minute")
+        if (dateDiffmin>60) {
+            let dateDiffhour = dayjs().diff(dayjs(uploadDate), "hour")
+            if (dateDiffhour>24) {
+                let dateDiffday = dayjs().diff(dayjs(uploadDate), "day")
+                return `${dateDiffday} jours`
+            }
+            else{
+                return `${dateDiffhour} heures`
+            }
+        }
+        else {
+            return `${dateDiffmin} minutes`
+        }
+    }
+}
 </script>
 <template>
 
-    <div v-for="(video,index) in formattedVideo.message" v-if="formattedVideo.message" :key="index" class="bg-white shadow overflow-hidden sm:rounded-lg flex">
+    <div v-for="(video) in formattedVideo.message" v-if="formattedVideo.message" :key="index" class="bg-white shadow overflow-hidden sm:rounded-lg flex">
         <div class="aspect-w-16 aspect-h-9 flex-shrink-0">
           <img class="object-cover w-full h-full" :src="video.miniature_path" alt="Miniature de la vidéo">
         </div>
@@ -39,8 +64,8 @@ onMounted(async () => {
             <p class="text-gray-500 text-sm">{{ video.description }}</p>
             <p class="text-gray-500 text-sm">{{ video.like_number }} poces blo</p>
             <p class="text-gray-500 text-sm">{{ video.views }} vues</p>
-            <p class="text-gray-500 text-sm">il y a {{ video.created_at }}</p>
-            <p class="text-gray-500 text-sm">{{ publisherName[video.publisher_id].pseudo }} chaine</p> <!-- afficher la valeur stockée dans publisherName -->
+            <p class="text-gray-500 text-sm">il y a {{ checkDate(video.created_at) }}</p>
+            <p class="text-gray-500 text-sm">{{ publisherName[video.publisher_id] }} chaine</p> 
         </div>
     </div>
 </template>
