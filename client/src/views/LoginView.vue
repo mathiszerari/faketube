@@ -1,5 +1,5 @@
 <script setup>
-import TheRegister from "@/components/login/TheRegister.vue";
+import TheRegister from "@/components/profil/TheRegister.vue";
 </script>
 
 <template>
