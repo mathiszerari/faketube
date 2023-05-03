@@ -21,4 +21,3 @@ app.app.get("/getUserById/:userId", (req, res) => {
     
 });
 
-

@@ -183,8 +183,12 @@ const clearmsg = () => {
 // vaut mieux en stocker plein et les parcourir
 
 const filteredContent = computed(() => {
-  return contents.value.filter((word) => word.text.startsWith(msg.value));
-} )
+  return contents.value.filter((word) => word.text.startsWith(toLowercaseMsgValue.value));
+})
+
+const toLowercaseMsgValue = computed(() => {
+  return msg.value.toLowerCase()
+})
 
 // console.log(filteredContent); 
 
