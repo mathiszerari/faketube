@@ -143,11 +143,12 @@ onMounted(async () =>{
         return getVideoScore(info, "voiture")
     })
     const score = await Promise.all(promises)
+
     videoScores.value = videosInfos.message.map((info, index)=>{
-    return {video: info, score: score[index]}
-  })
-  console.log("len :",videoScores.value.length);
-  //Separer en fonction haut
+        return {video: info, score: score[index]}
+  }).filter((item) => item.score >= 100)
+
+  console.log(videoScores.value)
   videoScores.value.sort((a, b) => b.score - a.score);
   videoScores.value.forEach(score=>{
     console.log("===================");
