@@ -18,19 +18,20 @@ app.app.get("/login/:email/:password", (req, res) => {
             if (emailNotExist) {
                 res.json({message: "l'email n'existe pas", valide: "false"});
             } else {
-                bcrypt.genSalt(10, (err, salt) => {
-                    bcrypt.hash(password, salt, function (err, hash) {
-                        console.log(hash);
-                        db.db.query(
-                            'SELECT `id` FROM `users` WHERE email=? and password=?',
-                            [email, hash],
-                        
-                            function(err, results, fields) {
-                                res.json({id: results, valide: "true"})
+                db.db.query(
+                    'SELECT * FROM `users` WHERE email=?',
+                    [email],
+
+                    function (err, result, fields) {
+                        bcrypt.compare(password, result[0].password, function (err, resu) {
+                            if (resu === true) {
+                                res.json({id: result[0].id, valide: "true"})
+                            } else {
+                                res.json({message: "mauvais mot de passe ou email", valide: "false"})
                             }
-                        );
-                    })
-                })
+                        })
+                    }
+                )
             }
         }
     )
