@@ -2,12 +2,11 @@ const app = require('./utils/app')
 
 // const uploadVideo = require('./routes/recherche/uploadVideo')
 const searchVideo = require('./routes/recherche/searchVideo')
-const getUser = require('./routes/recherche/getUserById')
 const uploadVideo = require('./routes/uploadVideo')
-const searchVideo = require('./routes/searchVideo')
+const searchVideo = require('./routes/recherche/searchVideo')
 const getTimelineVideo = require('./routes/Timeline/getTimelineVideo')
 const getAdvancedTimelineVideo = require('./routes/Timeline/getAdvancedTimelineVideo')
-const searchPage = require('./routes/searchPage')
+const searchPage = require('./routes/recherche/searchPage')
 const getUserById = require('./routes/recherche_users/getUserById')
 
 
