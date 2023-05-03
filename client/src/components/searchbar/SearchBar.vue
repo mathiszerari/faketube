@@ -4,8 +4,6 @@
   <div class="container bg-gray-900">
     <!-- header -->
     <div class="flex justify-center items-center">
-    <!-- header -->
-    <div class="flex justify-center items-center">
       <div class="burger-simulator">
         <svg width="30" height="20" viewBox="0 0 10 15">
           <path fill="#FFF" d="M2 14h26v-2H2v2zm0-5h26v-2H2v2zm0-6v2h26v-2H2z"/>
@@ -47,8 +45,6 @@
     <!-- suggestion section -->
     <div v-if="msg.length > 0 && clear === true" class="suggestion-container ml-10 flex justify-center items-center relative">
       <div class="suggestion w-2/5 bg-gray-700 pr-15 rounded-xl pb-3">
-    <div v-if="msg.length > 0 && clear === true" class="suggestion-container ml-10 flex justify-center items-center relative">
-      <div class="suggestion w-2/5 bg-gray-700 pr-15 rounded-xl pb-3">
         <div v-for="content in filteredContent.slice(0,4)" :key="content.text" class="max-h-16">
           <a @click="clearmsg" ref="mySuggestions" href="{{ content.link }}" class="block items-center justify-center left-1 py-4 mt-1.5">
             <svg class="w-5 ml-4 px-0 mx-5 ml-0 ml-5" viewBox="0 0 20 20" fill="none" stroke="white" style="cursor: pointer">
@@ -71,14 +67,6 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import { useFetch } from "@vueuse/core";
-
-// Requête sur le serveur
-const {isFetching, error, data:video} = useFetch('http://localhost:1010/')
-
-const formattedVideo = computed(()=>{
-    return JSON.parse(video.value)
-})
 import { useFetch } from "@vueuse/core";
 
 // Requête sur le serveur
