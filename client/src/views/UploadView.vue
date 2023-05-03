@@ -7,7 +7,7 @@
                 
                 <div @drop="dragFile">
                     <label for="upload" class="flex flex-col items-center p-4 gap-3 rounded-3xl border border-gray-300 border-solid bg-gray-50 cursor-pointer">
-                        <img class="h-96 w-auto" src="">
+                        <img class="h-96 w-auto" src="../../public/upload.png">
                         <h4 class="text-base font-semibold text-gray-700">Upload a file</h4>
                         <input type="file" id="upload" @change="onFileChange" hidden/>
                     </label>
@@ -28,7 +28,7 @@
                 <div @dragover.prevent @drop.stop.prevent>
                     <div @drop="dragThumbnail">
                         <label for="upload" class="flex flex-col items-center p-4 gap-3 rounded-3xl border border-gray-300 border-solid bg-gray-50 cursor-pointer">
-                            <img class="h-56 w-auto" src="">
+                            <img class="h-56 w-auto" src="../../public/upload.png">
                             <h4 class="text-base font-semibold text-gray-700">Upload a file</h4>
                             <input type="file" id="upload" @change="onThumbnailChange" hidden/>
                         </label>
