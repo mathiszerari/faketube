@@ -28,7 +28,13 @@ app.app.get("/register/:pseudo/:email/:password", (req, res) => {
 
                             function (err, results, fields) {
                                 console.log(err);
-                                res.json({message: "Vous est inscrit", valide: "true"});
+                                db.db.query(
+                                    'SELECT `id` FROM `users` WHERE email=?',
+                                    [email],
+                                    function (err, results) {
+                                        res.json({id: results[0]["id"], valide: "true"});
+                                    }
+                                )
                             }
                         );
                     });

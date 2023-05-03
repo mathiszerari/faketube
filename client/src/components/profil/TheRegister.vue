@@ -50,7 +50,7 @@ const route = useRoute();
 
 let message = reactive({message: ""})
 
-const registerFunction = async () => {
+const registerFunction = async (key, value) => {
     if (!isFormValid) {
         return;
     }
@@ -62,8 +62,8 @@ const registerFunction = async () => {
     } = await useFetch(`http://localhost:8080/register/${pseudo.value}/${email.value}/${password.value}`);
     message.message = JSON.parse(dbmessage.value)["message"]
 
-    // Naviguer vers la page home
     if (JSON.parse(dbmessage.value)["valide"] !== "false") {
+        localStorage.setItem("id", JSON.parse(dbmessage.value)["id"]);
         await router.push({name: 'home'});
     }
 };
