@@ -1,5 +1,6 @@
 const app = require('../../utils/app')
 const db = require('../../utils/database')
+const fs = require('fs')
 const bcrypt = require("bcrypt")
 
 app.app.get("/register/:pseudo/:email/:password", (req, res) => {
@@ -7,16 +8,32 @@ app.app.get("/register/:pseudo/:email/:password", (req, res) => {
     const email = req.params.email;
     const password = req.params.password;
 
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(password, salt, function (err, hash) {
-            db.db.query(
-                'INSERT INTO `users`(`pseudo`, `email`, `password`, `created_at`, `profile_photo`) VALUES (?, ?, ?, ?, ?)',
-                [pseudo, email, hash, new Date(), null],
+    db.db.query(
+        'SELECT `email` FROM `users`',
+        function (err, results) {
 
-                function (err, results, fields) {
-                    console.log(err);
-                }
-            );
-        });
-    })
+            let emailNotDupli = false
+            results.forEach(reslut => {
+                if (reslut["email"] === email) return emailNotDupli = true
+            })
+
+            if (emailNotDupli) {
+                res.json({message: "l'email est déjà inscrit", valide: "false"});
+            } else {
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(password, salt, function (err, hash) {
+                        db.db.query(
+                            'INSERT INTO `users`(`pseudo`, `email`, `password`, `created_at`) VALUES (?, ?, ?, ?)',
+                            [pseudo, email, hash, new Date()],
+
+                            function (err, results, fields) {
+                                console.log(err);
+                                res.json({message: "Vous est inscrit", valide: "true"});
+                            }
+                        );
+                    });
+                })
+            }
+        }
+    )
 });

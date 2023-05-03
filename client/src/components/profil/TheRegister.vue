@@ -1,8 +1,9 @@
 <template>
     <div class=" flex flex-col justify-center items-center w-full h-min bg-gray-800 p-8 m-4 max-w-screen-sm ">
         <form @submit.prevent="registerFunction" class="w-full max-w-lg">
-            <div class="">
-                <img src="../../assets/logo.svg" class="w-24 m-4" alt="pp">
+            <div class="mb-4">
+                <label for="profileImage" class="block text-gray-200 font-bold mb-2">Image de profil:</label>
+                <input type="file" id="profileImage" name="profileImage" accept="image/*" @change="onFileChange">
             </div>
             <div class="mb-4">
                 <label for="pseudo" class="block text-gray-200 font-bold mb-2">Pseudo:</label>
@@ -25,45 +26,62 @@
                 <input type="password" id="confirmPassword" name="confirmPassword" v-model="confirmPassword"
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
+            <span v-for="(message,index) in formattedMessage?.message" :key="index">
+              {{ message }}
+          </span>
             <div class="flex items-center justify-center">
-                <button type="submit" :disabled="!isFormValid()"
+                <button type="submit" :disabled="!isFormValid" @click="registerFunction()"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     S'inscrire
                 </button>
             </div>
+            {{ isFormValid }}
         </form>
     </div>
 </template>
 
-<script>
+<script setup>
 import {useFetch} from "@vueuse/core";
+import {computed, reactive, ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
 
-export default {
-    data() {
-        return {
-            pseudo: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-        }
-    },
-    methods: {
-        isFormValid() {
-            return this.pseudo !== '' && this.email !== '' && this.password !== '' && this.confirmPassword !== '' && this.password === this.confirmPassword;
-        },
-        registerFunction() {
-            if (!this.isFormValid()) {
-                return;
-            }
-            const {
-                isFetching,
-                error,
-                data: video
-            } = useFetch(`http://localhost:8080/register/${this.pseudo}/${this.email}/${this.password}`)
-            console.log(this.pseudo)
-        }
+const router = useRouter();
+const route = useRoute();
+
+let message = reactive({message: ""})
+
+const registerFunction = async () => {
+    if (!isFormValid) {
+        return;
     }
-}
+
+    const {
+        isFetching,
+        error,
+        data: dbmessage
+    } = await useFetch(`http://localhost:8080/register/${pseudo.value}/${email.value}/${password.value}`);
+    message.message = JSON.parse(dbmessage.value)["message"]
+
+    // Naviguer vers la page home
+    if (JSON.parse(dbmessage.value)["valide"] !== "false") {
+        await router.push({name: 'home'});
+    }
+};
+
+const formattedMessage = computed(() => {
+    return message;
+});
+
+const pseudo = ref("")
+const email = ref("")
+const password = ref("")
+const confirmPassword = ref("")
+
+
+const isFormValid = computed(() => {
+    return pseudo.value !== '' && email.value !== '' && password.value !== '' && confirmPassword.value !== '' && password.value === confirmPassword.value;
+});
+
 </script>
 
 <style scoped>
