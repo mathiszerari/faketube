@@ -5,78 +5,159 @@ import * as dayjs from 'dayjs';
 
 
 // Requête sur le serveur
-const {isFetching, error, data:video} = useFetch('http://localhost:8080/searchVideo')
 
-const formattedVideo = computed(()=>{
-    return JSON.parse(video.value)
-})
 
-function checkChannel(channel, word){
+function checkChannel(channel, words){
      // Fetch
-    if(channel==word){
-        return 500;
-    }
-    return 0;
+    let score = 0
+    words.forEach(word =>{
+        if(word==channel){
+            console.log("channel :",word);
+            score += 500;
+        }
+    })
+    return score;
+    
 }
 
-function checkTitle(title, word){
-    if(title.includes(word)){
-        return 100;
-    }
-    return 0;
+function checkTitle(title, words){
+    let score = 0
+    words.forEach(word =>{
+        if(title.includes(word)){
+            console.log("title:",word);
+            score += 50;
+        }
+    })
+    return score;
 }
 
-function checkTag(tag, word) {
-    if (tag.includes(word)) {
-        return 75;
-    }
-    return 0;
+function checkTag(tags, userResearch) {
+    let score = 0
+    let listTags = tags.split("#").splice(1)
+    listTags.forEach(tag =>{
+        if(userResearch.includes(tag)){
+            console.log("tags:",tag);
+            score += 75;
+        }
+    })
+    return score;
 }
 
-function checkDescription(description, word) {
-    if (description.includes(word)) {
-        return 25;
-    }
-    return 0;
+function checkDescription(description, words) {
+    let score = 0
+    words.forEach(word =>{
+        if(description.includes(word)){
+            console.log("desc:",word);
+            score += 25;
+        }
+    })
+    return score;
 }
 
 function checkDate(uploadDate) {
+    let score = 0
     let dateDiff = dayjs().diff(dayjs(uploadDate), "day")
     if(dateDiff<=1){
-        return 100;
+        console.log("date1",uploadDate);
+        score+= 100;
     }
     if(dateDiff<=7){
-        return 30;
+        console.log("date2",uploadDate);
+        score+= 30;
     }
-    return 0;   
+    return score  
 }
-function checkViews(viewsNumber){
-    if(viewsNumber>=10){
-        return 50;
+function checkViewsOrSubscribers(number){
+    let score = 0
+    if(number>=10){
+        console.log("views/subs:", number);
+        score+=50
+    }
+    return score;
+}
+
+
+async function getInfoUser(userId){
+    const {isFetching, error, data} = await useFetch('http://localhost:8080/getUserById/'+userId)
+    return JSON.parse(data.value)
+}
+
+async function getVideos(){
+    const {isFetching, error, data} = await useFetch('http://localhost:8080/searchVideo')
+    return JSON.parse(data.value)
+}
+
+async function getVideoScore(video, userResearch){
+    let score = 0 
+    let infosUser = await getInfoUser(video.publisher_id)
+    let words = userResearch.split(" ")
+
+    //Channel
+    score += checkChannel(infosUser.message[0].pseudo, words)
+    //Title
+    score += checkTitle(video.title, words)
+    //Tags
+    score += checkTag(video.tags, userResearch)
+    //Description
+    score += checkDescription(video.description, words)
+    //Date
+    score+=checkDate(video.created_at)
+    //Views
+    score+=checkViewsOrSubscribers(video.views)
+    //Subscribers
+    score+=checkViewsOrSubscribers(infosUser.message[0].subscriber_number)
+
+    return score
+
+}
+
+function compare (a, b){
+    console.log("a:" ,a.score);
+    console.log("b:",b.score);
+    if(a.score < b.score){
+        return -1;
+    }
+    if(a.score > b.score){
+        return 1;
     }
     return 0;
 }
-
-function checkSubscribers(number){
-  // Fetch
-}
-
-function getScore(data, userInput){
-    let score = 0
-    const userWords = userInput.split("+")
-    userWords.forEach(word => {
-        // score+=checkChannel()
-    });
-}       
-
-function getInfoUser(userId){
-    const {isFetching, error, data:user} = useFetch('http://localhost:8080/getUserById/'+userId)
-    const formattedUser = computed(()=>{
-        return JSON.parse(user.value)
+const videoScores = ref([])
+/*async function getSortedVideosByScore(){
+    let videoInfos = await getVideos()
+    console.log("Video info",videoInfos);
+    videoInfos.message.forEach(async video => {
+        let scoreVideo = await getVideoScore(video, "voiture")
+        videoScores.value.push({video:video,score:scoreVideo})
+        console.log(videoScores.value.length);
     })
     
-    return formattedUser
-}
+    console.log(videoScores.value.length);
+    videoScores.value.sort((a, b) => b.score - a.score);
+}*/
+
+onMounted(async () =>{
+    const videosInfos = await getVideos()
+    console.log(videosInfos);
+    const promises = videosInfos.message.map((info)=>{
+        return getVideoScore(info, "voiture")
+    })
+    const score = await Promise.all(promises)
+
+    videoScores.value = videosInfos.message.map((info, index)=>{
+        return {video: info, score: score[index]}
+  }).filter((item) => item.score >= 100)
+
+  console.log(videoScores.value)
+  videoScores.value.sort((a, b) => b.score - a.score);
+  videoScores.value.forEach(score=>{
+    console.log("===================");
+    console.log(score.score);
+  })
+});
+
+
+
 
 </script>
 
@@ -84,9 +165,10 @@ function getInfoUser(userId){
 <template>
     <main>
         <div>
-            {{ formattedVideo }}
-            <span v-for="(video,index) in formattedVideo.message" :key="index">
-                <!-- {{ getInfoUser(video.publisher_id) }} -->
+            {{  }}
+            <span v-for="(video,index) in formattedVideo?.message" :key="index">
+                {{  }}
+
                
             </span>
         </div>
