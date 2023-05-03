@@ -1,7 +1,7 @@
 <script setup>
 import TheAdvancedTimeline from '../components/Timeline/TheAdvancedTimeline.vue';
 import TheTimeline from '../components/Timeline/TheTimeline.vue';
-import Sidebar from '../components/Timeline/Sidebar.vue'
+import SearchBar from '../components/searchbar/SearchBar.vue';
 </script>
 
 <template>
