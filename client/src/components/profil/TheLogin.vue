@@ -21,7 +21,6 @@
                     Se connecter
                 </button>
             </div>
-            {{isFormValid}}
         </form>
     </div>
 </template>

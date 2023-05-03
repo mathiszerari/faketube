@@ -35,7 +35,6 @@
                     S'inscrire
                 </button>
             </div>
-            {{ isFormValid }}
         </form>
     </div>
 </template>
