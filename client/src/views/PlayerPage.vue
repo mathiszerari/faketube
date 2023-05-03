@@ -45,7 +45,7 @@
           <button @click="addLike(id)"><span v-html="likeIcon"></span></button>
           <span>{{ dislikeNumber }}</span>
           <button @click="addDislike(id)"><span v-html="dislikeIcon"></span></button>
-          <button><span v-html="shareIcon"></span></button>
+          <button @click="copyLink()"><span v-html="shareIcon"></span></button>
         </div>
       </div>
 
@@ -229,6 +229,32 @@ export default {
         dislike_number: this.dislikeNumber
       })
 
+    },
+    addView(id) {
+      this.video = {
+        ...this.video, // create a copy of this.video
+        views: this.video.views + 1
+      };
+      console.log(this.video);
+      axios.patch(`http://localhost:8080/video/${id}`, {
+        views: this.video.views
+      })
+    },
+    async loadData() {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const id = urlParams.get('id')
+      this.id = id;
+
+      await this.getVideo(this.id);
+      this.addView(this.id);
+
+      this.likeNumber = this.video.like_number;
+    this.dislikeNumber = this.video.dislike_number;
+    },
+    copyLink(){
+      const url = window.location;
+      navigator.clipboard.writeText(url);
     }
   },
   components: {
@@ -245,13 +271,19 @@ export default {
 
     await this.getVideo(this.id);
     await this.getVideos();
+    this.addView(this.id);
 
     this.likeNumber = this.video.like_number;
     this.dislikeNumber = this.video.dislike_number;
-j  },
+  },
   beforeUnmount() {
     this.$refs.video.removeEventListener('timeupdate', this.updateTime)
-  }
+  },
+  watch: {
+    '$route': function() {
+      this.loadData();
+    }
+  },
 }
 </script>
   
@@ -276,6 +308,11 @@ j  },
   position: relative;
   width: 100%;
   height: 550px;
+}
+
+video{
+  min-height: 100%;
+  min-width: 100%;
 }
 
 .video-container {
