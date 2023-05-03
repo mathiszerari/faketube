@@ -6,7 +6,7 @@
                 <h2 class="text-black text-white">DATE</h2>
                 <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700 mb-2">
                 <div class="content">
-                    <p class="py-1 cursor-pointer transition-colors">Dernière heure</p>
+                    <p @click="" class="py-1 cursor-pointer transition-colors">Dernière heure</p>
                     <p class="py-1 cursor-pointer transition-colors">Aujourd'hui</p>
                     <p class="py-1 cursor-pointer transition-colors">Cette semaine</p>
                     <p class="py-1 cursor-pointer transition-colors">Ce mois-ci</p>
@@ -55,9 +55,6 @@
 
 
 <script setup>
-import * as dayjs from 'dayjs';
-
-    console.log(dayjs());
 
     const menuFilter = ()=>{
         if(document.querySelector('.filters-container').style.display != 'flex'){
@@ -67,6 +64,11 @@ import * as dayjs from 'dayjs';
         }
     };
 
-    
-    
+    const getFilteredVideos = async (filter)=>{
+        const {isFetching, error, data:video} = await useFetch('http://localhost:8080/getUserById/' + filter);
+        const formattedVideos = computed(()=>{
+        return JSON.parse(video.value)
+    })
+    return formattedVideos
+    }
 </script>

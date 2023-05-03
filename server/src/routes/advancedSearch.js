@@ -26,9 +26,9 @@ app.app.get("/getUserById/:filters", (req, res) => {
     });
 
     if(allFilters.includes('views')){
-        sql += 'ORDER BY views DESC'
+        sql += ' ORDER BY views DESC'
     } else if(allFilters.includes('date')){
-        sql += 'ORDER BY created_at DESC'
+        sql += ' ORDER BY created_at DESC'
     }
 
     db.db.query(
