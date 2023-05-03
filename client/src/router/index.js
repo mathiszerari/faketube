@@ -17,6 +17,8 @@ const router = createRouter({
       path: '/channel',
       name: 'channel',
       component: ChannelSimple
+    },
+    {
       path: '/upload',
       name: 'Upload Video',
       component: UploadView
