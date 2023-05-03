@@ -2,10 +2,6 @@
 import {reactive, ref, onMounted, computed} from 'vue';
 import {useFetch} from "@vueuse/core";
 
-const testDummy = ref("")
-
-// Requête sur le serveur
-const {isFetching, error, data:video} = useFetch('http://localhost:8080/uploadVideo')
 
 const formattedVideo = computed(()=>{
     return JSON.parse(video.value)

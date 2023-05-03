@@ -9,6 +9,8 @@ const getAdvancedTimelineVideo = require('./routes/Timeline/getAdvancedTimelineV
 const searchPage = require('./routes/recherche/searchPage')
 const getUserById = require('./routes/recherche_users/getUserById')
 
+const register = require('./routes/profil/register')
+const login = require('./routes/profil/login')
 
 const PORT = process.env.PORT || 8080;
 app.app.listen(PORT, () => {
