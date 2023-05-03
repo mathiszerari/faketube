@@ -17,41 +17,49 @@ async function getInfoUser(userId){
 }
 async function UserBot(user) {
     let userInfo = await getInfoUser(user)
-    publisherName[user] = userInfo.message[0] // stocker la valeur dans publisherName
+    publisherName[user] = userInfo.message[0] 
 }
 
 onMounted(async () => {
-    if (formattedVideo.value && formattedVideo.value.message) { // vérifier l'existence de la valeur de formattedVideo
+    if (formattedVideo.value && formattedVideo.value.message) { 
         for (let video of formattedVideo.value.message) {
             await UserBot(video.publisher_id)
         }
     }
 })
 
-
+const dateDiff = reactive({})
 
 async function checkDate(uploadDate) {
-    let dateDiffsec = dayjs().diff(dayjs(uploadDate), "second")
-    if(dateDiffsec<=60){
-        return `${dateDiffsec} secondes`
-    }
-    else {
-        let dateDiffmin = dayjs().diff(dayjs(uploadDate), "minute")
-        if (dateDiffmin>60) {
-            let dateDiffhour = dayjs().diff(dayjs(uploadDate), "hour")
-            if (dateDiffhour>24) {
-                let dateDiffday = dayjs().diff(dayjs(uploadDate), "day")
-                return `${dateDiffday} jours`
-            }
-            else{
-                return `${dateDiffhour} heures`
-            }
-        }
-        else {
-            return `${dateDiffmin} minutes`
-        }
-    }
+  let dateDiffsec = dayjs().diff(dayjs(uploadDate), "second")
+  if(dateDiffsec<=60){
+      dateDiff[uploadDate] = `${dateDiffsec} secondes`
+  }
+  else {
+      let dateDiffmin = dayjs().diff(dayjs(uploadDate), "minute")
+      if (dateDiffmin>60) {
+          let dateDiffhour = dayjs().diff(dayjs(uploadDate), "hour")
+          if (dateDiffhour>24) {
+              let dateDiffday = dayjs().diff(dayjs(uploadDate), "day")
+              dateDiff[uploadDate] = `${dateDiffday} jours`
+          }
+          else{
+              dateDiff[uploadDate] = `${dateDiffhour} heures`
+          }
+      }
+      else {
+          dateDiff[uploadDate] = `${dateDiffmin} minutes`
+      }
+  }
 }
+
+onMounted(async () => {
+  if (formattedVideo.value && formattedVideo.value.message) { 
+      for (let video of formattedVideo.value.message) {
+          await checkDate(video.created_at)
+      }
+  }
+})
 </script>
 <template>
 
@@ -64,7 +72,7 @@ async function checkDate(uploadDate) {
             <p class="text-gray-500 text-sm">{{ video.description }}</p>
             <p class="text-gray-500 text-sm">{{ video.like_number }} poces blo</p>
             <p class="text-gray-500 text-sm">{{ video.views }} vues</p>
-            <p class="text-gray-500 text-sm">il y a {{ checkDate(video.created_at) }}</p>
+            <p class="text-gray-500 text-sm">il y a {{ dateDiff[video.created_at] }}</p>
             <p class="text-gray-500 text-sm">{{ publisherName[video.publisher_id] }} chaine</p> 
         </div>
     </div>
