@@ -16,7 +16,7 @@
 				<span class="material-icons">🏠</span>
 				<span class="text">Accueil</span>
 			</router-link>
-			<router-link to="/Abonnements" class="button">
+			<router-link to="/" class="button">
 				<span class="material-icons">🎥</span>
 				<span class="text">Abonnements</span>
 			</router-link>
