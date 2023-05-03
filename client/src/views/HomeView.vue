@@ -1,5 +1,6 @@
 <script setup>
 import SearchBar from '../components/searchbar/SearchBar.vue';
+import SearchFilter from '../components/SearchFilter.vue';
 
 </script>
 
@@ -10,6 +11,7 @@ import SearchBar from '../components/searchbar/SearchBar.vue';
   </h1> -->
 
   <SearchBar></SearchBar>
+  <SearchFilter></SearchFilter>
   
   </main>
 </template>
