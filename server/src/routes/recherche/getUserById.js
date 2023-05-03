@@ -5,8 +5,6 @@ const db = require('../../utils/database')
 var result;
 
 app.app.get("/getUserById/:userId", (req, res) => {
-    // req.params;
-    // console.log(req.params)
     let userId = req.params.userId
 
 
@@ -17,9 +15,10 @@ app.app.get("/getUserById/:userId", (req, res) => {
             console.log(results); // results contains rows returned by server
     
             result = results
+            res.json({ message: result });
         }   
     );
-    res.json({ message: result });
+    
 });
 
 
