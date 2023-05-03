@@ -1,6 +1,6 @@
 <template>
     <div class="bg-gray-900 p-2 flex flex-col">
-        <div @click="menuFilter" class="filter-btn bg-gray-800 inline-block w-20 px-5 py-2 rounded cursor-pointer text-center text-white">Filter</div>
+        <div @click="menuFilter" class="filter-btn bg-gray-700 inline-block w-20 px-5 py-2 rounded cursor-pointer text-center text-white hover:bg-gray-800 transition-colors">Filter</div>
         <div class="filters-container hidden flex-wrap justify-between">
             <div class="filter-box p-3 m-1">
                 <h2 class="text-black text-white">DATE</h2>
@@ -55,6 +55,10 @@
 
 
 <script setup>
+import * as dayjs from 'dayjs';
+
+    console.log(dayjs());
+
     const menuFilter = ()=>{
         if(document.querySelector('.filters-container').style.display != 'flex'){
             document.querySelector('.filters-container').style.display = 'flex';
@@ -63,5 +67,6 @@
         }
     };
 
+    
     
 </script>
