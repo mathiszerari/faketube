@@ -29,14 +29,14 @@ app.app.get("/video/:id", (req, res) => {
         } else {
             return res.sendFile(newpath + video[0].video_path), (error) => {
                 if (error) {
-                    res.status(200).json({ message: "This miniature does not exist" });
+                    res.status(200).json({ message: "This video does not exist" });
                 }
             };
         }
     })
 });
 
-app.app.get("/miniature/:id", (req, res) => {
+app.app.get("/thumbnail/:id", (req, res) => {
 	db.db.query(`SELECT * FROM videos WHERE id=${req.params.id}`,
     function(err, miniature) {
         if (err) {
