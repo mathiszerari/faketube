@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-zinc-800 pt-10">
+    <div>
         <h2 class="text-white font-bold text-2xl pb-5">Video</h2>
         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" v-if="!isFetching">
             <div v-for="(video) in formattedVideo?.message" :key="video.id">
