@@ -69,11 +69,10 @@ onMounted(async () => {
         </div>
         <div class="p-4 flex-grow">
             <h3 class="text-black font-bold mb-2">{{ video.title }}</h3>
-            <p class="text-gray-500 text-sm">{{ video.description }}</p>
             <p class="text-gray-500 text-sm">{{ video.like_number }} poces blo</p>
             <p class="text-gray-500 text-sm">{{ video.views }} vues</p>
             <p class="text-gray-500 text-sm">il y a {{ dateDiff[video.created_at] }}</p>
-            <p class="text-gray-500 text-sm">{{ publisherName[video.publisher_id] }} chaine</p> 
+            <p class="text-gray-500 text-sm">{{ publisherName[video.publisher_id]?.pseudo ?? 'Nom inconnu' }} chaine</p>
         </div>
     </div>
 </template>
