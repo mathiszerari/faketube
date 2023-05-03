@@ -5,6 +5,7 @@ const searchVideo = require('./routes/recherche/searchVideo')
 const getUser = require('./routes/recherche/getUserById')
 const uploadVideo = require('./routes/uploadVideo')
 const searchPage = require('./routes/searchPage')
+const getUserById = require('./routes/recherche_users/getUserById')
 
 
 const PORT = process.env.PORT || 8080;
