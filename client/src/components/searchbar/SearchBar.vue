@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-parsing-error -->
 <template>
   <!-- search bar -->
-  <div class="container bg-gray-900">
+  <!-- <div class="container bg-gray-900"> -->
     <!-- header -->
     <div class="flex justify-center items-center">
       <div class="burger-simulator">
@@ -60,9 +60,7 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="h-64 w-64">{{ formattedVideo }}</div>
+  <!-- </div> -->
 </template>
 
 <script setup>
