@@ -43,7 +43,7 @@
     </div>
     
     <!-- suggestion section -->
-    <div v-if="msg.length > 0 && clear === true" class="suggestion-container ml-10 flex justify-center items-center relative">
+    <div v-if="msg.length > 0 && clear === true" class="suggestion-container flex justify-center items-center relative">
       <div class="suggestion w-2/5 bg-gray-700 pr-15 rounded-xl pb-3">
         <div v-for="content in filteredContent.slice(0,4)" :key="content.text" class="max-h-16">
           <a @click="clearmsg" ref="mySuggestions" href="{{ content.link }}" class="block items-center justify-center left-1 py-4 mt-1.5">
