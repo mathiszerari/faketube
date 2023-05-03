@@ -23,7 +23,7 @@
             <div>
                 <input v-model="publisher_id" placeholder="Publisher" required/>
                 <input v-model="title" placeholder="Title" required/>
-                <input v-model="description" placeholder="Description" required/>
+                <textarea v-model="description" placeholder="Description" required/>
                 <input v-model="tags" placeholder="Tags" required/>
                 <div @dragover.prevent @drop.stop.prevent>
                     <div @drop="dragThumbnail">
@@ -39,9 +39,9 @@
                     </p>
                 </div>
                 <div class="flex flex-col justify-center align-middle">
-                    <button @click="generateThumbnail" class="my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Generate Thumbnail</button>
+                    <button v-if="!preview" @click="generateThumbnail" class="my-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Generate Thumbnail</button>
                     <img :src="this.preview" alt=""/>
-                    <button @click="onUploadFile" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" :disabled="!this.File">Upload file</button>
+                    <button @click="onUploadFile" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" :disabled="fieldsAreFilled">Upload file</button>
                 </div>
             </div>
         </div>
@@ -52,38 +52,43 @@
 import axios from "axios";
 import path from "path-browserify"
 export default {
-  data() {
-    return {
-        showUpload: false,
-        File: "",
-        awesome: true,
-        thumbnail: "",
-        preview: "",
-        publisher_id: "",
-        title: "",
-        description: "",
-        tags: ""
-    };
-  },
-  methods: {
-    dragFile(e) {
-        const ArrayExtension = [".mp4",".ogg",".webm"]
-        if (ArrayExtension.indexOf(path.extname(e.dataTransfer.files[0].name)) != -1) {
-            this.File = e.dataTransfer.files;
-            this.showUpload = !this.showUpload
-        } else {
-            this.File = "invalid"
+    data() {
+        return {
+            showUpload: false,
+            File: "",
+            awesome: true,
+            thumbnail: "",
+            preview: "",
+            publisher_id: "",
+            title: "",
+            description: "",
+            tags: ""
+        };
+    },
+    computed: {
+        fieldsAreFilled: function() {
+            return !this.publisher_id || !this.title || !this.description || !this.tags || !this.File || !this.thumbnail
         }
     },
-    dragThumbnail(e) {
-        const ArrayExtension = [".jpg",".jpeg",".png"]
-        if (ArrayExtension.indexOf(path.extname(e.dataTransfer.files[0].name)) != -1) {
-            this.thumbnail = e.dataTransfer.files[0];
-            console.log(this.thumbnail)
-        } else {
-            this.thumbnail = "invalid"
-        }
-    },
+    methods: {
+        dragFile(e) {
+            const ArrayExtension = [".mp4",".ogg",".webm"]
+            if (ArrayExtension.indexOf(path.extname(e.dataTransfer.files[0].name)) != -1) {
+                this.File = e.dataTransfer.files;
+                this.showUpload = !this.showUpload
+            } else {
+                this.File = "invalid"
+            }
+        },
+        dragThumbnail(e) {
+            const ArrayExtension = [".jpg",".jpeg",".png"]
+            if (ArrayExtension.indexOf(path.extname(e.dataTransfer.files[0].name)) != -1) {
+                this.thumbnail = e.dataTransfer.files[0];
+                console.log(this.thumbnail)
+            } else {
+                this.thumbnail = "invalid"
+            }
+        },
     onFileChange(e) {
         const ArrayExtension = [".mp4",".ogg",".webm"]
         if (ArrayExtension.indexOf(path.extname(e.target.files[0].name)) != -1) {
@@ -166,6 +171,7 @@ export default {
     }
 }
 };
+
 </script>
 
 
