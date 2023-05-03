@@ -87,10 +87,6 @@ function isValidEmail(email) {
 <style>
 
 
-* {
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
 body {
   @apply flex justify-center items-center bg-[#1a1a1a] text-white text-base leading-normal m-0 p-0;
   font-family: Arial, sans-serif;
