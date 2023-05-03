@@ -5,9 +5,7 @@ var result;
 
 db.db.query(
     
-    'SELECT videos.*, users.pseudo AS user_pseudo ' +
-    'FROM videos ' +
-    'INNER JOIN users ON videos.user_id = users.id',
+    'SELECT * FROM videos',
     function(err, results, fields) {
         console.log(results); // results contains rows returned by server
 
