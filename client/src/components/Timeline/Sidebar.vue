@@ -67,6 +67,10 @@ aside {
 	min-height: 100vh;
 	padding: 1rem;
 
+	height: 100vh;
+	position: sticky;
+	top: 0;
+
 	transition: 0.2s ease-in-out;
 
 	.flex {
