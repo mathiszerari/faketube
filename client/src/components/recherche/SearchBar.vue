@@ -65,9 +65,12 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { useFetch } from "@vueuse/core";
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 // Requête sur le serveur
-const { isFetching, error, data: video } = useFetch('http://localhost:1010/')
+const { isFetching, error, data: video } = useFetch('http://localhost:8080/')
 
 const formattedVideo = computed(() => {
   return JSON.parse(video.value)
@@ -93,7 +96,7 @@ const handleClick = (event) => {
 
 function loupeAction(){
   if(msg.value){
-    console.log('gjiaerjgio');
+    router.push({name: "searchVideo", params:{userResearch : toLowercaseMsgValue.value}})
   }
 }
 
