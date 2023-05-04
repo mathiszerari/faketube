@@ -16,7 +16,7 @@
     </div> -->
 
 
-    <div class="div-input w-1/2 mx-auto relative">
+    <div class="div-input w-2/5 mx-auto relative">
       <input v-model="msg" @keyup="onkeyUp" v-on:keyup.enter=loupeAction
         class="input w-full py-2 pl-10 pr-3 leading-5 border border-gray-400 bg-gray-800 text-white rounded-l-full rounded-r-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
         type="text" placeholder="Search" />
@@ -45,7 +45,7 @@
 
   <!-- suggestion section -->
   <div v-if="msg.length > 0 && clear === true" class="suggestion-container w-full absolute flex justify-center items-center">
-    <div class="suggestion z-9999 bg-gray-700 mt-1 pr-15 rounded-xl w-1/2">
+    <div class="suggestion z-9999 bg-gray-700 mt-1 pr-15 rounded-xl w-2/5">
       <div v-for="content in filteredContent.slice(0, 4)" :key="content.text" class="max-h-16">
         <a @click="clearmsg" ref="mySuggestions" href="{{ content.link }}" class="block items-center justify-center left-1 py-4">
           <svg class="w-5 ml-4 px-0 mx-5 ml-0 ml-5" viewBox="0 0 20 20" fill="none" stroke="white" style="cursor: pointer">
