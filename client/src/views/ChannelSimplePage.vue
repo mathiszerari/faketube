@@ -1,6 +1,3 @@
-
-
-
 <template>
   <main>
   <div class="w-full  overflow-x-hidden">
@@ -37,7 +34,7 @@
         </div>
       </div>
 
-      <InfoChannel videoChannelName = "toto" VideoNumber = "3" SubscriberNumber = "5" videoDescription = "ma super chaine" ></InfoChannel>
+      <InfoChannel></InfoChannel>
 
 
 
