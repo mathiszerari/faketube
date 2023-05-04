@@ -20,6 +20,14 @@
 				<span class="material-icons">🎥</span>
 				<span class="text">Abonnements</span>
 			</router-link>
+			<div class="pl-10 pt-5 pb-5">
+				<div v-for="(subscription, index) in subscriptions" :key="index" >
+					<router-link to="/testt" class="flex items-center gap-6">
+						<img :src="subscription.profile_photo" alt="" class="w-7 rounded-full">
+						{{ subscription.pseudo }}
+					</router-link>
+				</div>
+			</div>
 			<router-link to="/Bibliothèque" class="button">
 				<span class="material-icons">📚</span>
 				<span class="text">Bibliothèque</span>
@@ -31,19 +39,20 @@
 		</div>
 
 		<div class="flex"></div>
-		
 		<div class="menu">
 			<router-link to="/settings" class="button">
 				<span class="material-icons">⚙️</span>
 				<span class="text">Paramètres</span>
 			</router-link>
 		</div>
+		
 	</aside>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import logoURL from '../../assets/logo.png'
+import { useFetch } from '@vueuse/core';
 
 
 const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
@@ -52,6 +61,31 @@ const ToggleMenu = () => {
 	is_expanded.value = !is_expanded.value
 	localStorage.setItem("is_expanded", is_expanded.value)
 }
+
+const userId = ref("");
+onMounted(()=>{
+    if (localStorage.getItem('id')) {
+        userId.value = localStorage.getItem('id')
+    }
+})
+
+const subscriptions = ref([])
+
+onMounted(async () => {
+	if (userId.value !== "") {
+		const {isFetching, error, data} = await useFetch(`http://localhost:8080/getUserSubscriptions/${userId.value}`)
+  		const formattedData = JSON.parse(data.value).message
+		
+		const promises = formattedData.map(async (id) => {
+			const {data:youtuber} = await useFetch(`http://localhost:8080/getUserById/${id.publisher_id}`)
+			return JSON.parse(youtuber.value).message[0]
+		})
+
+		subscriptions.value = await Promise.all(promises)
+		console.log(subscriptions.value);
+	}
+  
+})
 </script>
 
 <style lang="scss" scoped>

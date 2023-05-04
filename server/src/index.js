@@ -4,6 +4,7 @@ const app = require('./utils/app')
 const searchVideo = require('./routes/recherche/searchVideo')
 const getTimelineVideo = require('./routes/Timeline/getTimelineVideo')
 const getAdvancedTimelineVideo = require('./routes/Timeline/getAdvancedTimelineVideo')
+const getSubscriptions = require('./routes/Timeline/getSubscriptions')
 const searchPage = require('./routes/recherche/searchPage')
 const getUserById = require('./routes/recherche_users/getUserById')
 
