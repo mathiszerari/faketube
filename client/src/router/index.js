@@ -33,7 +33,12 @@ const router = createRouter({
         path: '/video/:id',
         name: 'Player',
         component: PlayerVideo
-    }
+    },
+    {
+      path: '/searchPage',
+      name: 'searchPage',
+      component: SearchPage
+  }
   ]
 })
 
