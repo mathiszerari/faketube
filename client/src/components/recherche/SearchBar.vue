@@ -44,21 +44,19 @@
   </div>
 
   <!-- suggestion section -->
-  <div v-if="msg.length > 0 && clear === true" class="suggestion-container flex justify-center items-center relative mx-auto">
-    <div class="suggestion w-1/2 bg-gray-700 pr-15 rounded-xl justify-center mx-auto">
+  <div v-if="msg.length > 0 && clear === true" class="suggestion-container w-full absolute flex justify-center items-center">
+    <div class="suggestion z-9999 bg-gray-700 mt-1 pr-15 rounded-xl w-1/2">
       <div v-for="content in filteredContent.slice(0, 4)" :key="content.text" class="max-h-16">
-        <a @click="clearmsg" ref="mySuggestions" href="{{ content.link }}"
-          class="block items-center justify-center left-1 py-4 mt-1.5">
-          <svg class="w-5 ml-4 px-0 mx-5 ml-0 ml-5" viewBox="0 0 20 20" fill="none" stroke="white"
-            style="cursor: pointer">
-            <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              d="M13.447 12.764l4.83 4.828a1 1 0 01-1.415 1.415l-4.828-4.83a7 7 0 111.413-1.413zM7 12a5 5 0 100-10 5 5 0 000 10z" />
+        <a @click="clearmsg" ref="mySuggestions" href="{{ content.link }}" class="block items-center justify-center left-1 py-4">
+          <svg class="w-5 ml-4 px-0 mx-5 ml-0 ml-5" viewBox="0 0 20 20" fill="none" stroke="white" style="cursor: pointer">
+            <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M13.447 12.764l4.83 4.828a1 1 0 01-1.415 1.415l-4.828-4.83a7 7 0 111.413-1.413zM7 12a5 5 0 100-10 5 5 0 000 10z" />
           </svg>
           <span class="mx-5 h-12">{{ content.text }}</span><br>
         </a>
       </div>
     </div>
   </div>
+
   <!-- </div> -->
 </template>
 
@@ -219,5 +217,8 @@ a {
 .container {
   padding: 0rem 0rem 80rem 0rem;
   max-width: 100%;
+}
+.suggestion-container {
+  z-index: 9999;
 }
 </style>
