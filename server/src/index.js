@@ -10,6 +10,8 @@ const getUserById = require('./routes/recherche_users/getUserById')
 const register = require('./routes/profil/register')
 const login = require('./routes/profil/login')
 
+const getVideoChannel = require('./routes/chaine/getVideoChannel')
+
 const PORT = process.env.PORT || 8080;
 app.app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);

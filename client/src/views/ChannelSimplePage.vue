@@ -149,18 +149,25 @@ components: {
 
 <script setup>
 import { useFetch } from '@vueuse/core'
-import {computed } from "vue"
+import {computed, onMounted, ref, reactive } from "vue"
 // import SelectVideoChannel from "../components/chaine/SelectVideoChannel.vue";
 import SelectVideoChannelDynamic from "../components/chaine/SelectVideoChannelDynamic.vue";
 import SelectVideoChannelFetch from "../components/chaine/SelectVideoChannelFetch.vue";
 import InfoChannel from "../components/chaine/InfoChannel.vue";
 import { option } from 'artplayer';
-const { isFetching, error, data:videos } = useFetch('http://localhost:5173/getVideoChannel')
+import { useRoute} from 'vue-router'
 
+const route = useRoute()
 
-const formattedVideo = computed(()=>{
-    return JSON.parse(videos.value)
+const userVideos = ref("")
+
+onMounted(async ()=>{
+  const userId = route.params.id
+  const { isFetching, error, data:videos } = await useFetch(`http://localhost:8080/getVideoByPublisherId/${userId}`)
+  userVideos.value = JSON.parse(videos.value).message
+
 })
+
 ;
 
 
