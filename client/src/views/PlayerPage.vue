@@ -3,8 +3,8 @@
     <div class="video-player-container">
       <div class="video-player">
         <div class="video-container">
-          <video ref="video" class="video-player-video" :src="video.video_path" @play="handlePlay"
-            :poster="video.miniature_path" @pause="handlePause"></video>
+          <video ref="video" class="video-player-video" :src="`http://localhost:8080/flux/${id}`" @play="handlePlay"
+            :poster="`http://localhost:8080/thumbnail/${id}`" @pause="handlePause"></video>
         </div>
         <div class="video-player__controls">
           <button class="video-player__play-pause" @click="handlePlayPauseClick">
@@ -88,8 +88,8 @@
 </template>
   
 <script>
-import commentCompVue from '../components/commentComp.vue'
-import videoItemVue from '../components/videoItem.vue'
+import commentCompVue from '../components/chaine/commentComp.vue'
+import videoItemVue from '../components/chaine/videoItem.vue'
 import axios from 'axios';
 
 export default {
@@ -190,7 +190,9 @@ export default {
     async getVideo(id) {
       try {
         const response = await axios.get(`http://localhost:8080/video/${id}`);
-        this.video = response.data[0];
+        console.log(response)
+        this.video = response.data.video[0];
+        console.log(this.video)
       } catch (error) {
         console.log(error);
       }
