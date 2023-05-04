@@ -3,7 +3,7 @@
   <!-- search bar -->
   <!-- <div class="container bg-gray-900"> -->
   <!-- header -->
-  <div class="flex justify-center items-center">
+  <div class="global flex justify-center items-center">
     <!-- <div class="burger-simulator">
       <svg width="30" height="20" viewBox="0 0 10 15">
         <path fill="#FFF" d="M2 14h26v-2H2v2zm0-5h26v-2H2v2zm0-6v2h26v-2H2z" />
