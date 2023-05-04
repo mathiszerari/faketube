@@ -1,5 +1,6 @@
 const app = require('./utils/app')
 
+<<<<<<< HEAD
 // const uploadVideo = require('./routes/recherche/uploadVideo')
 const searchVideo = require('./routes/recherche/searchVideo')
 const getTimelineVideo = require('./routes/Timeline/getTimelineVideo')
@@ -12,6 +13,12 @@ const updatePseudo = require('./routes/profil/updatePseudo')
 const updateEmail = require('./routes/profil/updateEmail')
 
 const getVideoChannel = require('./routes/chaine/getVideoChannel')
+=======
+const uploadVideo = require('./routes/uploadVideo')
+const uploadRoute = require('./routes/uploadRoute')
+const videoRoute = require('./routes/videoRoute')
+
+>>>>>>> origin/chaine
 
 const PORT = process.env.PORT || 8080;
 app.app.listen(PORT, () => {
