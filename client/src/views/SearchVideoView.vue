@@ -2,10 +2,10 @@
 import {reactive, ref, onMounted, computed} from 'vue';
 import {useFetch} from "@vueuse/core";
 import * as dayjs from 'dayjs';
-
+import { useRoute } from 'vue-router';
 
 // Requête sur le serveur
-
+const route = useRoute()
 
 function checkChannel(channel, words){
      // Fetch
@@ -90,7 +90,7 @@ async function getVideos(){
 async function getVideoScore(video, userResearch){
     let score = 0 
     let infosUser = await getInfoUser(video.publisher_id)
-    let words = userResearch.split(" ")
+    let words = userResearch.split("%20")
 
     //Channel
     score += checkChannel(infosUser.message[0].pseudo, words)
@@ -110,18 +110,6 @@ async function getVideoScore(video, userResearch){
     return score
 
 }
-
-function compare (a, b){
-    console.log("a:" ,a.score);
-    console.log("b:",b.score);
-    if(a.score < b.score){
-        return -1;
-    }
-    if(a.score > b.score){
-        return 1;
-    }
-    return 0;
-}
 const videoScores = ref([])
 /*async function getSortedVideosByScore(){
     let videoInfos = await getVideos()
@@ -137,10 +125,13 @@ const videoScores = ref([])
 }*/
 
 onMounted(async () =>{
+    const userResearch = route.params.userResearch
+    console.log("user : ", userResearch);
+
     const videosInfos = await getVideos()
     console.log(videosInfos);
     const promises = videosInfos.message.map((info)=>{
-        return getVideoScore(info, "voiture")
+        return getVideoScore(info, userResearch)
     })
     const score = await Promise.all(promises)
 

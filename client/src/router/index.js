@@ -15,7 +15,7 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/searchVideo',
+      path: '/searchVideo/:userResearch',
       name: 'searchVideo',
       component: SearchVideo
     },
@@ -33,7 +33,12 @@ const router = createRouter({
         path: '/video/:id',
         name: 'Player',
         component: PlayerVideo
-    }
+    },
+    {
+      path: '/searchPage',
+      name: 'searchPage',
+      component: SearchPage
+  }
   ]
 })
 

@@ -1,14 +1,20 @@
 <template>
+	
 	<div class="app">
+		
+		<SearchBar></SearchBar>
 		<!-- Sidebar -->
 		<Sidebar />
-
+		
 		<!-- Content -->
 		<router-view />
+		
 	</div>
+
 </template>
 
 <script setup>
+import SearchBar from './components/recherche/SearchBar.vue';
 import Sidebar from './components/Timeline/Sidebar.vue'
 </script>
 
