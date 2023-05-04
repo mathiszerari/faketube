@@ -1,10 +1,11 @@
 <template>
     <div class="form-container">
         <form @submit.prevent="registerFunction" class="form">
-			<div class="header">
-				<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/640px-YouTube_full-color_icon_%282017%29.svg.png" alt="Logo YouTube">
-				<h1>Inscription</h1>
-			</div>
+            <div class="header">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/640px-YouTube_full-color_icon_%282017%29.svg.png"
+                     alt="Logo YouTube">
+                <h1>Inscription</h1>
+            </div>
             <div class="form-field">
                 <label for="email" class="label">Email:</label>
                 <input type="email" id="email" name="email" v-model="email"
@@ -15,9 +16,9 @@
                 <input type="password" id="password" name="password" v-model="password"
                        class="input">
             </div>
-            <span v-for="(message,index) in formattedMessage?.message" :key="index">
-              {{ message }}
-          </span>
+            <span>
+              {{ message.message }}
+            </span>
             <div class="form-field">
                 <button type="submit" :disabled="!isFormValid" @click="LOGINFunction()"
                         class="btn">
@@ -72,68 +73,57 @@ const formattedMessage = computed(() => {
 </script>
 
 <style scoped>
-	/* Global styles */
-	*
-	{
-		@apply box-border m-0 p-0;
-	}
+/* Global styles */
+* {
+    @apply box-border m-0 p-0;
+}
 
-	body
-	{
-		@apply bg-[#121212] text-white text-base;
-		font-family: Arial, sans-serif;
-	}
+body {
+    @apply bg-[#121212] text-white text-base;
+    font-family: Arial, sans-serif;
+}
 
-	/* Container */
-	.form-container
-	{
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 100vh;
-	}
+/* Container */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-	/* Form */
-	.form
-	{
-		@apply flex flex-col bg-[#1c1c1c] shadow-[0px_4px_10px_rgba(0,0,0,0.2)] max-w-[400px] w-full p-8 rounded-[10px];
-	}
+/* Form */
+.form {
+    @apply flex flex-col bg-[#1c1c1c] shadow-[0px_4px_10px_rgba(0,0,0,0.2)] max-w-[400px] w-full p-8 rounded-[10px];
+}
 
-	/* Header */
-	.header
-	{
-		@apply flex justify-center items-center h-[100px];
-	}
+/* Header */
+.header {
+    @apply flex justify-center items-center h-[100px];
+}
 
-	.header img
-	{
-		@apply w-[50px] mr-2.5;
-	}
+.header img {
+    @apply w-[50px] mr-2.5;
+}
 
-	.header h1
-	{
-		@apply text-[2em] text-[white] m-0;
-	}
+.header h1 {
+    @apply text-[2em] text-[white] m-0;
+}
 
-	/* Form fields */
-	.form-field
-	{
-		@apply text-[white] mb-4;
-	}
+/* Form fields */
+.form-field {
+    @apply text-[white] mb-4;
+}
 
-	.label
-	{
-		@apply block text-[small] text-[grey] mb-[5px];
-	}
+.label {
+    @apply block text-[small] text-[grey] mb-[5px];
+}
 
-	.input
-	{
-		@apply w-full bg-[#292929] shadow-[0_0_5px_rgba(0,0,0,0.3)] mb-5 p-2.5 rounded-[3px] border-[none];
-	}
+.input {
+    @apply w-full bg-[#292929] shadow-[0_0_5px_rgba(0,0,0,0.3)] mb-5 p-2.5 rounded-[3px] border-[none];
+}
 
-	.btn
-	{
-		@apply block w-full bg-[#393e46] text-white text-[1em] cursor-pointer transition-[background-color] duration-[0.2s] ease-[ease-in-out] p-2.5 rounded-[3px] border-[none] hover:bg-[#c4302b];
-	}
+.btn {
+    @apply block w-full bg-[#393e46] text-white text-[1em] cursor-pointer transition-[background-color] duration-[0.2s] ease-[ease-in-out] p-2.5 rounded-[3px] border-[none] hover:bg-[#c4302b];
+}
 </style>
 
