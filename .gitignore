@@ -450,5 +450,3 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,intellij,intellij+all,intellij+iml,windows,node,vuejs,vue
 package-lock.json
-client/src/assets/plage.mp4
-client/src/assets/episode.mp4
