@@ -1,87 +1,117 @@
 <template>
-  <div class="profile dark-theme">
-    <div class="flex flex-col items-center w-full mb-10">
-      <img :src="profileImage" class="w-[120px] h-[120px] object-cover mb-5 rounded-[50%]" alt="Profile Image" />
-      <div class="profile-titles">
-        <h1 class="text-4xl flex justify-center items-center">{{ profileUsername }}</h1>
-        <p class="text-2xl text-[#bbb] m-0">Membre depuis le {{ memberSince }}</p>
+    <div class="profile dark-theme">
+      <div class="flex flex-col items-center w-full mb-0">
+        <label for="profile-image-input">
+          <img src="https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg" class="w-[120px] h-[120px] object-cover mb-5 rounded-full border-4 border-white shadow-md cursor-pointer" alt="Profile Image" />
+        </label>
+        <input type="file" id="profile-image-input" style="display:none" @change="changeProfileImage" accept="image/*">
+        <div class="profile-titles">
+          <h1 class="text-4xl font-semibold text-center">{{ user.pseudo }}</h1>
+          <p class="text-2xl text-[#bbb] m-0">Membre depuis le {{ user.date }}</p>
+        </div>
+        <button class="profile-logout-btn bg-red-600 mr-5 text-white rounded-md px-4 py-2 mt-4 transition-colors hover:bg-red-700" @click="logout">Déconnexion</button>
       </div>
-      <button class="profile-logout-btn" @click="logout">↪ Déconnexion</button>
-    </div>
-    <div class="flex flex-col w-full">
-      <div class="mb-5">
-        <h2 class="mb-2.5">Informations de compte</h2>
-        <div class="profile-info">
-          <div class="profile-info-label">Pseudo :</div>
-          <div class="profile-info-value">
-            {{ profileUsername }} <button class="profile-edit-btn" @click="editUsername">Modifier</button>
+  
+      <div class="flex flex-col w-full space-y-6">
+        <div class="p-20">
+          <h2 class="text-3xl font-semibold mb-4">Informations de compte</h2>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col">
+              <label for="username" class="text-lg font-semibold mb-2">Pseudo :</label>
+              <div class="flex items-center">
+                <p class="text-lg">{{ user.pseudo }}</p>
+                <button class="profile-edit-btn bg-transparent text-gray-500 hover:text-gray-800 transition-colors ml-2" @click="editUsername">Modifier</button>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <label for="description" class="text-lg font-semibold mb-2">Description :</label>
+              <div class="flex items-center">
+                <p class="text-lg">{{ user.description }}</p>
+                <button class="profile-edit-btn bg-transparent text-gray-500 hover:text-gray-800 transition-colors ml-2" @click="editDescription">Modifier</button>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <label for="email" class="text-lg font-semibold mb-2">Email :</label>
+              <div class="flex items-center">
+                <p class="text-lg">{{ user.email }}</p>
+                <button class="profile-edit-btn bg-transparent text-gray-500 hover:text-gray-800 transition-colors ml-2" @click="editEmail">Modifier</button>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="profile-info">
-          <div class="profile-info-label">Email :</div>
-          <div class="profile-info-value">
-            {{ profileEmail }} <button class="profile-edit-btn" @click="editEmail">Modifier</button>
-          </div>
         </div>
-        <div class="profile-info">
-          <div class="profile-info-label">Mot de passe :</div>
-          <div class="profile-info-value">
-            ******** <button class="profile-edit-btn" @click="editPassword">Modifier</button>
-          </div>
         </div>
-      </div>
-    </div>
-    <div class="w-full bg-[#0d0d0d] text-center text-sm text-[#ccc] mt-auto px-5 py-2.5">
-      <p>© 2023 Faketube</p>
-    </div>
-  </div>
-</template>
+  
+        <div>
+          <h2 class="text-3xl font-semibold mb-4">Changer le mot de passe</h2>
+          <form class="flex flex-col space-y-4">
+            <div class="flex flex-col">
+              <label for="current-password" class="text-lg font-semibold mb-2">Mot de passe actuel :</label>
+              <input type="password" id="current-password" name="current-password" class="border border-gray-300 rounded-md py-2 px-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required />
+            </div>
+            <div class="flex flex-col">
+              <label for="new-password" class="text-lg font-semibold mb-2">Nouveau mot de passe :</label>
+              <input type="password" id="new-password" name="new-password" class="border border-gray-300 rounded-md py-2 px-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required />
+            </div>
+            <div class="flex flex-col">
+              <label for="confirm-password" class="text-lg font-semibold mb-2">Confirmer le nouveau mot de passe :</label>
+              <input type="password" id="confirm-password" name="confirm-password" class="border border-gray-300 rounded-md py-2 px-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required />
+            </div>
+            </form>
+            </div>
+            </template>  
 
-<script>
-export default {
-  name: 'TheProfile',
-  data() {
-    return {
-      profileImage: 'https://education.l214.com/wp-content/uploads/2020/09/15-animaux-moches-04.jpg',
-      profileUsername: 'Mathis95c',
-      profileEmail: 'mathis95c@gmail.com',
-      memberSince: '28 avril 2023'
-    }
-  },
-  methods: {
-    editUsername() {
-      const newUsername = prompt('Nouveau pseudo :', this.profileUsername)
-      if (newUsername !== null) {
-        this.profileUsername = newUsername
-      }
-    },
-    editEmail() {
-      let newEmail = prompt('Nouvel email :', this.profileEmail)
-      while (newEmail !== null && !isValidEmail(newEmail)) {
-        alert('Adresse e-mail invalide.')
-        newEmail = prompt('Nouvel email :')
-      }
-      if (newEmail !== null) {
-        this.profileEmail = newEmail
-      }
-    },
-    editPassword() {
-      const newPassword = prompt('Nouveau mot de passe :')
-      if (newPassword !== null) {
-        // En réalité, il faudrait appeler une API pour modifier le mot de passe enregistré côté serveur.
-        console.log('Le mot de passe a été modifié avec succès.')
-      }
-    },
-    logout() {
-      window.location.href = 'index.html'
-    }
-  }
-}
+<script setup>
+import {onMounted, reactive, ref} from 'vue';
+import {useFetch} from "@vueuse/core";
 
 function isValidEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
 }
+
+const user = reactive({pseudo: "", email:""})
+
+onMounted( async ()=>{
+    const { isFetching, error, data:use } = await useFetch(`http://localhost:8080/getUserById/${localStorage.getItem("id")}`)
+    user.pseudo = JSON.parse(use.value).message[0]["pseudo"]
+    user.email = JSON.parse(use.value).message[0]["email"]
+    user.date = JSON.parse(use.value).message[0]["created_at"]
+})
+
+
+async function editUsername() {
+    const newUsername = prompt('Nouveau pseudo :', user.pseudo)
+    if (newUsername !== null) {
+        const { isFetching, error, data:newPseudo } = await useFetch(`http://localhost:8080/updatePseudo/${newUsername}/${localStorage.getItem("id")}`)
+        user.pseudo = JSON.parse(newPseudo.value)["newPseudo"]
+    }
+}
+
+async function editEmail() {
+    let newEmail = prompt('Nouvel email :', user.email)
+    while (newEmail !== null && !isValidEmail(newEmail)) {
+        alert('Adresse e-mail invalide.')
+        newEmail = prompt('Nouvel email :')
+    }
+    if (newEmail !== null) {
+        const { isFetching, error, data:newPseudo } = await useFetch(`http://localhost:8080/updateEmail/${newEmail}/${localStorage.getItem("id")}`)
+        user.email = JSON.parse(newPseudo.value)["newEmail"]
+    }
+}
+
+// function editPassword() {
+//     const newPassword = prompt('Nouveau mot de passe :')
+//     if (newPassword !== null) {
+//         // En réalité, il faudrait appeler une API pour modifier le mot de passe enregistré côté serveur.
+//         console.log('Le mot de passe a été modifié avec succès.')
+//     }
+// }
+
+function logout() {
+    localStorage.removeItem('id')
+}
+
 </script>
 
 <style>

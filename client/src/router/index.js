@@ -1,7 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import TestView from "@/views/TestView.vue";
+import SearchVideo from "@/views/SearchVideoView.vue"
+import SearchPage from "@/views/SearchPage.vue";
 import LoginView from "@/views/LoginView.vue";
+import UploadView from '../views/UploadView.vue'
+import PlayerVideo from '../views/PlayerVideo.vue'
+import ChannelSimple from "@/views/ChannelSimplePage.vue";
+ 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,14 +17,29 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/test',
-      name: 'test',
-      component: TestView
+      path: '/searchVideo',
+      name: 'searchVideo',
+      component: SearchVideo
     },
     {
       path: '/login',
       name: 'login',
       component: LoginView
+    },
+    {
+      path: '/upload',
+      name: 'Upload Video',
+      component: UploadView
+    },
+    {
+        path: '/video/:id',
+        name: 'Player',
+        component: PlayerVideo
+    },
+    {
+      path: '/channel/:id',
+      name: 'channel',
+      component: ChannelSimple
     }
   ]
 })

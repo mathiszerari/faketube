@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar">
+  <nav class="navbar w-full">
   <div class="navbar-left">
     <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Phoenicopterus_ruber_in_S%C3%A3o_Paulo_Zoo.jpg" alt="Photo de profil">
   </div>
