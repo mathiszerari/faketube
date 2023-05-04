@@ -8,6 +8,7 @@
 </template>
 
 <script setup>
+
 import TheAdvancedTimeline from '../components/Timeline/TheAdvancedTimeline.vue';
 import TheTimeline from '../components/Timeline/TheTimeline.vue';
 import SearchBar from '../components/recherche/SearchBar.vue';
@@ -18,4 +19,3 @@ main {
   padding: 0;
 }
 </style>
-

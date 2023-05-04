@@ -7,9 +7,10 @@ const getAdvancedTimelineVideo = require('./routes/Timeline/getAdvancedTimelineV
 const getSubscriptions = require('./routes/Timeline/getSubscriptions')
 const searchPage = require('./routes/recherche/searchPage')
 const getUserById = require('./routes/recherche_users/getUserById')
-
 const register = require('./routes/profil/register')
 const login = require('./routes/profil/login')
+const updatePseudo = require('./routes/profil/updatePseudo')
+const updateEmail = require('./routes/profil/updateEmail')
 
 const PORT = process.env.PORT || 8080;
 app.app.listen(PORT, () => {
