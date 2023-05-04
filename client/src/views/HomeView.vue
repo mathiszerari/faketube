@@ -1,10 +1,11 @@
 <template>
-	<main id="Home-page">
-		<div class="bg-zinc-800 pt-10 p-10">
-			<TheTimeline></TheTimeline>
-			<TheAdvancedTimeline></TheAdvancedTimeline>
-		</div>
-	</main>
+  <main id="Home-page">
+    <div class="bg-zinc-800 pt-10 p-10">
+      <SearchBar></SearchBar>
+      <TheTimeline></TheTimeline>
+      <TheAdvancedTimeline></TheAdvancedTimeline>
+    </div>
+  </main>
 </template>
 
 <script setup>
@@ -14,8 +15,8 @@ import SearchBar from '../components/recherche/SearchBar.vue';
 </script>
 
 <style scoped>
-main{
-	padding: 0;
+main {
+  padding: 0;
 }
 </style>
 
