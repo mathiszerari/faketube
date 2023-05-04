@@ -3,16 +3,16 @@
   <!-- search bar -->
   <!-- <div class="container bg-gray-900"> -->
     <!-- header -->
-    <div class="flex justify-center items-center">
-      <div class="burger-simulator">
+    <div class="flex justify-center items-center mt-5">
+      <!-- <div class="burger-simulator">
         <svg width="30" height="20" viewBox="0 0 10 15">
           <path fill="#FFF" d="M2 14h26v-2H2v2zm0-5h26v-2H2v2zm0-6v2h26v-2H2z"/>
         </svg>
-      </div>
+      </div> -->
 
-      <div class="title bg-red ml-5 mt-1">
+      <!-- <div class="title bg-red ml-5 mt-1">
         <h1 class="text-red-500 text-m font-bold border-4 border-red-500 p-2 rounded-full">Fake<span class="text-white">Tube</span></h1>
-      </div>
+      </div> -->
 
 
       <div class="div-input w-2/5 mx-auto relative">
@@ -37,9 +37,9 @@
         </div>
       </div>
 
-      <div class="logo rounded-full ml-5 mt-1 mr-5">
+      <!-- <div class="logo rounded-full ml-5 mt-1 mr-5">
         <img src="logo.jpeg" class="h-10 w-10">
-      </div>
+      </div> -->
     </div>
     
     <!-- suggestion section -->
