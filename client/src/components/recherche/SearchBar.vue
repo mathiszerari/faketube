@@ -30,8 +30,8 @@
 
         <!-- loupe svg -->
         <div class="loupe h-full w-16 rounded-r-full border border-gray-400 bg-gray-700 ml-2">
-          <svg class="w-5 h-5 mt-2 m-4" viewBox="0 0 20 20" fill="none" stroke="white" style="cursor: pointer">
-            <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          <svg @click="loupeAction" class="w-5 h-5 mt-2 m-4" viewBox="0 0 20 20" fill="none" stroke="white" style="cursor: pointer">
+            <path  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               d="M13.447 12.764l4.83 4.828a1 1 0 01-1.415 1.415l-4.828-4.83a7 7 0 111.413-1.413zM7 12a5 5 0 100-10 5 5 0 000 10z" />
           </svg>
         </div>
@@ -44,8 +44,8 @@
   </div>
 
   <!-- suggestion section -->
-  <div v-if="msg.length > 0 && clear === true" class="suggestion-container flex justify-center items-center relative">
-    <div class="suggestion w-1/2 bg-gray-700 pr-15 rounded-xl">
+  <div v-if="msg.length > 0 && clear === true" class="suggestion-container flex justify-center items-center relative mx-auto">
+    <div class="suggestion w-1/2 bg-gray-700 pr-15 rounded-xl justify-center mx-auto">
       <div v-for="content in filteredContent.slice(0, 4)" :key="content.text" class="max-h-16">
         <a @click="clearmsg" ref="mySuggestions" href="{{ content.link }}"
           class="block items-center justify-center left-1 py-4 mt-1.5">
@@ -90,6 +90,12 @@ const handleClick = (event) => {
     clear.value = true;
   }
 };
+
+function loupeAction(){
+  if(msg.value){
+    console.log('gjiaerjgio');
+  }
+}
 
 const contents = ref([
   { text: 'allume cigare', link: 'https://www.youtube.com/results?search_query=iphone+15' },
@@ -169,7 +175,7 @@ const contents = ref([
 const onkeyUp = () => {
   clear.value = true;
   // console.log(msg.value)
-  console.log(filteredContent.value)
+  // console.log(filteredContent.value)
 };
 
 const clearmsg = () => {
