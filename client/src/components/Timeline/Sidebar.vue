@@ -16,9 +16,13 @@
         <span class="material-symbols-outlined">home</span>
         <span class="text ml-3">Accueil</span>
       </router-link>
-      <router-link to="/Bibliothèque" class="button" v-if="userId !== ''">
+      <router-link :to="{name: 'channel', params:{id: userId} }" class="button" v-if="userId !== ''">
         <span class="material-symbols-outlined">account_box</span>
         <span class="text ml-3">Ma chaîne</span>
+      </router-link>
+      <router-link :to="{name: 'Upload Video', params:{id: userId} }" class="button" v-if="userId !== ''">
+        <span class="material-symbols-outlined">publish</span>
+        <span class="text ml-3">Publier</span>
       </router-link>
       <router-link to="/test" class="button" v-if="userId !== ''">
         <span class="material-symbols-outlined">subscriptions</span>
@@ -38,7 +42,7 @@
 
     <div class="flex"></div>
     <div class="menu">
-      <router-link to="/profile" class="button" v-if="userId !== ''">
+      <router-link :to="{name: 'login'}" class="button" v-if="userId !== ''">
         <img :src="connectedUser.profilePicture" alt="" class="w-10 aspect-square rounded-full" />
         <span class="text ml-6">{{ connectedUser.pseudo }}</span>
       </router-link>

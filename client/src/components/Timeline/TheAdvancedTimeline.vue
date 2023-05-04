@@ -21,13 +21,13 @@ onMounted(() => {
 
 <template>
   <div v-if="userId !== ''">
-    <h2 class="text-white font-bold text-2xl pb-5">Recommendation</h2>
+    <h2 class="text-white font-bold text-2xl pb-5">Recommandations</h2>
     <div
       class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
       v-if="!isFetching"
     >
       <div v-for="videoData in formattedVideo?.message" :key="videoData.id">
-        <router-link :to="{ name: video, params: { id: videoData.id } }">
+        <router-link :to="{name: 'watch', params: {id: videoData.id}}">
           <video-card :video="videoData"></video-card>
         </router-link>
       </div>
