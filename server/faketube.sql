@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `videos` (
   `description` text NOT NULL,
   `video_path` text NOT NULL,
   `miniature_path` text NOT NULL,
-  `created_at` datetime NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 COMMIT;
