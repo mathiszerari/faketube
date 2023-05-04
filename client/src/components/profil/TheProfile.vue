@@ -1,7 +1,10 @@
 <template>
     <div class="profile dark-theme">
       <div class="flex flex-col items-center w-full mb-0">
-        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" class="w-[120px] h-[120px] object-cover mb-5 rounded-full border-4 border-white shadow-md" alt="Profile Image" />
+        <label for="profile-image-input">
+          <img src="https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg" class="w-[120px] h-[120px] object-cover mb-5 rounded-full border-4 border-white shadow-md cursor-pointer" alt="Profile Image" />
+        </label>
+        <input type="file" id="profile-image-input" style="display:none" @change="changeProfileImage" accept="image/*">
         <div class="profile-titles">
           <h1 class="text-4xl font-semibold text-center">{{ user.pseudo }}</h1>
           <p class="text-2xl text-[#bbb] m-0">Membre depuis le {{ user.date }}</p>
@@ -57,7 +60,7 @@
             </form>
             </div>
             </template>  
-Ò
+
 <script setup>
 import {onMounted, reactive, ref} from 'vue';
 import {useFetch} from "@vueuse/core";
