@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 25 avr. 2023 à 11:38
+-- Généré le : mer. 03 mai 2023 à 13:37
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -19,7 +19,6 @@ SET time_zone = "+00:00";
 
 --
 -- Base de données : `faketube`
-CREATE DATABASE IF NOT EXISTS `faketube`;
 --
 
 -- --------------------------------------------------------
@@ -80,6 +79,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(255) NOT NULL,
   `subscriber_number` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
+  `prefs` text,
   `profile_photo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `Email` (`email`)

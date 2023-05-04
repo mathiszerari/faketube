@@ -1,10 +1,21 @@
+<template>
+	<main id="Home-page">
+		<div class="bg-zinc-800 pt-10 p-10">
+			<TheTimeline></TheTimeline>
+			<TheAdvancedTimeline></TheAdvancedTimeline>
+		</div>
+	</main>
+</template>
+
 <script setup>
+import TheAdvancedTimeline from '../components/Timeline/TheAdvancedTimeline.vue';
+import TheTimeline from '../components/Timeline/TheTimeline.vue';
+import SearchBar from '../components/recherche/SearchBar.vue';
 </script>
 
-<template>
-  <main>
-    <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-  </main>
-</template>
+<style scoped>
+main{
+	padding: 0;
+}
+</style>
+
