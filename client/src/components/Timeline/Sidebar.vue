@@ -1,48 +1,46 @@
 <template>
-	<aside :class="`${is_expanded ? 'is-expanded' : ''}`">
+	<aside :class="`${is_expanded ? 'is-expanded' : ''}`" class="bg-zinc-900">
 		<div class="logo">
 			<img :src="logoURL" alt="" /> 
 		</div>
 
 		<div class="menu-toggle-wrap">
 			<button class="menu-toggle" @click="ToggleMenu">
-				<span class="material-icons">keyboard_double_arrow_right</span>
+				<span class="material-symbols-outlined weight text-3xl">keyboard_double_arrow_right</span>
 			</button>
 		</div>
 
 		<h3>Menu</h3>
 		<div class="menu">
 			<router-link to="/" class="button">
-				<span class="material-icons">🏠</span>
-				<span class="text">Accueil</span>
+				<span class="material-symbols-outlined" >home</span>
+				<span class="text ml-3">Accueil</span>
+			</router-link>
+			<router-link to="/Bibliothèque" class="button">
+				<span class="material-symbols-outlined">account_box</span>
+				<span class="text ml-3">Ma chaîne</span>
 			</router-link>
 			<router-link to="/test" class="button">
-				<span class="material-icons">🎥</span>
-				<span class="text">Abonnements</span>
+				<span class="material-symbols-outlined">subscriptions</span>
+				<span class="text ml-3">Abonnements</span>
 			</router-link>
-			<div class="pl-10 pt-5 pb-5">
-				<div v-for="(subscription, index) in subscriptions" :key="index" >
-					<router-link to="/testt" class="flex items-center gap-6">
-						<img :src="subscription.profile_photo" alt="" class="w-7 rounded-full">
-						{{ subscription.pseudo }}
-					</router-link>
+			<div class="pl-5 pt-1">
+				<div v-if="is_expanded">
+					<div v-for="(subscription, index) in subscriptions" :key="index" >
+						<router-link to="/testt" class="flex items-center gap-6 button">
+							<img :src="subscription.profile_photo" alt="" class="w-7 rounded-full">
+							{{ subscription.pseudo }}
+						</router-link>
+					</div>
 				</div>
 			</div>
-			<router-link to="/Bibliothèque" class="button">
-				<span class="material-icons">📚</span>
-				<span class="text">Bibliothèque</span>
-			</router-link>
-			<router-link to="/Historique" class="button">
-				<span class="material-icons">💽</span>
-				<span class="text">Historique</span>
-			</router-link>
 		</div>
 
 		<div class="flex"></div>
 		<div class="menu">
-			<router-link to="/settings" class="button">
-				<span class="material-icons">⚙️</span>
-				<span class="text">Paramètres</span>
+			<router-link to="/profile" class="button">
+				<img :src="connectedUser.profilePicture" alt="" class="w-10 aspect-square rounded-full">
+				<span class="text ml-6">{{ connectedUser.pseudo }}</span>
 			</router-link>
 		</div>
 		
@@ -50,12 +48,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, reactive} from 'vue'
 import logoURL from '../../assets/logo.png'
 import { useFetch } from '@vueuse/core';
 
 
 const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
+
+onMounted(()=>{
+	localStorage.setItem("is_expanded", "true")
+})
 
 const ToggleMenu = () => {
 	is_expanded.value = !is_expanded.value
@@ -63,11 +65,19 @@ const ToggleMenu = () => {
 }
 
 const userId = ref("");
-onMounted(()=>{
+const connectedUser = reactive({pseudo: "Connexion", profilePicture: ""})
+onMounted( async ()=>{
     if (localStorage.getItem('id')) {
         userId.value = localStorage.getItem('id')
+
+		const {data: userInfosFetch} = await useFetch(`http://localhost:8080/getUserById/${userId.value}`)
+		const fetchResult = JSON.parse(userInfosFetch.value).message[0];
+		connectedUser.pseudo = fetchResult.pseudo
+		connectedUser.profilePicture = fetchResult.profile_photo
+
     }
 })
+
 
 const subscriptions = ref([])
 
@@ -89,11 +99,34 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 200,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.material-symbols-outlined.weight{
+   font-variation-settings:
+  'FILL' 0,
+  'wght' 500,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.material-symbols-outlined.active{
+   font-variation-settings:
+  'FILL' 1,
+  'wght' 200,
+  'GRAD' 0,
+  'opsz' 48
+}
+
 aside {
 	display: flex;
 	flex-direction: column;
 
-	background-color: var(--dark);
 	color: var(--light);
 
 	width: calc(2rem + 32px);
@@ -119,6 +152,9 @@ aside {
 		}
 	}
 
+	.text{
+	 font-size: 1rem;
+	}
 	.menu-toggle-wrap {
 		display: flex;
 		justify-content: flex-end;
@@ -138,7 +174,6 @@ aside {
 			
 			&:hover {
 				.material-icons {
-					color: var(--primary);
 					transform: translateX(0.5rem);
 				}
 			}
@@ -179,19 +214,16 @@ aside {
 			}
 
 			&:hover {
-				background-color: var(--dark-alt);
-
-				.material-icons, .text {
-					color: var(--primary);
-				}
+				background-color: #393941;
 			}
 
 			&.router-link-exact-active {
-				background-color: var(--dark-alt);
+				background-color: #393941;
 				border-right: 5px solid var(--primary);
 
 				.material-icons, .text {
-					color: var(--primary);
+					font-weight: 500;
+
 				}
 			}
 		}
@@ -202,7 +234,7 @@ aside {
 		transition: opacity 0.3s ease-in-out;
 
 		p {
-			font-size: 0.875rem;
+			font-size: 1rem;
 			color: var(--grey);
 		}
 	}
