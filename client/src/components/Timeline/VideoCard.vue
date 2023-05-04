@@ -1,5 +1,6 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, onMounted, reactive } from 'vue'
+import { useFetch } from '@vueuse/core';
 import * as dayjs from 'dayjs'
 
 const props = defineProps({
@@ -31,6 +32,15 @@ const formattedVideoDate = computed(()=>{
   }
 })
 
+const publisherInfos = reactive({pseudo: "", id: "",profilePicture: ""});
+
+onMounted(async () => {
+  const {isFetching, error, data} = await useFetch(`http://localhost:8080/getUserById/${props.video.publisher_id}`)
+  const formattedData = JSON.parse(data.value).message[0]
+  publisherInfos.pseudo = formattedData.pseudo
+  publisherInfos.id = formattedData.id
+  publisherInfos.profilePicture = formattedData.profile_photo
+})
 
 </script>
 <template>
@@ -40,10 +50,11 @@ const formattedVideoDate = computed(()=>{
         :alt="video.title">
         <div class="flex flex-row gap-4 mt-4">
             <div class="publisher__avatar bg-zinc-700 rounded-full aspect-square">
+              <img :src="publisherInfos.profilePicture" :alt="`${publisherInfos.pseudo} profile picture`" class="rounded-full w-full h-full">
             </div>
             <div class="video__info flex flex-col">
                 <span class="font-bold text-10">{{ video.title }}</span>
-                <span class="text-zinc-500">{{ video.publisher_id }}</span>
+                <span class="text-zinc-500">{{ publisherInfos.pseudo }}</span>
                 <span class="text-zinc-500">{{ video.views }} views - {{ formattedVideoDate }} ago</span>
             </div>
         </div>
@@ -55,4 +66,5 @@ const formattedVideoDate = computed(()=>{
     width: 50px;
     height: 50px;
 }
+
 </style>
