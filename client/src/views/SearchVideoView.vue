@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, onMounted, computed } from 'vue';
+import { reactive, ref, onMounted, computed, watch } from 'vue';
 import { useFetch } from "@vueuse/core";
 import * as dayjs from 'dayjs';
 import { useRoute } from 'vue-router';
@@ -17,7 +17,6 @@ function checkChannel(channel, words) {
     words.forEach(word => {
         if (word.toLowerCase() == channel.toLowerCase()) {
             score += 500;
-            console.log("channel");
         }
     })
     return score;
@@ -30,7 +29,6 @@ function checkTitle(title, words) {
     words.forEach(word => {
         if (title.toLowerCase().includes(word.toLowerCase())) {
             score += 100;
-            console.log("title");
         }
     })
     return score;
@@ -42,7 +40,6 @@ function checkTag(tags, userResearch) {
     listTags.forEach(tag => {
         if (userResearch.toLowerCase().includes(tag.toLowerCase())) {
             score += 75;
-            console.log("tag");
         }
     })
     return score;
@@ -53,7 +50,6 @@ function checkDescription(description, words) {
     words.forEach(word => {
         if (description.toLowerCase().includes(word.toLowerCase())) {
             score += 25;
-            console.log("desc");
         }
     })
     return score;
@@ -64,11 +60,9 @@ function checkDateScore(uploadDate) {
     let dateDiffScore = dayjs().diff(dayjs(uploadDate), "day")
     if (dateDiffScore <= 1) {
         score += 50;
-        console.log("date1");
     }
     else if (dateDiffScore <= 7) {
         score += 30;
-        console.log("date2");
     }
     return score
 }
@@ -77,7 +71,6 @@ function checkViewsOrSubscribers(number) {
     let score = 0
     if (number >= 10) {
         score += 30
-        console.log("views or sub");
     }
     return score;
 }
@@ -146,14 +139,14 @@ async function getVideoScore(video, userResearch) {
 
 }
 const videoScores = ref([])
-
+const routeParams = ref(route.params.userResearch)
 onMounted(async () => {
-    const userResearch = route.params.userResearch
+    // const userResearch = route.params.userResearch
 
     const videosInfos = await getVideos()
 
     const promises = videosInfos.message.map((info) => {
-        return getVideoScore(info, userResearch)
+        return getVideoScore(info, routeParams.value)
     })
     const score = await Promise.all(promises)
     videoScores.value = videosInfos.message.map((info, index) => {
@@ -166,17 +159,38 @@ onMounted(async () => {
     
     videoScores.value.sort((a, b) => b.score - a.score);
 
-    console.log(videoScores.value);
     for (let video of videoScores.value){
         await UserBot(video.video.publisher_id)
         await checkDate(video.video.created_at)
     }
-    //Affichage
 });
 
-//videosScores.value -> {video : {id, miniature}, score:25}
+watch(()=> route.params.userResearch,async (newUserResearch)=> {
 
-// [ { "video": { "id": 6, "publisher_id": 1, "title": "TOP 10 pour arrêter d'utiliser React ", "tags": "humour", "like_number": 15166, "views": 6464651, "description": "C'est une description de test pour la vidéo", "video_path": "https://www.youtube.com/watch?v=ZsrahE6znRA", "miniature_path": "https://blog.lesjeudis.com/wp-content/uploads/2021/10/vue-vs-react.jpg", "created_at": "2023-05-02T04:46:07.000Z" }, "score": 130 }, { "video": { "id": 12, "publisher_id": 1, "title": "TOP 10 pour arrêter d'utiliser React ", "tags": "humour", "like_number": 15166, "views": 6464651, "description": "C'est une description de test pour la vidéo", "video_path": "https://www.youtube.com/watch?v=ZsrahE6znRA", "miniature_path": "https://blog.lesjeudis.com/wp-content/uploads/2021/10/vue-vs-react.jpg", "created_at": "2023-05-02T04:46:07.000Z" }, "score": 130 }, { "video": { "id": 13, "publisher_id": 1, "title": "Cette vidéo s'appelle aa", "tags": "aa", "like_number": 0, "views": 0, "description": "ightjkhntrj", "video_path": "", "miniature_path": "", "created_at": "2023-05-04T07:42:22.000Z" }, "score": 230 } ]
+    const videosInfos = await getVideos()
+
+    const promises = videosInfos.message.map((info) => {
+        return getVideoScore(info, newUserResearch)
+    })
+    const score = await Promise.all(promises)
+    videoScores.value = videosInfos.message.map((info, index) => {
+
+        if(score[index]>100){
+            console.log({video: info, score: score[index]});
+        }
+        return { video: info, score: score[index] }
+    }).filter((item) => item.score >= 100)
+    
+    videoScores.value.sort((a, b) => b.score - a.score);
+
+    for (let video of videoScores.value){
+        await UserBot(video.video.publisher_id)
+        await checkDate(video.video.created_at)
+    }
+})
+
+
+
 </script>
 
 <template>
