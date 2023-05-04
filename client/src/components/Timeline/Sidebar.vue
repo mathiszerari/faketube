@@ -225,6 +225,14 @@ aside {
 					font-weight: 500;
 
 				}
+
+				.material-symbols-outlined{
+					font-variation-settings:
+					'FILL' 1,
+					'wght' 200,
+					'GRAD' 0,
+					'opsz' 48
+				}
 			}
 		}
 	}
