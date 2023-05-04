@@ -15,8 +15,9 @@ function checkChannel(channel, words) {
     // Fetch
     let score = 0
     words.forEach(word => {
-        if (word == channel) {
+        if (word.toLowerCase() == channel.toLowerCase()) {
             score += 500;
+            console.log("channel");
         }
     })
     return score;
@@ -24,10 +25,12 @@ function checkChannel(channel, words) {
 }
 
 function checkTitle(title, words) {
+
     let score = 0
     words.forEach(word => {
-        if (title.includes(word)) {
-            score += 50;
+        if (title.toLowerCase().includes(word.toLowerCase())) {
+            score += 100;
+            console.log("title");
         }
     })
     return score;
@@ -37,8 +40,9 @@ function checkTag(tags, userResearch) {
     let score = 0
     let listTags = tags.split("#").splice(1)
     listTags.forEach(tag => {
-        if (userResearch.includes(tag)) {
+        if (userResearch.toLowerCase().includes(tag.toLowerCase())) {
             score += 75;
+            console.log("tag");
         }
     })
     return score;
@@ -47,8 +51,9 @@ function checkTag(tags, userResearch) {
 function checkDescription(description, words) {
     let score = 0
     words.forEach(word => {
-        if (description.includes(word)) {
+        if (description.toLowerCase().includes(word.toLowerCase())) {
             score += 25;
+            console.log("desc");
         }
     })
     return score;
@@ -58,10 +63,12 @@ function checkDateScore(uploadDate) {
     let score = 0
     let dateDiffScore = dayjs().diff(dayjs(uploadDate), "day")
     if (dateDiffScore <= 1) {
-        score += 100;
+        score += 50;
+        console.log("date1");
     }
-    if (dateDiffScore <= 7) {
+    else if (dateDiffScore <= 7) {
         score += 30;
+        console.log("date2");
     }
     return score
 }
@@ -69,7 +76,8 @@ function checkDateScore(uploadDate) {
 function checkViewsOrSubscribers(number) {
     let score = 0
     if (number >= 10) {
-        score += 50
+        score += 30
+        console.log("views or sub");
     }
     return score;
 }
@@ -115,6 +123,7 @@ async function getVideos() {
 async function getVideoScore(video, userResearch) {
     let score = 0
     let infosUser = await getInfoUser(video.publisher_id)
+
     publisherName[video.publisher_id] = infosUser.message[0]
     let words = userResearch.split("%20")
 
@@ -148,12 +157,13 @@ onMounted(async () => {
     })
     const score = await Promise.all(promises)
     videoScores.value = videosInfos.message.map((info, index) => {
+
         if(score[index]>100){
             console.log({video: info, score: score[index]});
         }
         return { video: info, score: score[index] }
     }).filter((item) => item.score >= 100)
-
+    
     videoScores.value.sort((a, b) => b.score - a.score);
 
     console.log(videoScores.value);
@@ -170,9 +180,9 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="main-container flex flex-col w-full ml-20">
+    <div class="main-container flex flex-col w-full">
         <SearchFilter></SearchFilter>
-        <div class="bg-zinc-800 w-full flex flex-col gap-y-4">
+        <div class="bg-zinc-800 max-w-full ml-20 mt-10 flex flex-col gap-y-4">
             <div v-for="(video) in videoScores" v-if="videoScores"
                 class="bg-gray shadow overflow-hidden sm:rounded-lg flex max-sm:flex-col">
                 <div class="aspect-w-16 aspect-h-9 flex-shrink-0">
