@@ -1,12 +1,14 @@
 const fs = require("fs");
 const path = require("path")
 
-const db = require('../utils/database')
-const app = require('../utils/app')
+const db = require('../../utils/database')
+const app = require('../../utils/app')
 
 const removeLastDirPart = dirname => path.parse(dirname).dir
 var newpath = removeLastDirPart(__dirname)
 newpath = removeLastDirPart(newpath)
+newpath = removeLastDirPart(newpath)
+
 
 app.app.get("/videos", (req, res) => {
     db.db.query("SELECT * FROM videos",
