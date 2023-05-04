@@ -102,9 +102,9 @@
 
       <h1>test composant fetch</h1>
       <div > <!-- v-if="!isFetching" -->
-            <div v-for="(video) in formattedVideo?.message" :key="video.id">
+            <div v-for="(video) in userVideos" :key="video.id">
                 <router-link to="/video">
-                    <video-card :video="video"></video-card>
+                    <SelectVideoChannelFetch :video="video"></SelectVideoChannelFetch>
                 </router-link>
 
             </div>
