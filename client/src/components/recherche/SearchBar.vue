@@ -16,7 +16,7 @@
     </div> -->
 
 
-    <div class="div-input w-2/5 mx-auto relative">
+    <div class="div-input w-2/5 mx-auto relative mt-5">
       <input v-model="msg" @keyup="onkeyUp" v-on:keyup.enter=loupeAction
         class="input w-full py-2 pl-10 pr-3 leading-5 border border-gray-400 bg-gray-800 text-white rounded-l-full rounded-r-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
         type="text" placeholder="Search" />
@@ -30,8 +30,9 @@
 
         <!-- loupe svg -->
         <div class="loupe h-full w-16 rounded-r-full border border-gray-400 bg-gray-700 ml-2">
-          <svg @click="loupeAction" class="w-5 h-5 mt-2 m-4" viewBox="0 0 20 20" fill="none" stroke="white" style="cursor: pointer">
-            <path  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          <svg @click="loupeAction" class="w-5 h-5 mt-2 m-4" viewBox="0 0 20 20" fill="none" stroke="white"
+            style="cursor: pointer">
+            <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               d="M13.447 12.764l4.83 4.828a1 1 0 01-1.415 1.415l-4.828-4.83a7 7 0 111.413-1.413zM7 12a5 5 0 100-10 5 5 0 000 10z" />
           </svg>
         </div>
@@ -44,12 +45,16 @@
   </div>
 
   <!-- suggestion section -->
-  <div v-if="msg.length > 0 && clear === true" class="suggestion-container w-full absolute flex justify-center items-center">
+  <div v-if="msg.length > 0 && clear === true"
+    class="suggestion-container w-full absolute flex justify-center items-center">
     <div class="suggestion z-9999 bg-gray-700 mt-1 pr-15 rounded-xl w-2/5">
       <div v-for="content in filteredContent.slice(0, 4)" :key="content.text" class="max-h-16">
-        <a @click="clearmsg" ref="mySuggestions" href="{{ content.link }}" class="block items-center justify-center left-1 py-4">
-          <svg class="w-5 ml-4 px-0 mx-5 ml-0 ml-5" viewBox="0 0 20 20" fill="none" stroke="white" style="cursor: pointer">
-            <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M13.447 12.764l4.83 4.828a1 1 0 01-1.415 1.415l-4.828-4.83a7 7 0 111.413-1.413zM7 12a5 5 0 100-10 5 5 0 000 10z" />
+        <a @click="clearmsg" ref="mySuggestions" href="{{ content.link }}"
+          class="block items-center justify-center left-1 py-4">
+          <svg class="w-5 ml-4 px-0 mx-5 ml-0 ml-5" viewBox="0 0 20 20" fill="none" stroke="white"
+            style="cursor: pointer">
+            <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              d="M13.447 12.764l4.83 4.828a1 1 0 01-1.415 1.415l-4.828-4.83a7 7 0 111.413-1.413zM7 12a5 5 0 100-10 5 5 0 000 10z" />
           </svg>
           <span class="mx-5 h-12">{{ content.text }}</span><br>
         </a>
@@ -92,11 +97,11 @@ const handleClick = (event) => {
   }
 };
 
-function loupeAction(){
-  if(msg.value){
+function loupeAction() {
+  if (msg.value) {
     clear.value = false;
-    router.push({name: "searchVideo", params:{userResearch : toLowercaseMsgValue.value}})
-    
+    router.push({ name: "searchVideo", params: { userResearch: toLowercaseMsgValue.value } })
+
   }
 }
 
@@ -220,11 +225,19 @@ a {
   color: white;
 }
 
+input {
+  z-index: 998;
+}
+
+.loupe {
+  z-index: 9999;
+}
+
 .container {
   padding: 0rem 0rem 80rem 0rem;
   max-width: 100%;
 }
+
 .suggestion-container {
   z-index: 9999;
-}
-</style>
+}</style>
