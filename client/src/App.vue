@@ -28,15 +28,8 @@ import SearchBar from './components/recherche/SearchBar.vue';
     --sidebar-width: 300px;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Fira sans', sans-serif;
-}
-
 body {
-    background-color: #27272a;
+	background-color: #27272a;
 }
 
 button {
@@ -50,13 +43,13 @@ button {
 .app {
     display: flex;
 
-    main {
-        flex: 1 1 0;
-        padding: 2rem;
-        background: #27272a;
-        @media (max-width: 1024px) {
-            padding-left: 6rem;
-        }
-    }
+	main {
+		flex: 1 1 0;
+		padding: 2rem;
+		background: #27272a;
+		@media (max-width: 1024px) {
+			padding-left: 6rem;
+		}
+	}
 }
 </style>

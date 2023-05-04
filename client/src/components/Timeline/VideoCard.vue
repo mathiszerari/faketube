@@ -16,19 +16,19 @@ const formattedVideoDate = computed(()=>{
   const diff = now.diff(videoDateFormatted, 'second');
 
   if (diff >= 31536000) {
-    return `${Math.floor(diff / 31536000)} years`;
+    return `${Math.floor(diff / 31536000)} ans`;
   } else if (diff >= 2592000) {
-    return `${Math.floor(diff / 2592000)} months`;
+    return `${Math.floor(diff / 2592000)} mois`;
   } else if (diff >= 604800) {
-    return `${Math.floor(diff / 604800)} weeks`;
+    return `${Math.floor(diff / 604800)} semaine`;
   } else if (diff >= 86400) {
-    return `${Math.floor(diff / 86400)} days`;
+    return `${Math.floor(diff / 86400)} jours`;
   } else if (diff >= 3600) {
-    return `${Math.floor(diff / 3600)} hours`;
+    return `${Math.floor(diff / 3600)} heures`;
   } else if (diff >= 60) {
     return `${Math.floor(diff / 60)} minutes`;
   } else {
-    return `${diff} seconds`;
+    return `${diff} secondes`;
   }
 })
 
@@ -55,7 +55,7 @@ onMounted(async () => {
             <div class="video__info flex flex-col">
                 <span class="font-bold text-10">{{ video.title }}</span>
                 <span class="text-zinc-500">{{ publisherInfos.pseudo }}</span>
-                <span class="text-zinc-500">{{ video.views }} views - {{ formattedVideoDate }} ago</span>
+                <span class="text-zinc-500">{{ video.views }} vues - il y a {{ formattedVideoDate }}</span>
             </div>
         </div>
     </div>

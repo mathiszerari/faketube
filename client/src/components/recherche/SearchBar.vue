@@ -16,7 +16,7 @@
     </div> -->
 
 
-    <div class="div-input w-2/5 mx-auto relative">
+    <div class="div-input w-2/5 mt-5 mx-auto relative">
       <input v-model="msg" @keyup="onkeyUp" v-on:keyup.enter=loupeAction
         class="input w-full py-2 pl-10 pr-3 leading-5 border border-gray-400 bg-gray-800 text-white rounded-l-full rounded-r-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
         type="text" placeholder="Search" />
@@ -219,7 +219,12 @@ svg {
 a {
   color: white;
 }
-
+input {
+  z-index: 998;
+}
+.loupe {
+  z-index: 9999;
+}
 .container {
   padding: 0rem 0rem 80rem 0rem;
   max-width: 100%;

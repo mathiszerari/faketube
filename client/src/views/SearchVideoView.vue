@@ -198,9 +198,10 @@ watch(()=> route.params.userResearch,async (newUserResearch)=> {
         <SearchFilter></SearchFilter>
         <div class="bg-zinc-800 max-w-full ml-20 mt-10 flex flex-col gap-y-4">
             <div v-for="(video) in videoScores" v-if="videoScores"
+           
                 class="bg-gray shadow overflow-hidden sm:rounded-lg flex max-sm:flex-col">
                 <div class="aspect-w-16 aspect-h-9 flex-shrink-0">
-                    <img class="object-cover w-80 h-48 max-md:w-56 max-md:h-32 rounded-2xl" :src="video.video.minature_path"
+                    <img class="object-cover w-80 h-48 max-md:w-56 max-md:h-32 rounded-2xl" :src="video.video.miniature_path"
                         alt="Miniature de la vidéo">
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-center">
