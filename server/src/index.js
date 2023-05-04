@@ -1,8 +1,7 @@
 const app = require('./utils/app')
 
-const uploadVideo = require('./routes/uploadVideo')
-const uploadRoute = require('./routes/uploadRoute')
-const videoRoute = require('./routes/videoRoute')
+const uploadRoute = require('./routes/chaine/uploadRoute')
+const videoRoute = require('./routes/chaine/videoRoute')
 
 const PORT = process.env.PORT || 8080;
 app.app.listen(PORT, () => {
