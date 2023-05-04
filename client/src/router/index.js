@@ -5,6 +5,8 @@ import SearchPage from "@/views/SearchPage.vue";
 import LoginView from "@/views/LoginView.vue";
 import UploadView from '../views/UploadView.vue'
 import PlayerVideo from '../views/PlayerVideo.vue'
+import ChannelSimple from "@/views/ChannelSimplePage.vue";
+ 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +35,11 @@ const router = createRouter({
         path: '/video/:id',
         name: 'Player',
         component: PlayerVideo
+    },
+    {
+      path: '/channel/:id',
+      name: 'channel',
+      component: ChannelSimple
     }
   ]
 })
