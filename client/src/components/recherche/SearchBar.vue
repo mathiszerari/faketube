@@ -16,9 +16,9 @@
     </div> -->
 
 
-    <div class="div-input w-2/5 mx-auto relative">
+    <div class="div-input w-2/5 mx-auto mt-5 relative">
       <input v-model="msg" @keyup="onkeyUp" v-on:keyup.enter=loupeAction
-        class="input w-full py-2 pl-10 pr-3 leading-5 border border-gray-400 bg-gray-800 text-white rounded-l-full rounded-r-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
+        class="input w-full py-2 z-9999 pl-10 pr-3 leading-5 border border-gray-400 bg-gray-800 text-white rounded-l-full rounded-r-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
         type="text" placeholder="Buscar" />
       <div class="loop absolute inset-y-0 right-5 flex items-center">
         <button v-if="msg.length > 0" @click="clearmsg" class="p-4" id="cross-clear">
@@ -226,6 +226,9 @@ a {
 .container {
   padding: 0rem 0rem 80rem 0rem;
   max-width: 100%;
+}
+input {
+  z-index: 9999;
 }
 
 .suggestion-container {
