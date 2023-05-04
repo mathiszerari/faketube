@@ -29,7 +29,6 @@
         Upload miniature
       </h1>
       <div>
-        <input v-model="publisher_id" placeholder="Publisher" required />
         <input v-model="title" placeholder="Title" required />
         <textarea v-model="description" placeholder="Description" required />
         <input v-model="tags" placeholder="Tags" required />
@@ -84,7 +83,7 @@ export default {
       awesome: true,
       thumbnail: '',
       preview: '',
-      publisher_id: '',
+      publisher_id: localStorage.getItem('id'),
       title: '',
       description: '',
       tags: ''
@@ -93,7 +92,6 @@ export default {
   computed: {
     fieldsAreFilled: function () {
       return (
-        !this.publisher_id ||
         !this.title ||
         !this.description ||
         !this.tags ||

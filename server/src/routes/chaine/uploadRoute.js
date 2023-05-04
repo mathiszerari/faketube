@@ -133,7 +133,6 @@ app.app.post('/thumbnail', (req, res) => {
         fs.unlinkSync(`${__dirname}/${filename}.jpg`);
         res.set({
             'Content-Type': 'image/jpeg',
-            'Content-Length': '123'
         })
         res.status(200).send({name:`${filename}.jpg`, data: base64str})
       })
