@@ -7,4 +7,4 @@ module.exports = {
         user: process.env.USER,
         database: process.env.DATABASE
     })
-}
+} 

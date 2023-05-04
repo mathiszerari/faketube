@@ -1,9 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import ChannelSimple from "@/views/ChannelSimplePage.vue";
+import PlayerPage from '../views/PlayerPage.vue'
 import UploadView from '../views/UploadView.vue'
 import PlayerVideo from '../views/PlayerVideo.vue'
-
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,9 +13,9 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/channel',
-      name: 'channel',
-      component: ChannelSimple
+      path: '/watch',
+      name: 'watch',
+      component: PlayerPage
     },
     {
       path: '/upload',
