@@ -33,7 +33,7 @@ const formattedVideoDate = computed(()=>{
 
 
 </script>
-<template>
+<!-- <template>
     <div class="aspect-video text-white">
         <img class="w-max aspect-video object-cover rounded-2xl" 
         :src="video.miniature_path" 
@@ -42,6 +42,22 @@ const formattedVideoDate = computed(()=>{
             <div class="publisheravatar bg-zinc-700 rounded-full aspect-square">
             </div>
             <div class="videoinfo flex flex-col">
+                <span class="font-bold text-10">{{ video.title }}</span>
+                <span class="text-zinc-500">{{ video.publisher_id }}</span>
+                <span class="text-zinc-500">{{ video.views }} views - {{ formattedVideoDate }} ago</span>
+            </div>
+        </div>
+    </div>
+</template> -->
+<template>
+    <div class="text-white max-h-25">
+        <img class="w-1/6 aspect-video object-cover rounded-2xl" 
+        :src="video.miniature_path" 
+        :alt="video.title">
+        <div class="w-1/6 flex flex-row gap-4 mt-2 shadow-sm bg-green-500">
+            <div>
+            </div>
+            <div class="video__info flex flex-col">
                 <span class="font-bold text-10">{{ video.title }}</span>
                 <span class="text-zinc-500">{{ video.publisher_id }}</span>
                 <span class="text-zinc-500">{{ video.views }} views - {{ formattedVideoDate }} ago</span>
