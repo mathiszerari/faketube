@@ -16,11 +16,11 @@
 				<span class="material-symbols-outlined" >home</span>
 				<span class="text ml-3">Accueil</span>
 			</router-link>
-			<router-link to="/Bibliothèque" class="button">
+			<router-link to="/Bibliothèque" class="button" v-if="userId !== '' ">
 				<span class="material-symbols-outlined">account_box</span>
 				<span class="text ml-3">Ma chaîne</span>
 			</router-link>
-			<router-link to="/test" class="button">
+			<router-link to="/test" class="button"  v-if="userId !== ''">
 				<span class="material-symbols-outlined">subscriptions</span>
 				<span class="text ml-3">Abonnements</span>
 			</router-link>
@@ -38,8 +38,12 @@
 
 		<div class="flex"></div>
 		<div class="menu">
-			<router-link to="/profile" class="button">
+			<router-link to="/profile" class="button" v-if="userId !== '' ">
 				<img :src="connectedUser.profilePicture" alt="" class="w-10 aspect-square rounded-full">
+				<span class="text ml-6">{{ connectedUser.pseudo }}</span>
+			</router-link>
+			<router-link :to="{name: 'login'}" class="flex items-center ml-5" v-else>
+				<span class="material-symbols-outlined">person</span>
 				<span class="text ml-6">{{ connectedUser.pseudo }}</span>
 			</router-link>
 		</div>
