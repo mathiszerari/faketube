@@ -2,21 +2,20 @@
 import {reactive, ref, onMounted, computed} from 'vue';
 import {useFetch} from "@vueuse/core";
 import * as dayjs from 'dayjs';
-import SearchBar from '../components/recherche/SearchBar.vue'
 import SearchFilter from '../components/recherche/SearchFilter.vue'
-const {isFetching, error, data:video} = useFetch('http://localhost:8080/searchPage')
+// const {isFetching, error, data:video} = useFetch('http://localhost:8080/searchPage')
 
-const formattedVideo = computed(()=>{
-    return JSON.parse(video.value)
-})
+// const formattedVideo = computed(()=>{
+//     return JSON.parse(video.value)
+// })
 
 const publisherName = reactive({})
 
-async function getInfoUser(userId){
-    const {isFetching, error, data:user} = await useFetch('http://localhost:8080/getUserById/'+userId)
+// async function getInfoUser(userId){
+//     const {isFetching, error, data:user} = await useFetch('http://localhost:8080/getUserById/'+userId)
 
-    return JSON.parse(user.value)
-}
+//     return JSON.parse(user.value)
+// }
 async function UserBot(user) {
     let userInfo = await getInfoUser(user)
     publisherName[user] = userInfo.message[0] 
@@ -63,20 +62,11 @@ onMounted(async () => {
   }
 })
 
-// function test() {
-//    if(formattedVideo.message) {
-//     console.log("test");
-//    }
-    
-// }
-// test()
-
 
 
 </script>
 <template>
     <div class="main-container flex flex-col w-full ml-20">
-        <SearchBar></SearchBar>
         <SearchFilter></SearchFilter>
         <div class="bg-zinc-800 w-full flex flex-col gap-y-4">
             <div v-for="(video) in formattedVideo.message" v-if="formattedVideo.message"  class="bg-gray shadow overflow-hidden sm:rounded-lg flex max-sm:flex-col">
