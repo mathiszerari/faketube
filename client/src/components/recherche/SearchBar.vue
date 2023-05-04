@@ -94,7 +94,9 @@ const handleClick = (event) => {
 
 function loupeAction(){
   if(msg.value){
+    clear.value = false;
     router.push({name: "searchVideo", params:{userResearch : toLowercaseMsgValue.value}})
+    
   }
 }
 
@@ -189,7 +191,11 @@ const clearmsg = () => {
 // vaut mieux en stocker plein et les parcourir
 
 const filteredContent = computed(() => {
-  return contents.value.filter((word) => word.text.startsWith(toLowercaseMsgValue.value));
+  let searchValue = toLowercaseMsgValue.value.trim(); // Supprime les espaces au début et à la fin de la chaîne de recherche
+  if (searchValue.startsWith(' ')) {
+    searchValue = searchValue.substring(1); // Supprime le premier caractère s'il s'agit d'un espace
+  }
+  return contents.value.filter((word) => word.text.toLowerCase().includes(searchValue));
 })
 
 const toLowercaseMsgValue = computed(() => {
