@@ -15,14 +15,14 @@
 </template>
 
 
-<script setup()>
-import SelectVideoChannel from './SelectVideoChannel.vue';
+<script>
+//import SelectVideoChannel from './SelectVideoChannel.vue';
 
     export default {
     props: {
         videoTitle: { required: true, type: String },
     },
-    components: { SelectVideoChannel }
+    //components: { SelectVideoChannel }
 };
     
 </script>

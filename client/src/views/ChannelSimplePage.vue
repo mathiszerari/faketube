@@ -95,7 +95,7 @@
               <!-- <Khaled></Khaled> -->
 
       <h1>test composant</h1>
-      
+      <SelectVideoChannel></SelectVideoChannel>
 
       <h1>test composant dynamique</h1>
       <SelectVideoChannelDynamic videoTitle = "toto"></SelectVideoChannelDynamic>
@@ -150,6 +150,7 @@ components: {
 <script setup>
 import { useFetch } from '@vueuse/core'
 import {computed } from "vue"
+// import SelectVideoChannel from "../components/chaine/SelectVideoChannel.vue";
 import SelectVideoChannelDynamic from "../components/chaine/SelectVideoChannelDynamic.vue";
 import SelectVideoChannelFetch from "../components/chaine/SelectVideoChannelFetch.vue";
 import InfoChannel from "../components/chaine/InfoChannel.vue";

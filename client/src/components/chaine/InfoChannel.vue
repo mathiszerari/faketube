@@ -35,7 +35,7 @@
 
 
 <script setup()>
-import SelectVideoChannel from './SelectVideoChannel.vue';
+//import SelectVideoChannel from './SelectVideoChannel.vue';
 
 export default {
     props: {
@@ -45,7 +45,7 @@ export default {
         videoDescription: { required: true, type: String },
 
     },
-    components: { SelectVideoChannel }
+    //components: { SelectVideoChannel }
 };
 
 </script>
