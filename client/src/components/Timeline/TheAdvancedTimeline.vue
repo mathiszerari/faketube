@@ -11,16 +11,23 @@ const {
 const formattedVideo = computed(() => {
   return JSON.parse(videos.value)
 })
+
+const showVideos = computed(()=>{
+  return formattedVideo.value !== null
+})
 const userId = ref('')
 onMounted(() => {
   if (localStorage.getItem('id')) {
     userId.value = localStorage.getItem('id')
   }
+
+  console.log(showVideos.value);
+
 })
 </script>
 
 <template>
-  <div v-if="userId !== ''">
+  <div v-if="userId !== '' && !showVideos">
     <h2 class="text-white font-bold text-2xl pb-5">Recommandations</h2>
     <div
       class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
