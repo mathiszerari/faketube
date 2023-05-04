@@ -17,7 +17,7 @@
 
 
     <div class="div-input w-1/2 mx-auto relative">
-      <input v-model="msg" @keyup="onkeyUp"
+      <input v-model="msg" @keyup="onkeyUp" v-on:keyup.enter=loupeAction
         class="input w-full py-2 pl-10 pr-3 leading-5 border border-gray-400 bg-gray-800 text-white rounded-l-full rounded-r-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
         type="text" placeholder="Search" />
       <div class="loop absolute inset-y-0 right-5 flex items-center">
