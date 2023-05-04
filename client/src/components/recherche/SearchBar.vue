@@ -4,19 +4,19 @@
   <!-- <div class="container bg-gray-900"> -->
   <!-- header -->
   <div class="flex justify-center items-center">
-    <div class="burger-simulator">
+    <!-- <div class="burger-simulator">
       <svg width="30" height="20" viewBox="0 0 10 15">
         <path fill="#FFF" d="M2 14h26v-2H2v2zm0-5h26v-2H2v2zm0-6v2h26v-2H2z" />
       </svg>
-    </div>
+    </div> -->
 
-    <div class="title bg-red ml-5 mt-1">
+    <!-- <div class="title bg-red ml-5 mt-1">
       <h1 class="text-red-500 text-m font-bold border-4 border-red-500 p-2 rounded-full">Fake<span
           class="text-white">Tube</span></h1>
-    </div>
+    </div> -->
 
 
-    <div class="div-input w-2/5 mx-auto relative">
+    <div class="div-input w-1/2 mx-auto relative">
       <input v-model="msg" @keyup="onkeyUp"
         class="input w-full py-2 pl-10 pr-3 leading-5 border border-gray-400 bg-gray-800 text-white rounded-l-full rounded-r-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
         type="text" placeholder="Search" />
@@ -38,14 +38,14 @@
       </div>
     </div>
 
-    <div class="logo rounded-full ml-5 mt-1 mr-5">
+    <!-- <div class="logo rounded-full ml-5 mt-1 mr-5">
       <img src="logo.jpeg" class="h-10 w-10">
-    </div>
+    </div> -->
   </div>
 
   <!-- suggestion section -->
   <div v-if="msg.length > 0 && clear === true" class="suggestion-container flex justify-center items-center relative">
-    <div class="suggestion w-2/5 bg-gray-700 pr-15 rounded-xl">
+    <div class="suggestion w-1/2 bg-gray-700 pr-15 rounded-xl">
       <div v-for="content in filteredContent.slice(0, 4)" :key="content.text" class="max-h-16">
         <a @click="clearmsg" ref="mySuggestions" href="{{ content.link }}"
           class="block items-center justify-center left-1 py-4 mt-1.5">
