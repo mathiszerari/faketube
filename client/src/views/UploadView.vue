@@ -2,7 +2,7 @@
   <main class="flex justify-center align-middle">
     <div v-if="!showUpload">
       <div @dragover.prevent @drop.stop.prevent>
-        <h1 class="flex justify-center my-10 text-5xl font-medium leading-tight text-primary">
+        <h1 class="flex justify-center my-5 text-5xl font-medium leading-tight text-primary text-white">
           Upload video
         </h1>
 
@@ -16,23 +16,34 @@
             <input type="file" id="upload" @change="onFileChange" hidden />
           </label>
         </div>
-        <p v-if="File === 'invalid'" class="my-4 text-base font-semibold text-gray-700">
+        <p v-if="File === 'invalid'" class="my-4 text-base font-semibold text-white">
           Invalid format ? Only .mp4, .ogg and .webm are accepted !
         </p>
-        <p class="my-2 text-center text-xs font-light leading-tight">
+        <p class="my-2 text-center text-xs font-light leading-tight text-white">
           Click OR Drag & Drop the file
         </p>
       </div>
     </div>
     <div v-if="showUpload">
-      <h1 class="flex justify-center my-10 text-5xl font-medium leading-tight text-primary">
+      <h1 class="flex justify-center mb-2 text-5xl font-medium leading-tight text-primary text-white">
         Upload miniature
       </h1>
       <div>
-        <input v-model="title" placeholder="Title" required />
-        <textarea v-model="description" placeholder="Description" required />
-        <input v-model="tags" placeholder="Tags" required />
-        <div @dragover.prevent @drop.stop.prevent>
+        <div class="flex flex-col">
+          <div class="mb-2">
+            <label for="default-input" class="block mb-1 text-sm font-medium text-white">Title</label>
+            <input v-model="title" type="text" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+          </div>
+          <div class="mb-2">
+            <label for="default-input" class="block mb-1 text-sm font-medium text-white">Description</label>
+            <textarea v-model="description" type="text" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+          </div>
+          <div class="mb-2">
+            <label for="default-input" class="block mb-1 text-sm font-medium text-white">Tags</label>
+            <input v-model="tags" type="text" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+          </div>
+        </div>
+        <div @dragover.prevent @drop.stop.prevent class="my-4">
           <div @drop="dragThumbnail">
             <label
               for="upload"
@@ -43,10 +54,10 @@
               <input type="file" id="upload" @change="onThumbnailChange" hidden />
             </label>
           </div>
-          <p v-if="thumbnail === 'invalid'" class="my-4 text-base font-semibold text-gray-700">
+          <p v-if="thumbnail === 'invalid'" class="my-2 text-base font-semibold text-white">
             Invalid format ? Only .jpg, .jpeg and .png are accepted !
           </p>
-          <p class="my-2 text-center text-xs font-light leading-tight">
+          <p class="my-2 text-center text-xs font-light leading-tight text-white">
             Click OR Drag & Drop the file
           </p>
         </div>
