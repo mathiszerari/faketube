@@ -1,87 +1,93 @@
 <template>
-  <div class="profile dark-theme">
-    <div class="flex flex-col items-center w-full mb-10">
-      <img :src="profileImage" class="w-[120px] h-[120px] object-cover mb-5 rounded-[50%]" alt="Profile Image" />
-      <div class="profile-titles">
-        <h1 class="text-4xl flex justify-center items-center">{{ profileUsername }}</h1>
-        <p class="text-2xl text-[#bbb] m-0">Membre depuis le {{ memberSince }}</p>
-      </div>
-      <button class="profile-logout-btn" @click="logout">↪ Déconnexion</button>
-    </div>
-    <div class="flex flex-col w-full">
-      <div class="mb-5">
-        <h2 class="mb-2.5">Informations de compte</h2>
-        <div class="profile-info">
-          <div class="profile-info-label">Pseudo :</div>
-          <div class="profile-info-value">
-            {{ profileUsername }} <button class="profile-edit-btn" @click="editUsername">Modifier</button>
-          </div>
+    <div class="profile dark-theme">
+        <div class="flex flex-col items-center w-full mb-10">
+            <img :src="profileImage" class="w-[120px] h-[120px] object-cover mb-5 rounded-[50%]" alt="Profile Image" />
+            <div class="profile-titles">
+                <h1 class="text-4xl flex justify-center items-center">{{ user.pseudo }}</h1>
+                <p class="text-2xl text-[#bbb] m-0">Membre depuis le {{ user.date }}</p>
+            </div>
+            <button class="profile-logout-btn" @click="logout">↪ Déconnexion</button>
         </div>
-        <div class="profile-info">
-          <div class="profile-info-label">Email :</div>
-          <div class="profile-info-value">
-            {{ profileEmail }} <button class="profile-edit-btn" @click="editEmail">Modifier</button>
-          </div>
+        <div class="flex flex-col w-full">
+            <div class="mb-5">
+                <h2 class="mb-2.5">Informations de compte</h2>
+                <div class="profile-info">
+                    <div class="profile-info-label">Pseudo :</div>
+                    <div class="profile-info-value">
+                        {{ user.pseudo }} <button class="profile-edit-btn" @click="editUsername">Modifier</button>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <div class="profile-info-label">Email :</div>
+                    <div class="profile-info-value">
+                        {{ user.email }} <button class="profile-edit-btn" @click="editEmail">Modifier</button>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <div class="profile-info-label">Mot de passe :</div>
+                    <div class="profile-info-value">
+                        ******** <button class="profile-edit-btn" @click="editPassword">Modifier</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="profile-info">
-          <div class="profile-info-label">Mot de passe :</div>
-          <div class="profile-info-value">
-            ******** <button class="profile-edit-btn" @click="editPassword">Modifier</button>
-          </div>
+        <div class="w-full bg-[#0d0d0d] text-center text-sm text-[#ccc] mt-auto px-5 py-2.5">
+            <p>© 2023 Faketube</p>
         </div>
-      </div>
     </div>
-    <div class="w-full bg-[#0d0d0d] text-center text-sm text-[#ccc] mt-auto px-5 py-2.5">
-      <p>© 2023 Faketube</p>
-    </div>
-  </div>
 </template>
 
-<script>
-export default {
-  name: 'TheProfile',
-  data() {
-    return {
-      profileImage: 'https://education.l214.com/wp-content/uploads/2020/09/15-animaux-moches-04.jpg',
-      profileUsername: 'Mathis95c',
-      profileEmail: 'mathis95c@gmail.com',
-      memberSince: '28 avril 2023'
-    }
-  },
-  methods: {
-    editUsername() {
-      const newUsername = prompt('Nouveau pseudo :', this.profileUsername)
-      if (newUsername !== null) {
-        this.profileUsername = newUsername
-      }
-    },
-    editEmail() {
-      let newEmail = prompt('Nouvel email :', this.profileEmail)
-      while (newEmail !== null && !isValidEmail(newEmail)) {
-        alert('Adresse e-mail invalide.')
-        newEmail = prompt('Nouvel email :')
-      }
-      if (newEmail !== null) {
-        this.profileEmail = newEmail
-      }
-    },
-    editPassword() {
-      const newPassword = prompt('Nouveau mot de passe :')
-      if (newPassword !== null) {
-        // En réalité, il faudrait appeler une API pour modifier le mot de passe enregistré côté serveur.
-        console.log('Le mot de passe a été modifié avec succès.')
-      }
-    },
-    logout() {
-      window.location.href = 'index.html'
-    }
-  }
-}
+<script setup>
+import {onMounted, reactive, ref} from 'vue';
+import {useFetch} from "@vueuse/core";
 
 function isValidEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
 }
+
+const user = reactive({pseudo: "", email:""})
+
+onMounted( async ()=>{
+    const { isFetching, error, data:use } = await useFetch(`http://localhost:8080/getUserById/${localStorage.getItem("id")}`)
+    user.pseudo = JSON.parse(use.value).message[0]["pseudo"]
+    user.email = JSON.parse(use.value).message[0]["email"]
+    user.date = JSON.parse(use.value).message[0]["created_at"]
+})
+
+
+async function editUsername() {
+    const newUsername = prompt('Nouveau pseudo :', user.pseudo)
+    if (newUsername !== null) {
+        const { isFetching, error, data:newPseudo } = await useFetch(`http://localhost:8080/updatePseudo/${newUsername}/${localStorage.getItem("id")}`)
+        user.pseudo = JSON.parse(newPseudo.value)["newPseudo"]
+    }
+}
+
+async function editEmail() {
+    let newEmail = prompt('Nouvel email :', user.email)
+    while (newEmail !== null && !isValidEmail(newEmail)) {
+        alert('Adresse e-mail invalide.')
+        newEmail = prompt('Nouvel email :')
+    }
+    if (newEmail !== null) {
+        const { isFetching, error, data:newPseudo } = await useFetch(`http://localhost:8080/updateEmail/${newEmail}/${localStorage.getItem("id")}`)
+        user.email = JSON.parse(newPseudo.value)["newEmail"]
+    }
+}
+
+// function editPassword() {
+//     const newPassword = prompt('Nouveau mot de passe :')
+//     if (newPassword !== null) {
+//         // En réalité, il faudrait appeler une API pour modifier le mot de passe enregistré côté serveur.
+//         console.log('Le mot de passe a été modifié avec succès.')
+//     }
+// }
+
+function logout() {
+    localStorage.removeItem('id')
+}
+
 </script>
 
 <style>
