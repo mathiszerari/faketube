@@ -11,23 +11,30 @@ const {
 const formattedVideo = computed(() => {
   return JSON.parse(videos.value)
 })
+
+const showVideos = computed(()=>{
+  return formattedVideo.value !== null
+})
 const userId = ref('')
 onMounted(() => {
   if (localStorage.getItem('id')) {
     userId.value = localStorage.getItem('id')
   }
+
+  console.log(showVideos.value);
+
 })
 </script>
 
 <template>
-  <div v-if="userId !== ''">
-    <h2 class="text-white font-bold text-2xl pb-5">Recommendation</h2>
+  <div v-if="userId !== '' && !showVideos">
+    <h2 class="text-white font-bold text-2xl pb-5">Recommandations</h2>
     <div
       class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
       v-if="!isFetching"
     >
       <div v-for="videoData in formattedVideo?.message" :key="videoData.id">
-        <router-link :to="{ name: video, params: { id: videoData.id } }">
+        <router-link :to="{name: 'watch', params: {id: videoData.id}}">
           <video-card :video="videoData"></video-card>
         </router-link>
       </div>

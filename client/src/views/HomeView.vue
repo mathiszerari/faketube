@@ -1,8 +1,8 @@
 <template>
   <main id="Home-page">
     <div class="bg-zinc-800 pt-10 p-10">
-      <TheTimeline></TheTimeline>
       <TheAdvancedTimeline></TheAdvancedTimeline>
+      <TheTimeline></TheTimeline>
     </div>
   </main>
 </template>

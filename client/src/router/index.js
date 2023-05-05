@@ -17,7 +17,7 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/watch',
+      path: '/watch?id=:id',
       name: 'watch',
       component: PlayerPage
     },

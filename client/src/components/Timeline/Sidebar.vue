@@ -1,54 +1,3 @@
-<template>
-  <aside :class="`${is_expanded ? 'is-expanded' : ''}`" class="bg-zinc-900">
-    <div class="logo">
-      <img :src="logoURL" alt="" />
-    </div>
-
-    <div class="menu-toggle-wrap">
-      <button class="menu-toggle" @click="ToggleMenu">
-        <span class="material-symbols-outlined weight text-3xl">keyboard_double_arrow_right</span>
-      </button>
-    </div>
-
-    <h3>Menu</h3>
-    <div class="menu">
-      <router-link to="/" class="button">
-        <span class="material-symbols-outlined">home</span>
-        <span class="text ml-3">Accueil</span>
-      </router-link>
-      <router-link to="/Bibliothèque" class="button" v-if="userId !== ''">
-        <span class="material-symbols-outlined">account_box</span>
-        <span class="text ml-3">Ma chaîne</span>
-      </router-link>
-      <router-link to="/test" class="button" v-if="userId !== ''">
-        <span class="material-symbols-outlined">subscriptions</span>
-        <span class="text ml-3">Abonnements</span>
-      </router-link>
-      <div class="pl-5 pt-1">
-        <div v-if="is_expanded">
-          <div v-for="(subscription, index) in subscriptions" :key="index">
-            <router-link to="/testt" class="flex items-center gap-6 button">
-              <img :src="subscription.profile_photo" alt="" class="w-7 rounded-full" />
-              {{ subscription.pseudo }}
-            </router-link>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex"></div>
-    <div class="menu">
-      <router-link to="/profile" class="button" v-if="userId !== ''">
-        <img :src="connectedUser.profilePicture" alt="" class="w-10 aspect-square rounded-full" />
-        <span class="text ml-6">{{ connectedUser.pseudo }}</span>
-      </router-link>
-      <router-link :to="{ name: 'login' }" class="flex items-center ml-5" v-else>
-        <span class="material-symbols-outlined">person</span>
-        <span class="text ml-6">{{ connectedUser.pseudo }}</span>
-      </router-link>
-    </div>
-  </aside>
-</template>
 
 <script setup>
 import { ref, onMounted, reactive } from 'vue'
@@ -95,6 +44,65 @@ onMounted(async () => {
 })
 </script>
 
+
+<template>
+  <aside :class="`${is_expanded ? 'is-expanded' : ''}`" class="bg-zinc-900 min-h-10 sticky top-0 transition-all duration-200 p-4">
+    <div class="logo mb-4">
+      <img :src="logoURL" alt="" class="w-8">
+    </div>
+
+    <div class="menu-toggle-wrap mb-4 flex justify-end relative transition-all duration-200">
+      <button class="menu-toggle" @click="ToggleMenu">
+        <span class="material-symbols-outlined weight text-3xl transition-all duration-200 transform" :class="`${is_expanded ? 'translate-x-0.5' : ''}`">keyboard_double_arrow_right</span>
+      </button>
+    </div>
+
+    <div class="menu">
+      <h3 class="text-lg font-medium mb-2 ml-5">Profil</h3>
+      <router-link :to="{name: 'login'}" class="button flex items-center mb-2" v-if="userId !== ''">
+        <img :src="connectedUser.profilePicture" alt="" class="w-10 aspect-square rounded-full mr-2" />
+        <span class="text">{{ connectedUser.pseudo }}</span>
+      </router-link>
+      <router-link :to="{ name: 'login' }" class="button flex items-center mb-2" v-else>
+        <span class="material-symbols-outlined text-xl mr-2">person</span>
+        <span class="text">{{ connectedUser.pseudo }}</span>
+      </router-link>
+    </div>
+
+    <div class="menu">
+      <h3 class="text-lg font-medium mb-2 ml-5">Menu</h3>
+      <router-link to="/" class="button flex items-center mb-2">
+        <span class="material-symbols-outlined text-xl mr-2">home</span>
+        <span class="text">Accueil</span>
+      </router-link>
+      <router-link :to="{name: 'channel', params:{id: userId} }" class="button flex items-center mb-2" v-if="userId !== ''">
+        <span class="material-symbols-outlined text-xl mr-2">account_box</span>
+        <span class="text">Ma chaîne</span>
+      </router-link>
+      <router-link :to="{name: 'Upload Video', params:{id: userId} }" class="button flex items-center mb-2" v-if="userId !== ''">
+        <span class="material-symbols-outlined text-xl mr-2">publish</span>
+        <span class="text">Publier</span>
+      </router-link>
+      <div class="button flex items-center mb-2" v-if="userId !== ''">
+        <span class="material-symbols-outlined text-xl mr-2">subscriptions</span>
+        <span class="text">Abonnements</span>
+      </div>
+      <div class="pl-5 pt-1">
+        <div v-if="is_expanded">
+          <div v-for="(subscription, index) in subscriptions" :key="index">
+            <router-link :to="{name: 'channel', params:{id: subscription.id}}" class="flex items-center button mb-2">
+              <img :src="subscription.profile_photo" alt="" class="w-7 rounded-full" />
+              <span class="text ml-3">{{ subscription.pseudo }}</span>
+            </router-link>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+</aside>
+</template>
+
 <style lang="scss" scoped>
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 48;
@@ -106,17 +114,9 @@ onMounted(async () => {
   font-variation-settings: 'FILL' 1, 'wght' 200, 'GRAD' 0, 'opsz' 48;
 }
 aside {
-  display: flex;
-  flex-direction: column;
   color: var(--light);
   width: calc(2rem + 32px);
-  overflow: hidden;
-  min-height: 100vh;
-  padding: 1rem;
   height: 100vh;
-  position: sticky;
-  top: 0;
-  transition: 0.2s ease-in-out;
   .flex {
     flex: 1 1 0%;
   }
@@ -205,6 +205,7 @@ aside {
   }
   &.is-expanded {
     width: var(--sidebar-width);
+    height: 100vh;
     .menu-toggle-wrap {
       top: -3rem;
 
@@ -225,9 +226,11 @@ aside {
       opacity: 0;
     }
   }
-  @media (max-width: 1024px) {
-    position: absolute;
+  @media (max-width: 700px) {
+    position: fixed;
     z-index: 99;
+    height: 10%;
+    overflow: hidden;
   }
 }
 </style>
