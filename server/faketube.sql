@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 03 mai 2023 à 13:37
+-- Généré le : ven. 05 mai 2023 à 07:59
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `comment_text` text NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `likes` (
   `video_id` int(11) NOT NULL,
   `type` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `subscription` (
   `subscriber_id` int(11) NOT NULL,
   `publisher_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -77,13 +77,21 @@ CREATE TABLE IF NOT EXISTS `users` (
   `pseudo` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `subscriber_number` int(11) DEFAULT NULL,
+  `subscriber_number` int(11) DEFAULT '0',
   `created_at` datetime NOT NULL,
   `prefs` text,
   `profile_photo` varchar(255) DEFAULT NULL,
+  `description` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `Email` (`email`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`id`, `pseudo`, `email`, `password`, `subscriber_number`, `created_at`, `prefs`, `profile_photo`, `description`) VALUES
+  (1, 'celian_l95', 'celianloisel@gmail.com', '$2b$10$c0IIggQmCQfSDA75k75oC.qGSOeUPRJfsOap.8eFcb0Bus0R9IFry', 0, '2023-05-05 09:59:05', 'gaming f1', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -104,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `videos` (
   `miniature_path` text NOT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
