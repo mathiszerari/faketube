@@ -3,10 +3,10 @@ var mysql = require('mysql2');
 
 module.exports = {
     db: mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        port: process.env.DB_PORT,
-        password: process.env.DB_PASSWORD ,
-        database: process.env.DATABASE
+        host: 'localhost',//process.env.DB_HOST,
+        user: 'root',//process.env.DB_USER,
+        //port: 'localhost',//process.env.DB_PORT,
+        //password: 'localhost',//process.env.DB_PASSWORD ,
+        database: 'faketube'
     })
 }
