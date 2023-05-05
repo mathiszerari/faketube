@@ -9,15 +9,19 @@
       <router-view />
     </div>
   </div>
+
 </template>
 
 <script setup>
 import Sidebar from './components/Timeline/Sidebar.vue'
+
 import SearchBar from './components/recherche/SearchBar.vue'
+
 </script>
 
 <style lang="scss">
 :root {
+
   --primary: #ff0015;
   --primary-alt: #fc0000;
   --grey: #64748b;
@@ -56,5 +60,6 @@ button {
       padding-left: 6rem;
     }
   }
+
 }
 </style>

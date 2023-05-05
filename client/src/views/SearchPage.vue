@@ -1,4 +1,5 @@
 <script setup>
+
 import { reactive, ref, onMounted, computed } from 'vue'
 import { useFetch } from '@vueuse/core'
 import * as dayjs from 'dayjs'
@@ -19,6 +20,7 @@ async function getInfoUser(userId) {
 
   return JSON.parse(user.value)
 }
+
 async function UserBot(user) {
   let userInfo = await getInfoUser(user)
   publisherName[user] = userInfo.message[0]
@@ -61,8 +63,12 @@ onMounted(async () => {
     }
   }
 })
+
+
+
 </script>
 <template>
+
   <div
     v-for="video in formattedVideo.message"
     v-if="formattedVideo.message"
@@ -87,3 +93,4 @@ onMounted(async () => {
     </div>
   </div>
 </template>
+

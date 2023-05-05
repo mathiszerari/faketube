@@ -1,12 +1,14 @@
 <template>
   <main id="Home-page">
     <div class="bg-zinc-800 pt-10 p-10">
+
       <div v-if="userId.value !== ''">
         <TheAdvancedTimeline></TheAdvancedTimeline>
       </div>
       <TheTimeline></TheTimeline>
     </div>
     {{ userId.value }}
+
   </main>
 </template>
 

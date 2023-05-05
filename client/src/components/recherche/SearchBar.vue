@@ -15,8 +15,10 @@
           class="text-white">Tube</span></h1>
     </div> -->
 
+
     <div class="div-input w-2/5 mt-5 mx-auto relative">
       <input v-model="msg" @keyup="onkeyUp" v-on:keyup.enter="loupeAction"
+
         class="input w-full py-2 pl-10 pr-3 leading-5 border border-gray-400 bg-gray-800 text-white rounded-l-full rounded-r-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
         type="text" placeholder="Search" />
       <div class="loop absolute inset-y-0 right-5 flex items-center">
@@ -29,9 +31,11 @@
 
         <!-- loupe svg -->
         <div class="loupe h-full w-16 rounded-r-full border border-gray-400 bg-gray-700 ml-2">
+
           <svg @click="loupeAction" class="w-5 h-5 mt-2 m-4" viewBox="0 0 20 20" fill="none" stroke="white"
             style="cursor: pointer">
             <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+
               d="M13.447 12.764l4.83 4.828a1 1 0 01-1.415 1.415l-4.828-4.83a7 7 0 111.413-1.413zM7 12a5 5 0 100-10 5 5 0 000 10z" />
           </svg>
         </div>
@@ -55,6 +59,7 @@
               d="M13.447 12.764l4.83 4.828a1 1 0 01-1.415 1.415l-4.828-4.83a7 7 0 111.413-1.413zM7 12a5 5 0 100-10 5 5 0 000 10z" />
           </svg>
           <span class="mx-5 h-12">{{ content.text }}</span><br />
+
         </a>
       </div>
     </div>
@@ -64,12 +69,14 @@
 </template>
 
 <script setup>
+
 import { ref, onMounted, computed } from 'vue'
 import { useFetch } from '@vueuse/core'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 // Requête sur le serveur
 const { isFetching, error, data: video } = useFetch('http://localhost:8080/')
+
 const formattedVideo = computed(() => {
   return JSON.parse(video.value)
 })
@@ -80,6 +87,7 @@ onMounted(() => {
   window.addEventListener('click', handleClick)
 })
 const handleClick = (event) => {
+
   const targetClass = event.target.classList
   if (
     !targetClass.contains('div-input') &&
@@ -87,6 +95,7 @@ const handleClick = (event) => {
     !targetClass.contains('loupe')
   ) {
     clear.value = false
+
   }
   if (targetClass.contains('input') && clear.value === false) {
     clear.value = true
@@ -109,7 +118,16 @@ function suggestAction(text) {
   router.push(`/searchVideo/${text}`)
 }
 
+function loupeAction(){
+  if(msg.value){
+    clear.value = false;
+    router.push({name: "searchVideo", params:{userResearch : toLowercaseMsgValue.value}})
+    
+  }
+}
+
 const contents = ref([
+
   { text: 'allume cigare' },
   { text: 'animal' },
   { text: 'bateau' },
@@ -180,11 +198,14 @@ const contents = ref([
   { text: 'podcasts populaires' },
   { text: 'conseils pour étudier' },
 ])
+
 const onkeyUp = () => {
   clear.value = true
   // console.log(msg.value)
   // console.log(filteredContent.value)
+
 }
+
 const clearmsg = () => {
   msg.value = ''
   clear.value = true
@@ -193,11 +214,13 @@ const clearmsg = () => {
 // computed value return array
 // vaut mieux en stocker plein et les parcourir
 const filteredContent = computed(() => {
+
   let searchValue = toLowercaseMsgValue.value.trim() // Supprime les espaces au début et à la fin de la chaîne de recherche
   if (searchValue.startsWith(' ')) {
     searchValue = searchValue.substring(1) // Supprime le premier caractère s'il s'agit d'un espace
   }
   return contents.value.filter((word) => word.text.toLowerCase().includes(searchValue))
+
 })
 const toLowercaseMsgValue = computed(() => {
   return msg.value.toLowerCase()
@@ -219,6 +242,7 @@ a {
   color: white;
 }
 
+
 input {
   z-index: 97;
 }
@@ -232,11 +256,13 @@ input {
   max-width: 100%;
 }
 
+
 .suggestion-container {
   z-index: 98;
 }
 
 a {
   cursor: pointer;
+
 }
 </style>

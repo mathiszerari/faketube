@@ -17,11 +17,13 @@ const router = createRouter({
       component: HomeView
     },
     {
+
       path: '/watch?id=:id',
       name: 'watch',
       component: PlayerPage
     },
     {
+
       path: '/searchVideo/:userResearch',
       name: 'searchVideo',
       component: SearchVideo
@@ -37,6 +39,7 @@ const router = createRouter({
       component: UploadView
     },
     {
+
       path: '/video/:id',
       name: 'Player',
       component: PlayerVideo
@@ -46,6 +49,7 @@ const router = createRouter({
       name: 'channel',
       component: ChannelSimple
     }
+
   ]
 })
 

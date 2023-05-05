@@ -61,11 +61,13 @@
           </p>
         </div>
       </div>
+
     </div>
   </div>
 </template>
 
 <style scoped>
+
 .content p:hover {
   transform: translateY(-2px);
 }
@@ -73,6 +75,7 @@
   width: 200px;
   height: 200px;
 }
+
 </style>
 
 <script setup>
