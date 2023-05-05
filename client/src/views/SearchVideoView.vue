@@ -25,13 +25,16 @@ function checkChannel(channel, words) {
 
 function checkTitle(title, words) {
 
-    let score = 0
-    words.forEach(word => {
-        if (title.toLowerCase().includes(word.toLowerCase())) {
-            score += 100;
-        }
-    })
-    return score;
+
+let score = 0
+let wordsSplitted = words[0].split(" ")
+wordsSplitted.forEach(word => {
+    if (title.toLowerCase().includes(word.toLowerCase())) {
+        score += 100;
+    }
+})
+return score;
+
 }
 
 function checkTag(tags, userResearch) {
@@ -159,6 +162,7 @@ onMounted(async () => {
     
     videoScores.value.sort((a, b) => b.score - a.score);
 
+    console.log(videoScores.value);
     for (let video of videoScores.value){
         await UserBot(video.video.publisher_id)
         await checkDate(video.video.created_at)
@@ -166,6 +170,7 @@ onMounted(async () => {
 });
 
 watch(()=> route.params.userResearch,async (newUserResearch)=> {
+
 
     const videosInfos = await getVideos()
 
@@ -197,10 +202,12 @@ watch(()=> route.params.userResearch,async (newUserResearch)=> {
     <div class="main-container flex flex-col w-full">
         <SearchFilter></SearchFilter>
         <div class="bg-zinc-800 max-w-full ml-20 mt-10 flex flex-col gap-y-4">
-            <div v-for="(video) in videoScores" v-if="videoScores"
-                class="bg-gray shadow overflow-hidden sm:rounded-lg flex max-sm:flex-col">
-                <div class="aspect-w-16 aspect-h-9 flex-shrink-0">
-                    <img class="object-cover w-80 h-48 max-md:w-56 max-md:h-32 rounded-2xl" :src="video.video.minature_path"
+
+            <div v-for="(video, index) in videoScores" :key="index">
+                <router-link :to="{name: 'watch', params: {id: video.video.id}}" class="bg-gray shadow overflow-hidden sm:rounded-lg flex max-sm:flex-col">
+                  <div class="aspect-w-16 aspect-h-9 flex-shrink-0">
+                    <img class="object-cover w-80 h-48 max-md:w-56 max-md:h-32 rounded-2xl" :src="`http://localhost:8080/thumbnail/${video.video.id}`"
+
                         alt="Miniature de la vidéo">
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-center">
@@ -217,6 +224,11 @@ watch(()=> route.params.userResearch,async (newUserResearch)=> {
                     </div>
 
                 </div>
+
+
+                </router-link>
+                
+
             </div>
     </div>
 </div></template>

@@ -1,18 +1,18 @@
 <template>
-  <nav class="navbar">
-  <div class="navbar-left">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Phoenicopterus_ruber_in_S%C3%A3o_Paulo_Zoo.jpg" alt="Photo de profil">
-  </div>
-  <div class="navbar-center">
-    <span class="navbar-title">FakeTube</span>
-  </div>
-  <div class="navbar-right">
-    <button class="navbar-button">
-      <i class="material-icons"></i> Paramètres
-    </button>
-  </div>
-</nav>
-
+  <nav class="navbar w-full">
+    <div class="navbar-left">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Phoenicopterus_ruber_in_S%C3%A3o_Paulo_Zoo.jpg"
+        alt="Photo de profil"
+      />
+    </div>
+    <div class="navbar-center">
+      <span class="navbar-title">FakeTube</span>
+    </div>
+    <div class="navbar-right">
+      <button class="navbar-button"><i class="material-icons"></i> Paramètres</button>
+    </div>
+  </nav>
 </template>
 
 <script>
@@ -41,5 +41,4 @@ export default {
 .navbar-right .navbar-button i {
   @apply inline-block mr-[5px];
 }
-
 </style>
