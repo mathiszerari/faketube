@@ -52,3 +52,60 @@ app.app.get("/miniature/:id", (req, res) => {
         }
     })
 });
+
+    app.app.patch("/flux/:id", (req, res) => {
+    const videoId = req.params.id;
+    const { publisher_id, title, tags, like_number, dislike_number, views, description, video_path, miniature_path, created_at } = req.body;
+    const updateFields = [];
+    
+    if (publisher_id) {
+      updateFields.push(`publisher_id = ${publisher_id}`);
+    }
+    
+    if (title) {
+      updateFields.push(`title = '${title}'`);
+    }
+    
+    if (tags) {
+      updateFields.push(`tags = '${tags}'`);
+    }
+    
+    if (like_number !== undefined) {
+      updateFields.push(`like_number = ${like_number}`);
+    }
+    
+    if (dislike_number !== undefined) {
+      updateFields.push(`dislike_number = ${dislike_number}`);
+    }
+    
+    if (views !== undefined) {
+      updateFields.push(`views = ${views}`);
+    }
+    
+    if (description) {
+      updateFields.push(`description = '${description}'`);
+    }
+    
+    if (video_path) {
+      updateFields.push(`video_path = '${video_path}'`);
+    }
+    
+    if (miniature_path) {
+      updateFields.push(`miniature_path = '${miniature_path}'`);
+    }
+    
+    if (created_at) {
+      updateFields.push(`created_at = '${created_at}'`);
+    }
+    
+    const updateQuery = `UPDATE videos SET ${updateFields.join(", ")} WHERE id = ${videoId}`;
+    
+    db.db.query(updateQuery, (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).send("An error occurred while updating the video.");
+      } else {
+        res.status(200).send("Video updated successfully.");
+      }
+    });
+  });
