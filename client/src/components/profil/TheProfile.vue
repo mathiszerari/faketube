@@ -64,6 +64,7 @@
 <script setup>
 import {onMounted, reactive, ref} from 'vue';
 import {useFetch} from "@vueuse/core";
+import router from "@/router";
 
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -110,19 +111,18 @@ async function editEmail() {
 
 function logout() {
     localStorage.removeItem('id')
+    router.push({name: 'home'});
 }
 
 </script>
 
-<style>
+<style scoped>
 
 
 body {
     @apply flex justify-center items-center bg-[#1a1a1a] text-white text-base leading-normal m-0 p-0;
     font-family: Arial, sans-serif;
 }
-
-
 
 .profile-info {
     @apply flex items-center mb-2.5;
