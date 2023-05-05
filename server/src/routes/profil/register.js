@@ -1,12 +1,12 @@
 const app = require('../../utils/app')
 const db = require('../../utils/database')
-const fs = require('fs')
 const bcrypt = require("bcrypt");
 
-app.app.get("/register/:pseudo/:email/:password", (req, res) => {
+app.app.get("/register/:pseudo/:email/:password/:prefs", (req, res) => {
     const pseudo = req.params.pseudo;
     const email = req.params.email;
     const password = req.params.password;
+    const prefs = req.params.prefs;
 
     db.db.query(
         'SELECT `email` FROM `users`',
@@ -23,8 +23,8 @@ app.app.get("/register/:pseudo/:email/:password", (req, res) => {
                 bcrypt.genSalt(10, (err, salt) => {
                     bcrypt.hash(password, salt, function (err, hash) {
                         db.db.query(
-                            'INSERT INTO `users`(`pseudo`, `email`, `password`, `created_at`, `prefs`, `profile_photo`) VALUES (?, ?, ?, ?, ?, ?)',
-                            [pseudo, email, hash, new Date(), null, null],
+                            'INSERT INTO `users`(`pseudo`, `email`, `password`, `created_at`, `prefs`, `profile_photo`, `description`) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                            [pseudo, email, hash, new Date(), prefs, null, null],
 
                             function (err, results, fields) {
                                 console.log(err);

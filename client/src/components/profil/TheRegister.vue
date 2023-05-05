@@ -27,9 +27,15 @@
                 <input type="password" id="confirmPassword" name="confirmPassword" v-model="confirmPassword"
                        class="input">
             </div>
+            <div class="form-field">
+                <label for="pref" class="label">Preferences: (Séparez avec des espaces)</label>
+                <input type="pref" id="pref" name="pref" v-model="pref"
+                       class="input">
+            </div>
             <div class="error-message">
                 {{ message.message }}
             </div>
+            <button @click="login()">Se connecter</button>
             <div class="form-group">
                 <button type="submit" :disabled="!isFormValid" @click="registerFunction()" class="button">S'inscrire
                 </button>
@@ -58,7 +64,7 @@ const registerFunction = async (key, value) => {
         isFetching,
         error,
         data: dbmessage
-    } = await useFetch(`http://localhost:8080/register/${pseudo.value}/${email.value}/${password.value}`);
+    } = await useFetch(`http://localhost:8080/register/${pseudo.value}/${email.value}/${password.value}/${pref.value}`);
     message.message = JSON.parse(dbmessage.value)["message"]
 
     if (JSON.parse(dbmessage.value)["valide"] !== "false") {
@@ -75,11 +81,17 @@ const pseudo = ref("")
 const email = ref("")
 const password = ref("")
 const confirmPassword = ref("")
+const pref = ref("")
 
 
 const isFormValid = computed(() => {
-    return pseudo.value !== '' && email.value !== '' && password.value !== '' && confirmPassword.value !== '' && password.value === confirmPassword.value;
+    return pseudo.value !== '' && email.value !== '' && password.value !== '' && confirmPassword.value !== '' && password.value === confirmPassword.value && pref.value !== '';
 });
+
+function login() {
+    router.push({name: 'login'});
+}
+
 </script>
 
 <style scoped>

@@ -19,6 +19,7 @@
             <span>
               {{ message.message }}
             </span>
+            <button @click="register()">S'inscrire</button>
             <div class="form-field">
                 <button type="submit" :disabled="!isFormValid" @click="LOGINFunction()"
                         class="btn">
@@ -69,6 +70,9 @@ const formattedMessage = computed(() => {
     return message;
 });
 
+function register() {
+    router.push({name: 'register'});
+}
 
 </script>
 
