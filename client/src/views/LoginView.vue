@@ -8,7 +8,7 @@ import TheProfile from '@/components/profil/TheProfile.vue'
 <template>
   <main>
     <div class="flex justify-center items-center h-screen w-screen">
-      <TheProfile></TheProfile>
+      <TheLogin></TheLogin>
     </div>
   </main>
 </template>
