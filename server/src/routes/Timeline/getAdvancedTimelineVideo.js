@@ -1,14 +1,18 @@
 const app = require('../../utils/app')
 const db = require('../../utils/database')
 
-app.app.get("/getAdvancedTimelineVideos", (req, res) => {
+app.app.get("/getAdvancedTimelineVideos/:userId", (req, res) => {
     // GET USER PREF
-    const userId = req.query.userId;
+    const userId = req.params.userId
     let userPref = ['']
+    console.log(userId);
     db.db.query(
-        `SELECT DISTINCT prefs FROM users WHERE id LIKE ${userId}`,
+        `SELECT DISTINCT prefs FROM users WHERE id = ${userId}`,
         function(err, results, fields){
-            if (err) throw err;
+            console.log(userId);
+            if (err) {
+                throw err;
+            }
             if (results[0].prefs == null) {
                 res.json({ message: null });
             }else{

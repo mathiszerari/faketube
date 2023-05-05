@@ -46,7 +46,7 @@ onMounted(async () => {
 
 
 <template>
-  <aside :class="`${is_expanded ? 'is-expanded' : ''}`" class="bg-zinc-900 min-h-10 sticky top-0 transition-all duration-200 p-4">
+  <aside :class="`${is_expanded ? 'is-expanded' : ''}`" class="bg-zinc-900 min-h-10 sticky top-0 transition-all duration-200 p-4 z">
     <div class="logo mb-4">
       <img :src="logoURL" alt="" class="w-8">
     </div>

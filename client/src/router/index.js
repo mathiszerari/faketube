@@ -22,7 +22,7 @@ const router = createRouter({
       component: PlayerPage
     },
     {
-      path: '/searchVideo',
+      path: '/searchVideo/:userResearch',
       name: 'searchVideo',
       component: SearchVideo
     },
